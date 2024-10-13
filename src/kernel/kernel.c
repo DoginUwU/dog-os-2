@@ -3,6 +3,6 @@
 void main() {
   clear_screen();
 
-  print("Primeira linha oloco");
-  print_at("Quanta lambimia alfao", 10, 10);
+  print("Primeira linha\n");
+  print("outro print");
 }

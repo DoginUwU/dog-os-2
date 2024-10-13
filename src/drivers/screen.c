@@ -79,7 +79,7 @@ int get_cursor_offset() {
   /*	- from high byte from the cursor offset (data 14) */
   /*	- from low byte from the cursor offset (data 15) */
 
-  int offset;
+  int offset = 0;
 
   port_byte_out(REG_SCREEN_CTRL, 14);
   offset += port_byte_in(REG_SCREEN_DATA) << 8;
