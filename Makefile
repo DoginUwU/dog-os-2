@@ -1,3 +1,7 @@
+C_SOURCES = $(wildcard src/kernel/*.c src/drivers/*.c)
+C_HEADERS = $(wildcard src/kernel/*.h src/drivers/*.h)
+OBJ = ${C_SOURCES:.c=.o}
+
 bootloader:
 	i686-linux-gnu-gcc -ffreestanding -g -c src/kernel/kernel.c -o dist/kernel.o
 	nasm src/bootloader/kernel_entry.asm -f elf -o dist/kernel_entry.o
@@ -19,7 +23,7 @@ debug:
 	gdb -ex "target remote localhost:1234" -ex "symbol-file dist/kernel.elf"
 
 clean:
-	rm -f dist/boot.bin
+	rm -f dist/*.bin dist/*.o dist/*.elf
 
 podman:
 	podman run --rm docker.io/dockcross/linux-i686 > ./dist/dockcross-linux-i686
