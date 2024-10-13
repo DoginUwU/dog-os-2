@@ -9,7 +9,7 @@ start:
 	mov sp, bp ; Init empty stack
 
 	mov bx, 0x9000 ; Load the data to 0x9000
-	mov dh, 2 ; Load the sector number
+	mov dh, 2 ; Sectors to load
 	call disk_load
 
 	mov dx, [0x9000] ; Load the data to dx
