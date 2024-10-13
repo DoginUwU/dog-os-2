@@ -8,7 +8,7 @@ switch_to_pm:
 	jmp CODE_SEG:init_pm ; Jump to the code segment
 
 [bits 32]
-init_pm:
+init_pm: ; https://wiki.osdev.org/GDT_Tutorial
 	mov ax, DATA_SEG ; Load the data segment
 	mov ds, ax ; Set the data segment
 	mov ss, ax ; Set the stack segment
