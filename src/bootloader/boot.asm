@@ -1,33 +1,35 @@
 [org 0x7c00]
 
 start:
-	mov ah, 0x0e ; https://en.wikipedia.org/wiki/BIOS_interrupt_call
+	mov bx, TEST ; Load the data to bx
+	call print ; Print the data
+	call print_nl ; Print newline
 
-	mov bp, 0x8000 ; base of the stack
-	mov sp, bp ; the stack if empty, the top is the base
+	mov bp, 0x8000 ; Set the stack pointer
+	mov sp, bp ; Init empty stack
 
-	push 'A'
-	push 'B'
-	push 'C'
+	mov bx, 0x9000 ; Load the data to 0x9000
+	mov dh, 2 ; Load the sector number
+	call disk_load
 
-	mov al, [0x7FFE] ; 0x8000 - 2 - Its only possible acces the stack top
-	int 0x10
+	mov dx, [0x9000] ; Load the data to dx
+	call print_hex
+	call print_nl
 
-	pop bx ; C
-	mov al, bl ; Move the lower BX to al
-	int 0x10
+	mov dx, [0x9000 + 512] ; First word from second sector
+	call print_hex
+	call print_nl
 
-	pop bx ; B
-	mov al, bl 
-	int 0x10
+%include "src/bootloader/print.asm"
+%include "src/bootloader/print_hex.asm"
+%include "src/bootloader/disk.asm"
 
-	pop bx ; A
-	mov al, bl
-	int 0x10
-
-	mov al, [0x8000] ; garbage
-	int 0x10
+TEST:
+	db 'DogOS Bootloader', 0
 
 times 510-($-$$) db 0
-
 dw 0xaa55
+
+; boot sector = sector 1 cylinder 0 head 0
+times 256 dw 0xdada ; sector 2 = 512 bytes
+times 256 dw 0xface ; sector 3 = 512 bytes
