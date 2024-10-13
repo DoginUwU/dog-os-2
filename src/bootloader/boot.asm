@@ -28,7 +28,7 @@ load_kernel:
 	call print_nl
 
 	mov bx, KERNEL_OFFSET; Read kernel from disk
-	mov dh, 2 ; Sectors to load
+	mov dh, 16; Sectors to load
 	mov dl, [BOOT_DRIVE] ; Boot drive
 	call disk_load
 	ret
