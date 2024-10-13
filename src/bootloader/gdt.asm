@@ -27,5 +27,5 @@ gdt_descriptor:
 	dd gdt_start ; base address of GDT
 
 ; constants
-CODE_SEQ equ gdt_code - gdt_start
-DATA_SEQ equ gdt_data - gdt_start
+CODE_SEG equ gdt_code - gdt_start
+DATA_SEG equ gdt_data - gdt_start
