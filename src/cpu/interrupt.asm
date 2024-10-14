@@ -12,16 +12,17 @@ isr_common_stub:
 	mov gs, ax
 
 	call isr_handler
+	hlt
 
-	pop eax
-	mov ds, ax
-	mov es, ax
-	mov fs, ax
-	mov gs, ax
-	popa
-	add esp, 8
-	sti
-	iret
+	;pop eax
+	;mov ds, ax
+	;mov es, ax
+	;mov fs, ax
+	;mov gs, ax
+	;popa
+	;add esp, 8
+	;sti
+	;iret
 	
 irq_common_stub:
 	pusha

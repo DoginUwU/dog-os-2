@@ -40,6 +40,36 @@ void isr_install() {
   set_idt_gate(30, (u32)isr30);
   set_idt_gate(31, (u32)isr31);
 
+  // Remap PIC
+  port_byte_out(0x20, 0x11);
+  port_byte_out(0xA0, 0x11);
+  port_byte_out(0x21, 0x20);
+  port_byte_out(0xA1, 0x28);
+  port_byte_out(0x21, 0x04);
+  port_byte_out(0xA1, 0x02);
+  port_byte_out(0x21, 0x01);
+  port_byte_out(0xA1, 0x01);
+  port_byte_out(0x21, 0x0);
+  port_byte_out(0xA1, 0x0);
+
+  // Install IRQs
+  set_idt_gate(IRQ0, (u32)irq0);
+  set_idt_gate(IRQ1, (u32)irq1);
+  set_idt_gate(IRQ2, (u32)irq2);
+  set_idt_gate(IRQ3, (u32)irq3);
+  set_idt_gate(IRQ4, (u32)irq4);
+  set_idt_gate(IRQ5, (u32)irq5);
+  set_idt_gate(IRQ6, (u32)irq6);
+  set_idt_gate(IRQ7, (u32)irq7);
+  set_idt_gate(IRQ8, (u32)irq8);
+  set_idt_gate(IRQ9, (u32)irq9);
+  set_idt_gate(IRQ10, (u32)irq10);
+  set_idt_gate(IRQ11, (u32)irq11);
+  set_idt_gate(IRQ12, (u32)irq12);
+  set_idt_gate(IRQ13, (u32)irq13);
+  set_idt_gate(IRQ14, (u32)irq14);
+  set_idt_gate(IRQ15, (u32)irq15);
+
   set_idt();
 }
 
