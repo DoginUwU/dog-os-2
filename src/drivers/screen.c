@@ -1,6 +1,8 @@
 #include "screen.h"
-#include "../kernel/util.h"
+#include "../kernel/string.h"
 #include "ports.h"
+
+// https://web.archive.org/web/20160326064341/http://jamesmolloy.co.uk/tutorial_html/3.-The%20Screen.html
 
 int get_cursor_offset();
 void set_cursor_offset(int offset);
