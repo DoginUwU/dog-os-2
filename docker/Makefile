@@ -1,7 +1,7 @@
 CC = i686-linux-gnu-gcc
 LD = i686-linux-gnu-ld
 NASM = nasm
-CFLAGS = -g -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror
+CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32
 
 SRC_DIR = src
 DIST_DIR = dist

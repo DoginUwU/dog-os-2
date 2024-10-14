@@ -1,9 +1,9 @@
 [bits 32]
-[extern main] ; main is defined in C
+[extern kernel_main] ; main is defined in C
 
 section .text
 global _start
 
 _start:
-	call main
+	call kernel_main
 	jmp $
