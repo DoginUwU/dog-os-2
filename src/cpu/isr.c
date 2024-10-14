@@ -1,7 +1,10 @@
 #include "isr.h"
+#include "../drivers/ports.h"
 #include "../drivers/screen.h"
 #include "../kernel/string.h"
 #include "idt.h"
+
+isr_t interrupt_handlers[256];
 
 void isr_install() {
   set_idt_gate(0, (u32)isr0);
@@ -88,4 +91,21 @@ void isr_handler(registers_t r) {
   print("\n");
   print(exception_messages[r.int_no]);
   print("\n");
+}
+
+void irq_handler(registers_t r) {
+  if (r.int_no >= 40)
+    port_byte_out(0xA0, 0x20); // Slave
+
+  port_byte_out(0x20, 0x20);
+
+  if (interrupt_handlers[r.int_no] != 0) {
+    isr_t handler = interrupt_handlers[r.int_no];
+
+    handler(r);
+  }
+}
+
+void register_interrupt_handler(u8 n, isr_t handler) {
+  interrupt_handlers[n] = handler;
 }
