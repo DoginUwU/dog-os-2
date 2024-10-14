@@ -1,7 +1,7 @@
 #include "timer.h"
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
-#include "../kernel/string.h"
+#include "../libc/string.h"
 #include "isr.h"
 #include "types.h"
 
