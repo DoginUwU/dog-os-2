@@ -1,6 +1,6 @@
 #include "keyboard.h"
 #include "../../cpu/isr.h"
-#include "../ports.h"
+#include "../../cpu/ports.h"
 #include "../screen.h"
 
 #include "br_abnt2.h"

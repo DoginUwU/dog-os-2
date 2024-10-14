@@ -1,5 +1,5 @@
 #include "timer.h"
-#include "../drivers/ports.h"
+#include "../cpu/ports.h"
 #include "../drivers/screen.h"
 #include "../libc/string.h"
 #include "isr.h"
