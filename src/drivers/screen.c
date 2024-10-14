@@ -65,6 +65,9 @@ int print_char(char c, int col, int row, char attr) {
   if (c == '\n') {
     row = get_offset_row(offset);
     offset = get_offset(0, row + 1);
+  } else if (c == 0x08) {
+    video_memory[offset] = ' ';
+    video_memory[offset + 1] = attr;
   } else {
     video_memory[offset] = c;
     video_memory[offset + 1] = attr;
@@ -90,8 +93,15 @@ int print_char(char c, int col, int row, char attr) {
   }
 
   set_cursor_offset(offset);
-
   return offset;
+}
+
+void print_backspace() {
+  int offset = get_cursor_offset() - 2;
+  int row = get_offset_row(offset);
+  int col = get_offset_col(offset);
+
+  print_char(0x08, col, row, WHITE_ON_BLACK);
 }
 
 int get_cursor_offset() {

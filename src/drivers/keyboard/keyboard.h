@@ -16,4 +16,7 @@ typedef struct {
 
 void process_scancode(u8 scancode);
 
+#define BACKSPACE 0x0E
+#define ENTER 0x1C
+
 #endif
