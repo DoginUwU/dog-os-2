@@ -14,6 +14,6 @@ typedef struct {
   int size;
 } KeyboardLayout;
 
-void process_scancode(KeyboardLayout *layout, u8 scancode);
+void process_scancode(u8 scancode);
 
 #endif
