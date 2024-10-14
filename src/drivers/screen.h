@@ -6,7 +6,7 @@
 #define MAX_ROWS 25
 #define MAX_COLS 80
 
-#define WHITE_ON_BLACK 0x0F
+#define WHITE_ON_BLACK 0x07
 #define RED_ON_WHITE 0xF4
 
 #define REG_SCREEN_CTRL 0x3D4
