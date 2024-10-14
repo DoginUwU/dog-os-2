@@ -1,4 +1,5 @@
 #include "string.h"
+#include "../cpu/types.h"
 
 void int_to_ascii(int n, char *str) {
   int i, sign;
@@ -18,6 +19,34 @@ void int_to_ascii(int n, char *str) {
   str[i] = '\0';
 
   reverse(str);
+}
+
+void hex_to_ascii(int n, char str[]) {
+  append(str, '0');
+  append(str, 'x');
+  char zeros = 0;
+
+  i32 temp;
+  for (int i = 28; i > 0; i -= 4) {
+    temp = (n >> i) & 0xF;
+
+    if (temp == 0 && zeros == 0)
+      continue;
+    zeros = 1;
+
+    if (temp > 0xA) {
+      append(str, temp - 0xA + 'a');
+    } else {
+      append(str, temp + '0');
+    }
+
+    temp = n & 0xF;
+    if (temp >= 0xA) {
+      append(str, temp - 0xA + 'a');
+    } else {
+      append(str, temp + '0');
+    }
+  }
 }
 
 void reverse(char s[]) {
