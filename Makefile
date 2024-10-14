@@ -14,10 +14,6 @@ debug: podman
 	gdb -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_ELF)"
 
 podman:
-	mkdir -p $(DIST_DIR)
-	mkdir -p $(DIST_DIR)/kernel
-	mkdir -p $(DIST_DIR)/drivers
-	mkdir -p $(DIST_DIR)/cpu
 	podman run --rm docker.io/dockcross/linux-i686 > $(DIST_DIR)/dockcross-linux-i686
 	chmod +x $(DIST_DIR)/dockcross-linux-i686
 	$(DIST_DIR)/dockcross-linux-i686 make -f docker/Makefile

@@ -53,8 +53,8 @@ void isr_install() {
   port_byte_out(0xA1, 0x0);
 
   // Install IRQs
-  set_idt_gate(IRQ0, (u32)irq0);
-  set_idt_gate(IRQ1, (u32)irq1);
+  set_idt_gate(IRQ_COUNTER, (u32)irq0);
+  set_idt_gate(IRQ_KEYBOARD, (u32)irq1);
   set_idt_gate(IRQ2, (u32)irq2);
   set_idt_gate(IRQ3, (u32)irq3);
   set_idt_gate(IRQ4, (u32)irq4);

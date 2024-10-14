@@ -55,22 +55,22 @@ extern void irq13();
 extern void irq14();
 extern void irq15();
 
-#define IRQ0 32  // Invertal counter
-#define IRQ1 33  // Keyboard
-#define IRQ2 34  // 8259B
-#define IRQ3 35  // COM2 & COM4
-#define IRQ4 36  // COM1 & COM3
-#define IRQ5 37  // LPT2 & Sound Card
-#define IRQ6 38  // Floppy
-#define IRQ7 39  // LPT1
-#define IRQ8 40  // Real Time Clock (RTC)
-#define IRQ9 41  // IRQ2
-#define IRQ10 42 // Unknown
-#define IRQ11 43 // Unknown
-#define IRQ12 44 // Mouse PS/2
-#define IRQ13 45 // Coprocessor
-#define IRQ14 46 // Primary IDE
-#define IRQ15 47 // Secondary IDE
+#define IRQ_COUNTER 32  // Invertal counter
+#define IRQ_KEYBOARD 33 // Keyboard
+#define IRQ2 34         // 8259B
+#define IRQ3 35         // COM2 & COM4
+#define IRQ4 36         // COM1 & COM3
+#define IRQ5 37         // LPT2 & Sound Card
+#define IRQ6 38         // Floppy
+#define IRQ7 39         // LPT1
+#define IRQ8 40         // Real Time Clock (RTC)
+#define IRQ9 41         // IRQ2
+#define IRQ10 42        // Unknown
+#define IRQ11 43        // Unknown
+#define IRQ12 44        // Mouse PS/2
+#define IRQ13 45        // Coprocessor
+#define IRQ14 46        // Primary IDE
+#define IRQ15 47        // Secondary IDE
 
 typedef struct {
   u32 ds;                                     // Data segment selector
