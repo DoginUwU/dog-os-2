@@ -11,14 +11,14 @@ char key_buffer[256];
 
 static void keyboard_callback(registers_t regs) {
   // PIC store the scancode in 0x60
-  u8 scancode = port_byte_in(0x60);
+  uint8_t scancode = port_byte_in(0x60);
   process_scancode(scancode);
 
   UNUSED(regs);
 }
 
 // Hint: keydown + 0x80 corresponds to keyup
-void process_scancode(u8 scancode) {
+void process_scancode(uint8_t scancode) {
   if (scancode == BACKSPACE) {
     backspace(key_buffer);
     print_backspace();

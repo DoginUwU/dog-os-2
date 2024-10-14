@@ -1,12 +1,10 @@
 #include "timer.h"
 #include "../cpu/ports.h"
-#include "../drivers/screen.h"
 #include "../libc/function.h"
-#include "../libc/string.h"
 #include "isr.h"
 #include "types.h"
 
-u32 tick = 0;
+uint32_t tick = 0;
 
 static void timer_callback(registers_t regs) {
   tick++;
@@ -19,13 +17,13 @@ static void timer_callback(registers_t regs) {
   UNUSED(regs);
 }
 
-void init_timer(u32 freq) {
+void init_timer(uint32_t freq) {
   register_interrupt_handler(IRQ_COUNTER, timer_callback);
 
   // PIT value on clock at 1193180Hz
-  u32 divisor = 1193180 / freq;
-  u8 low = low_8(divisor);
-  u8 high = high_8(divisor);
+  uint32_t divisor = 1193180 / freq;
+  uint8_t low = low_8(divisor);
+  uint8_t high = high_8(divisor);
 
   port_byte_out(0x43, 0x36); // Command Port
   port_byte_out(0x40, low);

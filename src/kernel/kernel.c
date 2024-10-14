@@ -14,8 +14,8 @@ void kernel_main() {
 
   // Simple pagination
   for (int i = 0; i < 3; i++) {
-    u32 phys_addr;
-    u32 page = malloc(1000, 1, &phys_addr);
+    uint32_t phys_addr;
+    uint32_t page = malloc(1000, 1, &phys_addr);
     char page_str[16] = "";
     hex_to_ascii(page, page_str);
     char phys_str[16] = "";

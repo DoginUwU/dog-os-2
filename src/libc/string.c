@@ -1,5 +1,6 @@
 #include "string.h"
 #include "../cpu/types.h"
+#include <stdint.h>
 
 void int_to_ascii(int n, char *str) {
   int i, sign;
@@ -26,7 +27,7 @@ void hex_to_ascii(int n, char str[]) {
   append(str, 'x');
   char zeros = 0;
 
-  i32 temp;
+  int32_t temp;
   for (int i = 28; i > 0; i -= 4) {
     temp = (n >> i) & 0xF;
 

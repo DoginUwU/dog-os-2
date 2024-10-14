@@ -1,17 +1,10 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-typedef unsigned int u32;
-typedef int i32;
-typedef unsigned short u16;
-typedef short i16;
-typedef unsigned char u8;
-typedef char i8;
+#define low_16(address) (uint16_t)((address) & 0xFFFF)
+#define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
 
-#define low_16(address) (u16)((address) & 0xFFFF)
-#define high_16(address) (u16)(((address) >> 16) & 0xFFFF)
-
-#define low_8(address) (u8)((address) & 0xFF)
-#define high_8(address) (u8)(((address) >> 8) & 0xFF)
+#define low_8(address) (uint8_t)((address) & 0xFF)
+#define high_8(address) (uint8_t)(((address) >> 8) & 0xFF)
 
 #endif

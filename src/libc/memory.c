@@ -6,8 +6,8 @@ void memory_copy(char *source, char *dest, int nbytes) {
   }
 }
 
-void memory_set(void *dest, u8 val, u32 len) {
-  u8 *temp = dest;
+void memory_set(void *dest, uint8_t val, uint32_t len) {
+  uint8_t *temp = dest;
 
   for (; len > 0; len--) {
     *temp++ = val;
@@ -15,9 +15,9 @@ void memory_set(void *dest, u8 val, u32 len) {
 }
 
 // Hardcoded from now, needed to be computed in link time
-u32 free_mem_addr = 0x10000;
+uint32_t free_mem_addr = 0x10000;
 
-u32 malloc(u32 size, int align, u32 *addr) {
+uint32_t malloc(uint32_t size, int align, uint32_t *addr) {
   if (align == 1 && (free_mem_addr & 0xFFFF000)) {
     free_mem_addr &= 0xFFFF000;
     free_mem_addr += 0x1000;
@@ -26,7 +26,7 @@ u32 malloc(u32 size, int align, u32 *addr) {
   if (addr)
     *addr = free_mem_addr;
 
-  u32 ret = free_mem_addr;
+  uint32_t ret = free_mem_addr;
   free_mem_addr += size;
 
   return ret;

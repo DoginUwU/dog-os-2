@@ -2,6 +2,7 @@
 #define ISR_H
 
 #include "types.h"
+#include <stdint.h>
 
 // ISRs for CPU exceptions
 extern void isr0();
@@ -73,10 +74,10 @@ extern void irq15();
 #define IRQ15 47        // Secondary IDE
 
 typedef struct {
-  u32 ds;                                     // Data segment selector
-  u32 edi, esi, ebp, esp, ebx, edx, ecx, eax; // Pusha
-  u32 int_no, erro_code;                      // Interrupt number and error code
-  u32 eip, cs, eflags, useresp, ss;           // By cpu
+  uint32_t ds;                                     // Data segment selector
+  uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax; // Pusha
+  uint32_t int_no, erro_code;            // Interrupt number and error code
+  uint32_t eip, cs, eflags, useresp, ss; // By cpu
 } registers_t;
 
 void isr_install();
@@ -86,6 +87,6 @@ void irq_install();
 void irq_handler(registers_t r);
 
 typedef void (*isr_t)(registers_t);
-void register_interrupt_handler(u8 n, isr_t handler);
+void register_interrupt_handler(uint8_t n, isr_t handler);
 
 #endif
