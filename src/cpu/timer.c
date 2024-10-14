@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "../cpu/ports.h"
 #include "../drivers/screen.h"
+#include "../libc/function.h"
 #include "../libc/string.h"
 #include "isr.h"
 #include "types.h"
@@ -15,6 +16,7 @@ static void timer_callback(registers_t regs) {
   /*int_to_ascii(tick, tick_ascii);*/
   /*print(tick_ascii);*/
   /*print("\n");*/
+  UNUSED(regs);
 }
 
 void init_timer(u32 freq) {

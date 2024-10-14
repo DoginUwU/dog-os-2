@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "../cpu/ports.h"
+#include "../libc/memory.h"
 #include "../libc/string.h"
 
 // https://web.archive.org/web/20160326064341/http://jamesmolloy.co.uk/tutorial_html/3.-The%20Screen.html
