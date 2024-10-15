@@ -20,6 +20,6 @@ global _start
 _start:
 	push ebx
 	cli
-	;call kernel_main
+	call kernel_main
 	jmp $
 
