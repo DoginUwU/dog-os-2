@@ -1,4 +1,4 @@
-[bits 32]
+[GLOBAL _start]
 [extern kernel_main]
 
 section .multiboot
@@ -10,5 +10,19 @@ align 4
 section .text
 global _start
 _start:
+		push ebx
+		cli
     call kernel_main
 		jmp $
+;
+;section .bss
+;align 4
+;		resb 8192
+;
+;section .data
+;align 4
+;		kernel_stack_bottom:
+;		resb 8192
+;		kernel_stack_top:
+;		resb 0
+
