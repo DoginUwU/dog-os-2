@@ -8,7 +8,7 @@ DIST_DIR = dist
 C_SOURCES = $(shell find ${SRC_DIR} -name '*.c')
 C_HEADERS = $(shell find ${SRC_DIR} -name '*.h')
 
-OBJ = $(patsubst ${SRC_DIR}/%.c, ${DIST_DIR}/%.o, ${C_SOURCES}) ${DIST_DIR}/cpu/interrupt.o ${DIST_DIR}/cpu/gdt_asm.o
+OBJ = $(patsubst ${SRC_DIR}/%.c, ${DIST_DIR}/%.o, ${C_SOURCES}) 
 DIST_DIRS = $(sort $(dir ${OBJ} ${DIST_DIR}/boot.bin ${DIST_DIR}/kernel.bin))
 
 create-image-with-grub: ${DIST_DIR}/kernel.bin
@@ -16,16 +16,16 @@ create-image-with-grub: ${DIST_DIR}/kernel.bin
 	grub-file --is-x86-multiboot ${DIST_DIR}/kernel.bin
 	mkdir -p ${DIST_DIR}/iso/boot/grub
 	cp ${DIST_DIR}/kernel.bin ${DIST_DIR}/iso/boot/kernel.bin
-	cp ${SRC_DIR}/grub.cfg ${DIST_DIR}/iso/boot/grub/grub.cfg
-	grub-mkrescue -o ${DIST_DIR}/os.iso ${DIST_DIR}/iso
+	cp ${SRC_DIR}/boot/grub.cfg ${DIST_DIR}/iso/boot/grub/grub.cfg
+	grub-mkrescue -o ${DIST_DIR}/dog-os.iso ${DIST_DIR}/iso
 
 $(DIST_DIRS):
 	mkdir -p $@
 
-${DIST_DIR}/kernel.bin: ${DIST_DIR}/kernel_entry.o ${OBJ} | $(DIST_DIRS)
-	${CC} -T ${SRC_DIR}/linker.ld $^ -o $@ ${CFLAGS}
+${DIST_DIR}/kernel.bin: ${DIST_DIR}/multiboot_header.o ${OBJ} | $(DIST_DIRS)
+	${CC} -T ${SRC_DIR}/boot/linker.ld $^ -o $@ ${CFLAGS}
 
-${DIST_DIR}/kernel_entry.o: ${SRC_DIR}/grub/multiboot_header.asm | $(DIST_DIRS)
+${DIST_DIR}/multiboot_header.o: ${SRC_DIR}/boot/multiboot_header.asm | $(DIST_DIRS)
 	${NASM} -f elf $< -o $@
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.c ${C_HEADERS} | $(DIST_DIRS)

@@ -2,9 +2,8 @@ QEMU = qemu-system-x86_64
 
 DIST_DIR = dist
 
-KERNEL_ELF = $(DIST_DIR)/kernel.bin
-OS_BIN = $(DIST_DIR)/os.bin
-OS_ISO = $(DIST_DIR)/os.iso
+KERNEL_BIN = $(DIST_DIR)/kernel.bin
+OS_ISO = $(DIST_DIR)/dog-os.iso
 
 run: podman
 	$(QEMU) -cdrom $(OS_ISO)
@@ -12,7 +11,7 @@ run: podman
 debug: podman
 	$(QEMU) -cdrom $(OS_ISO) -s -S &
 	sleep 1
-	gdb -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_ELF)"
+	gdb -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_BIN)"
 
 podman:
 	make clean
