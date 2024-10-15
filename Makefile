@@ -14,10 +14,13 @@ debug: podman
 	gdb -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_ELF)"
 
 podman:
+	make clean
 	podman run --rm docker.io/dockcross/linux-i686 > $(DIST_DIR)/dockcross-linux-i686
 	chmod +x $(DIST_DIR)/dockcross-linux-i686
 	$(DIST_DIR)/dockcross-linux-i686 make -f docker/Makefile
 
 clean:
-	rm -f $(DIST_DIR)/*.bin $(DIST_DIR)/*.o $(DIST_DIR)/*.elf
+	rm -rf $(DIST_DIR)
+	mkdir -p $(DIST_DIR)
 
+.PHONY: run debug podman clean

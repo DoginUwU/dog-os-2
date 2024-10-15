@@ -17,7 +17,7 @@ void memory_set(void *dest, uint8_t val, uint32_t len) {
 // Hardcoded from now, needed to be computed in link time
 uint32_t free_mem_addr = 0x10000;
 
-uint32_t malloc(uint32_t size, int align, uint32_t *addr) {
+uint32_t malloc(size_t size, int align, uint32_t *addr) {
   if (align == 1 && (free_mem_addr & 0xFFFF000)) {
     free_mem_addr &= 0xFFFF000;
     free_mem_addr += 0x1000;

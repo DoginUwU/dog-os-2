@@ -1,7 +1,8 @@
 CC = i686-linux-gnu-gcc
 LD = i686-linux-gnu-ld
 NASM = nasm
-CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32
+CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -nostdlib -nostdinc -fno-builtin -fno-stack-protector
+CLFAGS_LD = 
 
 SRC_DIR = src
 DIST_DIR = dist
@@ -20,17 +21,17 @@ $(DIST_DIRS):
 	mkdir -p $@
 
 ${DIST_DIR}/kernel.bin: ${DIST_DIR}/kernel_entry.o ${OBJ} | $(DIST_DIRS)
-	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary
+	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary ${CLFAGS_LD}
 
 ${DIST_DIR}/kernel_entry.o: ${SRC_DIR}/bootloader/kernel_entry.asm | $(DIST_DIRS)
 	${NASM} -f elf $< -o $@
 
 # For debbuging
 ${DIST_DIR}/kernel.elf: ${DIST_DIR}/kernel_entry.o ${OBJ} | $(DIST_DIRS)
-	${LD} -o $@ -Ttext 0x1000 $^
+	${LD} -o $@ -Ttext 0x1000 $^ ${CLFAGS_LD}
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.c ${C_HEADERS} | $(DIST_DIRS)
-	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
+	${CC} ${CFLAGS} -c $< -o $@
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.asm | $(DIST_DIRS)
 	${NASM} -f elf $< -o $@

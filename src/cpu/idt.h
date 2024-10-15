@@ -2,7 +2,6 @@
 #define IDT_H
 
 #include "types.h"
-#include <stdint.h>
 
 // Kernel Code Segment
 #define KERNEL_CS 0x08

@@ -1,6 +1,5 @@
 #include "string.h"
 #include "../cpu/types.h"
-#include <stdint.h>
 
 void int_to_ascii(int n, char *str) {
   int i, sign;

@@ -5,7 +5,6 @@
 #include "idt.h"
 #include "ports.h"
 #include "timer.h"
-#include <stdint.h>
 
 isr_t interrupt_handlers[256];
 
