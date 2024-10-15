@@ -8,7 +8,9 @@
 void kernel_main() {
   clear_screen();
   isr_install();
-  irq_install();
+  asm("int $2");
+  asm("int $3");
+  /*irq_install();*/
 
   print("Welcome to DogOS\n");
 

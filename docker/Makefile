@@ -38,6 +38,3 @@ ${DIST_DIR}/%.o: ${SRC_DIR}/%.c ${C_HEADERS} | $(DIST_DIRS)
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.asm | $(DIST_DIRS)
 	${NASM} -f elf $< -o $@
 
-${DIST_DIR}/%.bin: ${SRC_DIR}/bootloader/%.asm | $(DIST_DIRS)
-	${NASM} -f bin $< -o $@
-
