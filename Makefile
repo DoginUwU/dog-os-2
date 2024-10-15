@@ -2,7 +2,7 @@ QEMU = qemu-system-x86_64
 
 DIST_DIR = dist
 
-KERNEL_ELF = $(DIST_DIR)/kernel.elf
+KERNEL_ELF = $(DIST_DIR)/kernel.bin
 OS_BIN = $(DIST_DIR)/os.bin
 OS_ISO = $(DIST_DIR)/os.iso
 
