@@ -9,7 +9,7 @@
 
 char key_buffer[256];
 
-static void keyboard_callback(registers_t regs) {
+static void keyboard_callback(registers_t *regs) {
   // PIC store the scancode in 0x60
   uint8_t scancode = port_byte_in(0x60);
   process_scancode(scancode);

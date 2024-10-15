@@ -113,15 +113,15 @@ char *exception_messages[] = {
     "Reserved",
 };
 
-void isr_handler(registers_t r) {
+void isr_handler(registers_t *r) {
   print("[ERROR] CPU interrupt: ");
 
   char s[3];
 
-  int_to_ascii(r.int_no, s);
+  int_to_ascii(r->int_no, s);
   print(s);
   print("\n");
-  print(exception_messages[r.int_no]);
+  print(exception_messages[r->int_no]);
   print("\n");
 }
 
@@ -132,14 +132,15 @@ void irq_install() {
   init_keyboard();
 }
 
-void irq_handler(registers_t r) {
-  if (r.int_no >= 40)
+void irq_handler(registers_t *r) {
+  if (r->int_no >= 40) {
     port_byte_out(0xA0, 0x20); // Slave
+  }
 
   port_byte_out(0x20, 0x20);
 
-  if (interrupt_handlers[r.int_no] != 0) {
-    isr_t handler = interrupt_handlers[r.int_no];
+  if (interrupt_handlers[r->int_no] != 0) {
+    isr_t handler = interrupt_handlers[r->int_no];
 
     handler(r);
   }
