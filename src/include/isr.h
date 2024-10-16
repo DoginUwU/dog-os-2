@@ -10,6 +10,11 @@ typedef struct registers {
   uint32_t eip, cs, eflags, esp, ss;
 } registers_t;
 
+typedef void (*isr_t)(registers_t *);
+
+void register_interrupt_handler(uint8_t num, isr_t handler);
+
 void isr_handler(registers_t *regs);
+void irq_handler(registers_t *regs);
 
 #endif

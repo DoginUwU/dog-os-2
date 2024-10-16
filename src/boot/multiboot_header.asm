@@ -1,24 +1,21 @@
 [bits 32]
-[extern kernel_main]
-
-PAGE_ALIGN    equ 1<<0
-MEM_INFO      equ 1<<1
-FLAGS         equ PAGE_ALIGN | MEM_INFO
-MAGIC         equ 0x1BADB002
-CHECKSUM      equ -(MAGIC + FLAGS)
-
-section .multiboot
-	align 4
-	multiboot:		
-		dd MAGIC
-		dd FLAGS
-		dd CHECKSUM
 
 section .text
-global _start
-_start:
-	push ebx
-	cli
-	call kernel_main
-	jmp $
+	align 4
+	dd 0x1BADB002
+	dd 0x00000000
+	dd -(0x1BADB002 + 0x00000000)
 
+[global _start]
+[extern kernel_main]
+
+_start:
+	cli
+	mov esp, stack_space
+	call kernel_main
+	hlt
+
+section .bss
+	resb 8192
+
+stack_space:

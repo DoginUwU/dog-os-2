@@ -1,5 +1,7 @@
+#include <drivers/timer.h>
 #include <idt.h>
 #include <lib/memory.h>
+#include <ports.h>
 
 idt_entry_t idt_entries[256];
 idt_ptr_t idt_ptr;
@@ -7,10 +9,12 @@ idt_ptr_t idt_ptr;
 extern void idt_flush(uint32_t);
 
 static void internal_init_idt();
+static void internal_init_irq();
 static void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector,
                          uint8_t flags);
 
 void init_idt() { internal_init_idt(); }
+void init_irq() { internal_init_irq(); }
 
 static void internal_init_idt() {
   idt_ptr.limit = sizeof(idt_entry_t) * 256 - 1;
@@ -51,7 +55,41 @@ static void internal_init_idt() {
   idt_set_gate(30, (uint32_t)isr30, 0x08, 0x8E);
   idt_set_gate(31, (uint32_t)isr31, 0x08, 0x8E);
 
+  port_byte_out(0x20, 0x11);
+  port_byte_out(0xA0, 0x11);
+  port_byte_out(0x21, 0x20);
+  port_byte_out(0xA1, 0x28);
+  port_byte_out(0x21, 0x04);
+  port_byte_out(0xA1, 0x02);
+  port_byte_out(0x21, 0x01);
+  port_byte_out(0xA1, 0x01);
+  port_byte_out(0x21, 0x0);
+  port_byte_out(0xA1, 0x0);
+
+  idt_set_gate(IRQ_COUNTER, (uint32_t)irq0, 0x08, 0x8E);
+  idt_set_gate(IRQ_KEYBOARD, (uint32_t)irq1, 0x08, 0x8E);
+  idt_set_gate(34, (uint32_t)irq2, 0x08, 0x8E);
+  idt_set_gate(35, (uint32_t)irq3, 0x08, 0x8E);
+  idt_set_gate(36, (uint32_t)irq4, 0x08, 0x8E);
+  idt_set_gate(37, (uint32_t)irq5, 0x08, 0x8E);
+  idt_set_gate(38, (uint32_t)irq6, 0x08, 0x8E);
+  idt_set_gate(39, (uint32_t)irq7, 0x08, 0x8E);
+  idt_set_gate(40, (uint32_t)irq8, 0x08, 0x8E);
+  idt_set_gate(41, (uint32_t)irq9, 0x08, 0x8E);
+  idt_set_gate(42, (uint32_t)irq10, 0x08, 0x8E);
+  idt_set_gate(43, (uint32_t)irq11, 0x08, 0x8E);
+  idt_set_gate(44, (uint32_t)irq12, 0x08, 0x8E);
+  idt_set_gate(45, (uint32_t)irq13, 0x08, 0x8E);
+  idt_set_gate(46, (uint32_t)irq14, 0x08, 0x8E);
+  idt_set_gate(47, (uint32_t)irq15, 0x08, 0x8E);
+
   idt_flush((uint32_t)&idt_ptr);
+}
+
+static void internal_init_irq() {
+  asm volatile("sti");
+
+  /*init_timer(50);*/
 }
 
 static void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector,
