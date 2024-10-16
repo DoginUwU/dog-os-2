@@ -8,7 +8,7 @@ DIST_DIR = dist
 C_SOURCES = $(shell find ${SRC_DIR} -name '*.c')
 C_HEADERS = $(shell find ${SRC_DIR} -name '*.h')
 
-OBJ = $(patsubst ${SRC_DIR}/%.c, ${DIST_DIR}/%.o, ${C_SOURCES}) ${DIST_DIR}/boot/gdt_load.o  ${DIST_DIR}/boot/interrupt.o
+OBJ = $(patsubst ${SRC_DIR}/%.c, ${DIST_DIR}/%.o, ${C_SOURCES})
 DIST_DIRS = $(sort $(dir ${OBJ} ${DIST_DIR}/boot.bin ${DIST_DIR}/kernel.bin))
 
 create-image-with-grub: ${DIST_DIR}/kernel.bin

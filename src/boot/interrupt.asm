@@ -13,19 +13,8 @@ isr_common_stub:
 	mov fs, ax
 	mov gs, ax
 
-	push esp
 	call isr_handler
-
-	pop eax ; restore original segment
-	mov ds, ax
-	mov es, ax
-	mov fs, ax
-	mov gs, ax
-
-	popa
-	add esp, 8 ; Cleans push error and ISR number
-	sti
-	iret
+	hlt
 
 irq_common_stub:
 	pusha
@@ -55,7 +44,7 @@ irq_common_stub:
 %macro ISR_NOERRCODE 1 ; Some interrupts doesnt have error code
 	[GLOBAL isr%1] ; First param
 	isr%1:
-		cli
+		hlt
 		push byte 0
 		push byte %1
 		jmp isr_common_stub
@@ -64,7 +53,7 @@ irq_common_stub:
 %macro ISR_ERRCODE 1 ; And some have
 	[GLOBAL isr%1] ; First param
 	isr%1:
-		cli
+		hlt
 		push byte %1
 		jmp isr_common_stub
 %endmacro
