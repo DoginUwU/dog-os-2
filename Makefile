@@ -17,12 +17,12 @@ debug: podman
 
 podman:
 	make clean
-	podman run --rm docker.io/dockcross/linux-i686 > $(DIST_DIR)/dockcross-linux-i686
-	chmod +x $(DIST_DIR)/dockcross-linux-i686
+	podman run --rm docker.io/dockcross/linux-x86_64-full > $(DIST_DIR)/dockcross-linux-x86_64-full
+	chmod +x $(DIST_DIR)/dockcross-linux-x86_64-full
 ifeq ($(GENERATE_DATABASE), true)
-		$(DIST_DIR)/dockcross-linux-i686 make compile_commands.json -f docker/Makefile
+		$(DIST_DIR)/dockcross-linux-x86_64-full make compile_commands.json -f docker/Makefile
 else 
-		$(DIST_DIR)/dockcross-linux-i686 make -f docker/Makefile
+		$(DIST_DIR)/dockcross-linux-x86_64-full make -f docker/Makefile
 endif
 
 clean:

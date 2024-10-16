@@ -1,7 +1,7 @@
-CC = i686-linux-gnu-gcc
-LD = i686-linux-gnu-ld
+CC = gcc
+LD = ld
 NASM = nasm
-CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -nostdlib -nostdinc -fno-builtin -fno-stack-protector
+CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m64 -nodefaultlibs -nostdlib -nostdinc -fno-builtin -fno-stack-protector
 
 SRC_DIR = src
 DIST_DIR = dist
@@ -29,11 +29,11 @@ $(DIST_DIRS):
 	mkdir -p $@
 
 ${DIST_DIR}/boot/kernel.bin: ${DIST_DIR}/boot/multiboot_header.o ${DIST_DIR}/boot/boot.o ${OBJ} | $(DIST_DIRS)
-	${LD} --nmagic -T ${SRC_DIR}/boot/linker.ld $^ -o $@ 
+	${LD} -n -T ${SRC_DIR}/boot/linker.ld $^ -o $@ 
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.c ${C_HEADERS} | $(DIST_DIRS)
 	${CC} ${CFLAGS} -c $< -o $@
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.asm | $(DIST_DIRS)
-	${NASM} -f elf $< -o $@
+	${NASM} -f elf64 $< -o $@
 
