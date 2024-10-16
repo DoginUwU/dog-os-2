@@ -38,8 +38,8 @@ void print_at(char *message, int col, int row) {
 void print(char *message) { print_at(message, -1, -1); }
 void print_num(int num) {
   char *str[3];
-  int_to_ascii(num, str);
-  print(str);
+  int_to_ascii(num, (char *)str);
+  print((char *)str);
 }
 
 int print_char(char c, int col, int row, char attr) {

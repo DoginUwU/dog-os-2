@@ -12,6 +12,7 @@ isr_common_stub:
 	mov fs, ax
 	mov gs, ax
 
+	push esp
 	call isr_handler
 
 	pop eax ; restore original segment
@@ -20,7 +21,7 @@ isr_common_stub:
 	mov fs, ax
 	mov gs, ax
 
-	popa ; Pops everthing
+	popa
 	add esp, 8 ; Cleans push error and ISR number
 	sti
 	iret
