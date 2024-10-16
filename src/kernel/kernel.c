@@ -1,8 +1,13 @@
 #include "../include/drivers/screen.h"
 #include "../include/gdt.h"
+#include "../include/idt.h"
 
 void kernel_main() {
   clear_screen();
-  print("Welcome to DogOS\n");
   init_gdt();
+  init_idt();
+  print("Welcome to DogOS\n");
+
+  /*asm volatile("int $0x3");*/
+  /*asm volatile("int $0x4");*/
 }

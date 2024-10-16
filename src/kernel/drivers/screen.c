@@ -1,4 +1,6 @@
 #include "../../include/drivers/screen.h"
+#include "../../include/lib/memory.h"
+#include "../../include/lib/string.h"
 #include "../../include/ports.h"
 #include "../../include/types.h"
 
@@ -34,6 +36,11 @@ void print_at(char *message, int col, int row) {
 }
 
 void print(char *message) { print_at(message, -1, -1); }
+void print_num(int num) {
+  char *str[3];
+  int_to_ascii(num, str);
+  print(str);
+}
 
 int print_char(char c, int col, int row, char attr) {
   uint8_t *video_memory = (uint8_t *)VIDEO_ADDRESS;
@@ -72,7 +79,8 @@ int print_char(char c, int col, int row, char attr) {
 
   if (offset >= MAX_ROWS * MAX_COLS * 2) {
     for (int i = 0; i < MAX_ROWS; i++) {
-      // TODO: copy memory to previous line
+      memcpy((char *)get_offset(0, i) + VIDEO_ADDRESS,
+             (char *)get_offset(0, i - 1) + VIDEO_ADDRESS, MAX_COLS * 2);
     }
 
     char *last_line = (char *)get_offset(0, MAX_ROWS - 1) + VIDEO_ADDRESS;
