@@ -2,7 +2,7 @@ QEMU = qemu-system-x86_64
 
 DIST_DIR = dist
 
-KERNEL_BIN = $(DIST_DIR)/kernel.bin
+KERNEL_BIN = $(DIST_DIR)/boot/kernel.bin
 OS_ISO = $(DIST_DIR)/dog-os.iso
 
 GENERATE_DATABASE = false
