@@ -1,1 +1,6 @@
-void kernel_main() {}
+#include "../include/drivers/screen.h"
+
+void kernel_main() {
+  clear_screen();
+  print("Welcome to DogOS\n");
+}
