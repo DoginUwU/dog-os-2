@@ -2,7 +2,8 @@
 
 void kernel_main() {
   /*clear_screen();*/
-  print("Welcome to DogOS\n");
+  print("Welcome to DogOS");
+
   while (1) {
   }
 }

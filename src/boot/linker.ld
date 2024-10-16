@@ -7,6 +7,6 @@ SECTIONS {
 		}
 
     .text : {*(.text)}
-    /*.data : {*(.data)}*/
-    /*.bss  : {*(.bss)}*/
+    .data : {*(.data)}
+    .bss  : {*(.bss)}
 }

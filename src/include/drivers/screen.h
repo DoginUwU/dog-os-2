@@ -14,7 +14,7 @@
 
 #define EMPTY_CHAR 0x08
 
-void print(char *message);
+void print(const char *message);
 void print_num(int num);
 void print_at(char *message, int col, int row);
 void clear_screen();
