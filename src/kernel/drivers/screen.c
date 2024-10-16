@@ -1,8 +1,8 @@
-#include "../../include/drivers/screen.h"
-#include "../../include/lib/memory.h"
-#include "../../include/lib/string.h"
-#include "../../include/ports.h"
-#include "../../include/types.h"
+#include <drivers/screen.h>
+#include <lib/memory.h>
+#include <lib/string.h>
+#include <ports.h>
+#include <types.h>
 
 int print_char(char c, int col, int row, char attr);
 

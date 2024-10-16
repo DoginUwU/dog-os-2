@@ -1,4 +1,4 @@
-#include "../../include/lib/memory.h"
+#include <lib/memory.h>
 
 void *memcpy(void *dest, const void *src, size_t count) {
   const char *sp = (const char *)src;

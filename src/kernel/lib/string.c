@@ -1,4 +1,4 @@
-#include "../../include/lib/string.h"
+#include <lib/string.h>
 
 void reverse(char *str);
 int str_length(char *str);

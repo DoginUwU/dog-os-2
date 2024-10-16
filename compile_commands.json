@@ -1,0 +1,178 @@
+[
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/ports.o",
+      "src/kernel/ports.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/ports.c",
+    "output": "/work/dist/kernel/ports.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/drivers/screen.o",
+      "src/kernel/drivers/screen.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/drivers/screen.c",
+    "output": "/work/dist/kernel/drivers/screen.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/gdt.o",
+      "src/kernel/gdt.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/gdt.c",
+    "output": "/work/dist/kernel/gdt.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/lib/string.o",
+      "src/kernel/lib/string.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/lib/string.c",
+    "output": "/work/dist/kernel/lib/string.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/lib/memory.o",
+      "src/kernel/lib/memory.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/lib/memory.c",
+    "output": "/work/dist/kernel/lib/memory.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/idt.o",
+      "src/kernel/idt.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/idt.c",
+    "output": "/work/dist/kernel/idt.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/isr.o",
+      "src/kernel/isr.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/isr.c",
+    "output": "/work/dist/kernel/isr.o"
+  },
+  {
+    "arguments": [
+      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/kernel.o",
+      "src/kernel/kernel.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/kernel.c",
+    "output": "/work/dist/kernel/kernel.o"
+  }
+]

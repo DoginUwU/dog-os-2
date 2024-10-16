@@ -1,6 +1,6 @@
-#include "../include/drivers/screen.h"
-#include "../include/gdt.h"
-#include "../include/idt.h"
+#include <drivers/screen.h>
+#include <gdt.h>
+#include <idt.h>
 
 void kernel_main() {
   clear_screen();

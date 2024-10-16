@@ -1,6 +1,6 @@
 CC = i686-linux-gnu-gcc
 NASM = nasm
-CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -nostdlib -nostdinc -fno-builtin -fno-stack-protector
+CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -nostdlib -nostdinc -fno-builtin -fno-stack-protector
 
 SRC_DIR = src
 DIST_DIR = dist
@@ -18,6 +18,10 @@ create-image-with-grub: ${DIST_DIR}/kernel.bin
 	cp ${DIST_DIR}/kernel.bin ${DIST_DIR}/iso/boot/kernel.bin
 	cp ${SRC_DIR}/boot/grub.cfg ${DIST_DIR}/iso/boot/grub/grub.cfg
 	grub-mkrescue -o ${DIST_DIR}/dog-os.iso ${DIST_DIR}/iso
+
+compile_commands.json:
+	apt install -y bear
+	bear -- make -f docker/Makefile -B
 
 $(DIST_DIRS):
 	mkdir -p $@

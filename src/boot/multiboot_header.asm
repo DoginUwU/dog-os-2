@@ -1,3 +1,4 @@
+[bits 32]
 [extern kernel_main]
 
 PAGE_ALIGN    equ 1<<0
@@ -6,11 +7,9 @@ FLAGS         equ PAGE_ALIGN | MEM_INFO
 MAGIC         equ 0x1BADB002
 CHECKSUM      equ -(MAGIC + FLAGS)
 
-[bits 32]
-
 section .multiboot
 	align 4
-	multiboot:
+	multiboot:		
 		dd MAGIC
 		dd FLAGS
 		dd CHECKSUM
