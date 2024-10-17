@@ -1,8 +1,9 @@
-[GLOBAL _start]
-[extern kernel_main]
+MAGIC_NUMBER equ 0x1BADB002
+FLAGS equ 0x00
 
 section .multiboot
 align 4
-    dd 0x1BADB002            ; magic number
-    dd 0x00                  ; flags
-    dd -(0x1BADB002 + 0x00)  ; checksum
+multiboot_header:
+		dd MAGIC_NUMBER
+		dd FLAGS
+		dd - (MAGIC_NUMBER + FLAGS)

@@ -1,4 +1,4 @@
-ENTRY(start)
+ENTRY(_start)
 
 SECTIONS {
     . = 1M;
@@ -7,6 +7,4 @@ SECTIONS {
 		}
 
     .text : {*(.text)}
-    .data : {*(.data)}
-    .bss  : {*(.bss)}
 }
