@@ -61,6 +61,23 @@ void init_idt() {
   set_idt_gate(30, (uint32_t)isr30, KERNEL_CS, 0x8E);
   set_idt_gate(31, (uint32_t)isr31, KERNEL_CS, 0x8E);
 
+  set_idt_gate(32, (uint32_t)irq0, KERNEL_CS, 0x8E);
+  set_idt_gate(33, (uint32_t)irq1, KERNEL_CS, 0x8E);
+  set_idt_gate(34, (uint32_t)irq2, KERNEL_CS, 0x8E);
+  set_idt_gate(35, (uint32_t)irq3, KERNEL_CS, 0x8E);
+  set_idt_gate(36, (uint32_t)irq4, KERNEL_CS, 0x8E);
+  set_idt_gate(37, (uint32_t)irq5, KERNEL_CS, 0x8E);
+  set_idt_gate(38, (uint32_t)irq6, KERNEL_CS, 0x8E);
+  set_idt_gate(39, (uint32_t)irq7, KERNEL_CS, 0x8E);
+  set_idt_gate(40, (uint32_t)irq8, KERNEL_CS, 0x8E);
+  set_idt_gate(41, (uint32_t)irq9, KERNEL_CS, 0x8E);
+  set_idt_gate(42, (uint32_t)irq10, KERNEL_CS, 0x8E);
+  set_idt_gate(43, (uint32_t)irq11, KERNEL_CS, 0x8E);
+  set_idt_gate(44, (uint32_t)irq12, KERNEL_CS, 0x8E);
+  set_idt_gate(45, (uint32_t)irq13, KERNEL_CS, 0x8E);
+  set_idt_gate(46, (uint32_t)irq14, KERNEL_CS, 0x8E);
+  set_idt_gate(47, (uint32_t)irq15, KERNEL_CS, 0x8E);
+
   set_idt_gate(128, (uint32_t)isr128, KERNEL_CS, 0x8E);
   set_idt_gate(177, (uint32_t)isr177, KERNEL_CS, 0x8E);
 

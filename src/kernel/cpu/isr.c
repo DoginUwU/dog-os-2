@@ -1,5 +1,8 @@
 #include <cpu/isr.h>
 #include <drivers/screen.h>
+#include <ports.h>
+
+void *irq_routines[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 char *exception_messages[] = {
     "Divide by Zero",
@@ -48,3 +51,25 @@ void isr_handler(registers_t *regs) {
     }
   }
 }
+
+void irq_handler(registers_t *regs) {
+  void (*handler)(registers_t *regs);
+
+  handler = irq_routines[regs->int_no - 32];
+
+  if (handler) {
+    handler(regs);
+  }
+
+  if (regs->int_no >= 40) {
+    port_byte_out(0xA0, 0x20);
+  }
+
+  port_byte_out(0x20, 0x20);
+}
+
+void irq_install_handler(int irq, void (*handler)(registers_t *r)) {
+  irq_routines[irq] = handler;
+}
+
+void irq_uninstall_handler(int irq) { irq_routines[irq] = 0; }

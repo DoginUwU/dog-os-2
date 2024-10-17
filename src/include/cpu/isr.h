@@ -11,4 +11,7 @@ typedef struct {
   uint32_t eip, cs, eflags, esp, ss;
 } __attribute__((packed)) registers_t;
 
+void irq_install_handler(int irq, void (*handler)(registers_t *r));
+void irq_uninstall_handler(int irq);
+
 #endif
