@@ -42,3 +42,16 @@ int str_length(char *str) {
 
   return i;
 }
+
+void append(char *str, char c) {
+  int len = str_length(str);
+
+  str[len] = c;
+  str[len + 1] = '\0';
+}
+
+void backspace(char *str) {
+  int len = str_length(str);
+
+  str[len - 1] = '\0';
+}

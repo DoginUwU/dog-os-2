@@ -75,5 +75,6 @@ extern void isr128(); // Sys call
 extern void isr177(); // Sys call
 
 #define IRQ_TIMER 0
+#define IRQ_KEYBOARD 1
 
 #endif
