@@ -1,7 +1,7 @@
 [
   {
     "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "/usr/bin/gcc",
       "-Isrc/include",
       "-g",
       "-ffreestanding",
@@ -9,21 +9,20 @@
       "-Wextra",
       "-fno-exceptions",
       "-m32",
-      "-nostdinc",
       "-fno-builtin",
       "-fno-stack-protector",
       "-c",
       "-o",
-      "dist/kernel/ports.o",
-      "src/kernel/ports.c"
+      "dist/kernel/cpu/isr.o",
+      "src/kernel/cpu/isr.c"
     ],
     "directory": "/work",
-    "file": "/work/src/kernel/ports.c",
-    "output": "/work/dist/kernel/ports.o"
+    "file": "/work/src/kernel/cpu/isr.c",
+    "output": "/work/dist/kernel/cpu/isr.o"
   },
   {
     "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "/usr/bin/gcc",
       "-Isrc/include",
       "-g",
       "-ffreestanding",
@@ -31,7 +30,48 @@
       "-Wextra",
       "-fno-exceptions",
       "-m32",
-      "-nostdinc",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/cpu/idt.o",
+      "src/kernel/cpu/idt.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/cpu/idt.c",
+    "output": "/work/dist/kernel/cpu/idt.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/cpu/gdt.o",
+      "src/kernel/cpu/gdt.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/cpu/gdt.c",
+    "output": "/work/dist/kernel/cpu/gdt.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
       "-fno-builtin",
       "-fno-stack-protector",
       "-c",
@@ -45,7 +85,7 @@
   },
   {
     "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "/usr/bin/gcc",
       "-Isrc/include",
       "-g",
       "-ffreestanding",
@@ -53,29 +93,6 @@
       "-Wextra",
       "-fno-exceptions",
       "-m32",
-      "-nostdinc",
-      "-fno-builtin",
-      "-fno-stack-protector",
-      "-c",
-      "-o",
-      "dist/kernel/gdt.o",
-      "src/kernel/gdt.c"
-    ],
-    "directory": "/work",
-    "file": "/work/src/kernel/gdt.c",
-    "output": "/work/dist/kernel/gdt.o"
-  },
-  {
-    "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
-      "-Isrc/include",
-      "-g",
-      "-ffreestanding",
-      "-Wall",
-      "-Wextra",
-      "-fno-exceptions",
-      "-m32",
-      "-nostdinc",
       "-fno-builtin",
       "-fno-stack-protector",
       "-c",
@@ -89,7 +106,7 @@
   },
   {
     "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "/usr/bin/gcc",
       "-Isrc/include",
       "-g",
       "-ffreestanding",
@@ -97,7 +114,6 @@
       "-Wextra",
       "-fno-exceptions",
       "-m32",
-      "-nostdinc",
       "-fno-builtin",
       "-fno-stack-protector",
       "-c",
@@ -111,7 +127,7 @@
   },
   {
     "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "/usr/bin/gcc",
       "-Isrc/include",
       "-g",
       "-ffreestanding",
@@ -119,21 +135,20 @@
       "-Wextra",
       "-fno-exceptions",
       "-m32",
-      "-nostdinc",
       "-fno-builtin",
       "-fno-stack-protector",
       "-c",
       "-o",
-      "dist/kernel/idt.o",
-      "src/kernel/idt.c"
+      "dist/kernel/ports.o",
+      "src/kernel/ports.c"
     ],
     "directory": "/work",
-    "file": "/work/src/kernel/idt.c",
-    "output": "/work/dist/kernel/idt.o"
+    "file": "/work/src/kernel/ports.c",
+    "output": "/work/dist/kernel/ports.o"
   },
   {
     "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
+      "/usr/bin/gcc",
       "-Isrc/include",
       "-g",
       "-ffreestanding",
@@ -141,29 +156,6 @@
       "-Wextra",
       "-fno-exceptions",
       "-m32",
-      "-nostdinc",
-      "-fno-builtin",
-      "-fno-stack-protector",
-      "-c",
-      "-o",
-      "dist/kernel/isr.o",
-      "src/kernel/isr.c"
-    ],
-    "directory": "/work",
-    "file": "/work/src/kernel/isr.c",
-    "output": "/work/dist/kernel/isr.o"
-  },
-  {
-    "arguments": [
-      "/usr/xcc/i686-linux-gnu/bin/i686-linux-gnu-gcc",
-      "-Isrc/include",
-      "-g",
-      "-ffreestanding",
-      "-Wall",
-      "-Wextra",
-      "-fno-exceptions",
-      "-m32",
-      "-nostdinc",
       "-fno-builtin",
       "-fno-stack-protector",
       "-c",

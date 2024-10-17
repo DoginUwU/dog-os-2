@@ -1,7 +1,7 @@
 CC = gcc
 LD = ld
 NASM = nasm
-CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -nostdlib -nostdinc -fno-builtin -fno-stack-protector
+CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -fno-builtin -fno-stack-protector
 
 SRC_DIR = src
 DIST_DIR = dist

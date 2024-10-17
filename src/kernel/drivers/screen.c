@@ -2,7 +2,7 @@
 #include <lib/memory.h>
 #include <lib/string.h>
 #include <ports.h>
-#include <types.h>
+#include <stdint.h>
 
 int print_char(char c, int col, int row, char attr);
 
@@ -79,8 +79,8 @@ int print_char(char c, int col, int row, char attr) {
 
   if (offset >= MAX_ROWS * MAX_COLS * 2) {
     for (int i = 0; i < MAX_ROWS; i++) {
-      memcpy((char *)get_offset(0, i) + VIDEO_ADDRESS,
-             (char *)get_offset(0, i - 1) + VIDEO_ADDRESS, MAX_COLS * 2);
+      memory_copy((char *)get_offset(0, i) + VIDEO_ADDRESS,
+                  (char *)get_offset(0, i - 1) + VIDEO_ADDRESS, MAX_COLS * 2);
     }
 
     char *last_line = (char *)get_offset(0, MAX_ROWS - 1) + VIDEO_ADDRESS;
@@ -134,10 +134,10 @@ void set_cursor_offset(int offset) {
   offset /= 2;
 
   port_byte_out(REG_SCREEN_CTRL, 14);
-  port_byte_out(REG_SCREEN_DATA, high_8(offset));
+  port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset >> 8));
 
   port_byte_out(REG_SCREEN_CTRL, 15);
-  port_byte_out(REG_SCREEN_DATA, low_8(offset));
+  port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset & 0xFF));
 }
 
 int get_offset(int col, int row) { return 2 * (row * MAX_COLS + col); }

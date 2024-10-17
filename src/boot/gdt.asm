@@ -13,10 +13,10 @@ gdt_flush:
 	jmp 0x08:complete_flush
 
 complete_flush:
-	mov eax, 0x10
-	mov ds, ax
-	mov es, ax
-	mov fs, ax
-	mov gs, ax
-	mov ss, ax
+	;mov eax, 0x10
+	;mov ds, ax
+	;mov es, ax
+	;mov fs, ax
+	;mov gs, ax
+	;mov ss, ax
 	ret

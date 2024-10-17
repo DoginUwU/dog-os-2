@@ -1,7 +1,7 @@
 #include <ports.h>
 
 void port_byte_out(uint16_t port, uint8_t data) {
-  __asm__("out %%al, %%dx" : : "a"(data), "d"(port));
+  __asm__("outb %%al, %%dx" : : "a"(data), "d"(port));
 }
 
 uint8_t port_byte_in(uint16_t port) {

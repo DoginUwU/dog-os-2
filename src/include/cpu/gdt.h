@@ -1,7 +1,7 @@
 #ifndef GDT_H
 #define GDT_H
 
-#include <types.h>
+#include <stdint.h>
 
 typedef struct {
   uint16_t limit_low;
@@ -10,7 +10,7 @@ typedef struct {
   uint8_t access;
   uint8_t granularity;
   uint8_t base_high;
-} __attribute__((packed)) gdt_entry_t;
+} gdt_entry_t;
 
 typedef struct {
   uint16_t limit;
