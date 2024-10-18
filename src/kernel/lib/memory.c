@@ -2,7 +2,7 @@
 
 uint32_t free_mem_addr = 0x10000;
 
-void *memory_copy(uint8_t *src, uint8_t *dest, size_t count) {
+void memory_copy(uint8_t *src, uint8_t *dest, size_t count) {
   for (int i = 0; i < count; i++) {
     *(dest + i) = *(src + i);
   }

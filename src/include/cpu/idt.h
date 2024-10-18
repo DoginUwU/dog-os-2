@@ -76,5 +76,6 @@ extern void isr177(); // Sys call
 
 #define IRQ_TIMER 0
 #define IRQ_KEYBOARD 1
+#define IRQ_PAGE_FAULT 14
 
 #endif
