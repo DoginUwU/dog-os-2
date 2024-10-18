@@ -3,6 +3,7 @@
 #include <cpu/timer.h>
 #include <drivers/keyboard/keyboard.h>
 #include <drivers/screen.h>
+#include <lib/memory.h>
 
 void kernel_main() {
   clear_screen();
