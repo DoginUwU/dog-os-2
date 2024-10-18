@@ -30,8 +30,8 @@ section .boot
 global _start
 
 _start:
-	mov eax, (initial_page_dir - 0xC0000000)
-	mov cr3, eax ; page directory loc
+	mov ecx, (initial_page_dir - 0xC0000000)
+	mov cr3, ecx ; page directory loc
 
 	mov ecx, cr4
 	or ecx, 0x10
@@ -48,6 +48,7 @@ extern kernel_main
 higher_half:
 	mov esp, stack_top
 	push ebx
+	push eax
 	xor ebp, ebp
 	call kernel_main
 
