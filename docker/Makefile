@@ -27,7 +27,7 @@ compile_commands.json:
 $(DIST_DIRS):
 	mkdir -p $@
 
-${DIST_DIR}/boot/kernel.bin: ${DIST_DIR}/boot/multiboot_header.o ${DIST_DIR}/boot/boot.o ${OBJ} | $(DIST_DIRS)
+${DIST_DIR}/boot/kernel.bin: ${DIST_DIR}/boot/boot.o ${OBJ} | $(DIST_DIRS)
 	${LD} -m elf_i386 -n -T ${SRC_DIR}/boot/linker.ld $^ -o $@
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.c ${C_HEADERS} | $(DIST_DIRS)
