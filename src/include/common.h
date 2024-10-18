@@ -2,5 +2,6 @@
 #define COMMON_H
 
 #define KERNEL_ADDRESS 0xC0000000
+#define KERNEL_MALLOC 0xD0000000
 
 #endif
