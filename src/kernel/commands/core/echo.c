@@ -9,4 +9,4 @@ void echo_command(char **args) {
   }
 }
 
-command_t echo_cmd = {"echo", "Display the output of arg", echo_command};
+command_t echo_cmd = {"echo", "Display the output of args", echo_command};

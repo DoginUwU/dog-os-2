@@ -11,8 +11,12 @@ command_t *commands[MAX_COMMANDS];
 int command_count = 0;
 
 extern command_t echo_cmd;
+extern command_t clear_cmd;
 
-void init_commands() { register_command(&echo_cmd); }
+void init_commands() {
+  register_command(&echo_cmd);
+  register_command(&clear_cmd);
+}
 
 void register_command(command_t *command) {
   if (command_count < MAX_COMMANDS) {
