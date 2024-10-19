@@ -13,7 +13,6 @@ void process_initrd(uintptr_t initrd_start) {
     }
 
     char *file_name = (char *)cpio_header + sizeof(cpio_header_t);
-    uint32_t file_size = hex_to_int(cpio_header->c_filesize);
     print(file_name);
     print("\n");
 
