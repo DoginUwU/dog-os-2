@@ -23,7 +23,6 @@ struct fs_node {
   fs_operations_t *operations;
 
   struct fs_node *parent;
-  struct fs_node *children;
   struct fs_node *next;
 
   uintptr_t data;

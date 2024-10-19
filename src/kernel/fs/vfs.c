@@ -43,7 +43,6 @@ fs_node_t *vfs_create_directory(const char *name) {
   node->flags = FS_DIRECTORY;
   node->data = 0;
   node->parent = root_mount;
-  node->children = NULL;
   node->next = NULL;
 
   print("Directory created: ");
@@ -65,7 +64,6 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
   node->flags = FS_FILE;
   node->data = data;
   node->parent = parent;
-  node->children = NULL;
   node->next = NULL;
 
   print("File created: ");
