@@ -1,8 +1,13 @@
 #ifndef KMALLOC_H
 #define KMALLOC_H
 
+#include <stddef.h>
 #include <stdint.h>
 
-void kmalloc_init(uint32_t initial_heap_size);
+#define INITIAL_HEAP_SIZE 0x1000
+#define MAX_HEAP_SIZE 0x1000000
+
+void *kmalloc(size_t size);
+void kfree(void *ptr);
 
 #endif

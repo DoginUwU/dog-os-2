@@ -13,7 +13,7 @@
 
 extern uint32_t initial_page_dir[1024];
 
-void init_memory(uint32_t memory_high, uint32_t physical_allocation_start);
+void init_memory(uint32_t physical_allocation_start, uint32_t memory_high);
 uint32_t pmm_allocation_page_frame();
 void memory_map_page(uint32_t virtual_address, uint32_t physical_address,
                      uint32_t flags);

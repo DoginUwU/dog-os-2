@@ -1,4 +1,5 @@
 #include <common.h>
+#include <drivers/screen.h>
 #include <lib/math.h>
 #include <lib/memory.h>
 #include <stdint.h>
@@ -28,25 +29,31 @@ void init_pmm(uint32_t memory_low, uint32_t memory_high) {
 }
 
 uint32_t pmm_allocation_page_frame() {
-  uint32_t start = page_frame_min / 8 + ((page_frame_min & 7) != 0 ? 1 : 0);
-  uint32_t end = page_frame_max / 8 - ((page_frame_max & 7) != 0 ? 1 : 0);
+  uint32_t start = page_frame_min / 8 +
+                   ((page_frame_min & 7) != 0
+                        ? 1
+                        : 0); // Check if page_frame_min is multiple of 8
+  uint32_t end = page_frame_max / 8 -
+                 ((page_frame_max & 7) != 0
+                      ? 1
+                      : 0); // Check if page_frame_max is multiple of 8
 
   for (uint32_t b = start; b < end; b++) {
     uint8_t byte = physical_memory_bitmap[b];
 
-    if (byte == 0xFF) {
+    if (byte == 0xFF) { // 0xFF is full byte, all pages is used
       continue;
     }
 
-    for (uint32_t i = 0; i < 8; i++) {
+    for (uint32_t i = 0; i < 8; i++) { // Loop bit per bit
       int used = byte >> i & 1;
 
       if (used == 0) {
-        byte ^= (-1 ^ byte) & (1 << i); // Reverse byte to be used
+        byte |= 1 << i; // Mark page as used
         physical_memory_bitmap[b] = byte;
         total_allocated++;
 
-        uint32_t address = (b * 8 * i) * PAGE_SIZE;
+        uint32_t address = (b * 8 + i) * PAGE_SIZE;
         return address;
       }
     }
@@ -76,7 +83,8 @@ void sync_page_dirs() {
       uint32_t *page_directory = page_dirs[i];
 
       for (size_t i2 = 768; i2 < 1023; i2++) {
-        page_directory[i2] = initial_page_dir[i2] & ~PAGE_FLAG_OWNER;
+        page_directory[i2] =
+            initial_page_dir[i2] & ~PAGE_FLAG_OWNER; // Remove owner flag
       }
     }
   }
@@ -95,7 +103,7 @@ void memory_map_page(uint32_t virtual_address, uint32_t physical_address,
   }
 
   uint32_t page_directory_index = virtual_address >> 22;
-  uint32_t page_table_index = virtual_address >> 12 & 0x3FF;
+  uint32_t page_table_index = virtual_address >> 12 & 0x3FF; // 1023
 
   uint32_t *page_directory = REC_PAGE_DIR;
   uint32_t *page_table = REC_PAGE_TABLE(page_directory_index);
@@ -125,7 +133,7 @@ void memory_map_page(uint32_t virtual_address, uint32_t physical_address,
   }
 }
 
-void init_memory(uint32_t memory_high, uint32_t physical_allocation_start) {
+void init_memory(uint32_t physical_allocation_start, uint32_t memory_high) {
   memory_num_virtual_pages = 0;
   initial_page_dir[0] = 0;
   invalidate(0);
