@@ -37,7 +37,7 @@ void vfs_mount(const char *fs_name, fs_node_t *mount_point) {
 }
 
 fs_node_t *vfs_create_directory(const char *name) {
-  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t));
+  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t), 0);
   node->name = string_copy(name);
   node->size = 0;
   node->flags = FS_DIRECTORY;
@@ -58,7 +58,7 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
     parent = root_mount;
   }
 
-  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t));
+  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t), 0);
   node->name = string_copy(name);
   node->size = size;
   node->flags = FS_FILE;

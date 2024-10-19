@@ -142,7 +142,7 @@ uint32_t hex_to_int(const char *hex) {
 }
 
 char *string_substring(char *str, int start, int end) {
-  char *substring = (char *)kmalloc(end - start + 1);
+  char *substring = (char *)kmalloc(end - start + 1, 0);
 
   for (int i = start; i < end; i++) {
     substring[i - start] = str[i];
@@ -154,7 +154,7 @@ char *string_substring(char *str, int start, int end) {
 }
 
 char *string_copy(char *str) {
-  char *copy = (char *)kmalloc(str_length(str) + 1);
+  char *copy = (char *)kmalloc(str_length(str) + 1, 0);
 
   for (int i = 0; i < str_length(str); i++) {
     copy[i] = str[i];
