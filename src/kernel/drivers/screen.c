@@ -4,6 +4,8 @@
 #include <ports.h>
 #include <stdint.h>
 
+int current_base_attr = WHITE_ON_BLACK;
+
 int print_char(char c, int col, int row, char attr);
 
 int get_cursor_offset();
@@ -12,6 +14,8 @@ void set_cursor_offset(int offset);
 int get_offset(int col, int row);
 int get_offset_row(int offset);
 int get_offset_col(int offset);
+
+void set_current_base_attr(char new_attr) { current_base_attr = new_attr; }
 
 void print_at(char *message, int col, int row) {
   int offset = 0;
@@ -28,7 +32,7 @@ void print_at(char *message, int col, int row) {
   int i = 0;
 
   while (message[i] != 0) {
-    offset = print_char(message[i++], col, row, WHITE_ON_BLACK);
+    offset = print_char(message[i++], col, row, current_base_attr);
 
     row = get_offset_row(offset);
     col = get_offset_col(offset);

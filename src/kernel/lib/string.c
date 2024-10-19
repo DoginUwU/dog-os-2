@@ -1,3 +1,4 @@
+#include <lib/kmalloc.h>
 #include <lib/string.h>
 #include <stddef.h>
 
@@ -70,6 +71,16 @@ int string_compare(char *a, char *b) {
   return *a || *b;
 }
 
+int string_compare_num(char *a, char *b, int n) {
+  for (int i = 0; i < n; i++) {
+    if (a[i] != b[i]) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 char *string_truncate(char *str, char *delimiter) {
   static char *next_token = NULL;
   char *token;
@@ -116,4 +127,28 @@ char *string_first_ocorrence(char *str, char c) {
   }
 
   return NULL;
+}
+
+uint32_t hex_to_int(const char *hex) {
+  uint32_t result = 0;
+
+  while (*hex) {
+    result =
+        (result << 4) | (*hex > '9' ? (*hex & ~0x20) - 'A' + 10 : (*hex - '0'));
+    hex++;
+  }
+
+  return result;
+}
+
+char *string_substring(char *str, int start, int end) {
+  char *substring = (char *)kmalloc(end - start + 1);
+
+  for (int i = start; i < end; i++) {
+    substring[i - start] = str[i];
+  }
+
+  substring[end - start] = '\0';
+
+  return substring;
 }

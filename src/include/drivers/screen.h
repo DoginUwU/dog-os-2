@@ -19,5 +19,6 @@ void print_num(int num);
 void print_at(char *message, int col, int row);
 void print_backspace();
 void clear_screen();
+void set_current_base_attr(char new_attr);
 
 #endif
