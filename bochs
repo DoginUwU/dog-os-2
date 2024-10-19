@@ -3,4 +3,3 @@ boot:cdrom
 display_library: x, options = "gui_debug"
 panic: action=ask
 
-gdbstub: enabled=1,port=1234
