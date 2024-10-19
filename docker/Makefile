@@ -8,6 +8,7 @@ DIST_DIR = dist
 
 C_SOURCES = $(shell find ${SRC_DIR} -name '*.c')
 C_HEADERS = $(shell find ${SRC_DIR} -name '*.h')
+ROOT = $(shell pwd)
 
 OBJ = $(patsubst ${SRC_DIR}/%.c, ${DIST_DIR}/%.o, ${C_SOURCES}) ${DIST_DIR}/boot/interrupt.o ${DIST_DIR}/boot/gdt.o
 DIST_DIRS = $(sort $(dir ${OBJ} ${DIST_DIR}/boot/boot.bin ${DIST_DIR}/boot/kernel.bin))
@@ -19,7 +20,7 @@ create-image-with-grub: ${DIST_DIR}/boot/kernel.bin
 	cp ${DIST_DIR}/boot/kernel.bin ${DIST_DIR}/iso/boot/kernel.bin
 	cp ${SRC_DIR}/boot/grub.cfg ${DIST_DIR}/iso/boot/grub/grub.cfg
 
-	find ${SRC_DIR}/initrd -type f | cpio -o -H newc > ${DIST_DIR}/iso/boot/initrd
+	(cd ${SRC_DIR}/initrd && find . -type f -printf '%P\n' | cpio -o -H newc > ${ROOT}/${DIST_DIR}/iso/boot/initrd)
 
 	grub-mkrescue -o ${DIST_DIR}/dog-os.iso ${DIST_DIR}/iso
 

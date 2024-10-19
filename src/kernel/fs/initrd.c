@@ -1,10 +1,10 @@
 #include <drivers/screen.h>
+#include <fs/initrd.h>
 #include <lib/cpio.h>
-#include <lib/initrd.h>
 #include <lib/string.h>
 #include <stddef.h>
 
-void process_initrd(uintptr_t initrd_start) {
+void process_initrd(uintptr_t initrd_start, fs_node_t *node) {
   cpio_header_t *cpio_header = (cpio_header_t *)initrd_start;
 
   while (1) {
@@ -13,9 +13,16 @@ void process_initrd(uintptr_t initrd_start) {
     }
 
     char *file_name = (char *)cpio_header + sizeof(cpio_header_t);
-    print(file_name);
-    print("\n");
+
+    vfs_create_file(file_name, 0, 0, node);
 
     cpio_header = cpio_next(cpio_header);
   }
 }
+
+int mkdir_initrd(fs_node_t *node, const char *name) {
+  print("oi");
+  return 0;
+}
+
+fs_operations_t initrd_operations = {.mkdir = mkdir_initrd};

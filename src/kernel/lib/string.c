@@ -152,3 +152,15 @@ char *string_substring(char *str, int start, int end) {
 
   return substring;
 }
+
+char *string_copy(char *str) {
+  char *copy = (char *)kmalloc(str_length(str) + 1);
+
+  for (int i = 0; i < str_length(str); i++) {
+    copy[i] = str[i];
+  }
+
+  copy[str_length(str)] = '\0';
+
+  return copy;
+}
