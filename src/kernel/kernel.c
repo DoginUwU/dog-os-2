@@ -24,7 +24,4 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_shell();
   init_commands();
   shell_loop();
-
-  /*asm volatile("int $0x3");*/
-  /*asm volatile("int $0x4");*/
 }

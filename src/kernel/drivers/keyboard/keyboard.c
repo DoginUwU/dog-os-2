@@ -32,4 +32,7 @@ char process_scancode(uint8_t scancode) {
   return '\0';
 }
 
-void init_keyboard() { irq_install_handler(IRQ_KEYBOARD, keyboard_callback); }
+void init_keyboard() {
+  irq_install_handler(IRQ_KEYBOARD, keyboard_callback);
+  //
+}
