@@ -35,7 +35,7 @@ void print_at(char *message, int col, int row) {
   }
 }
 
-void print(const char *message) { print_at(message, -1, -1); }
+void print(char *message) { print_at(message, -1, -1); }
 void print_num(int num) {
   char *str[3];
   int_to_ascii(num, (char *)str);
