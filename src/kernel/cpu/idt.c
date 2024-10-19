@@ -1,5 +1,5 @@
 #include <cpu/idt.h>
-#include <lib/memory.h>
+#include <lib/memory/memory.h>
 #include <ports.h>
 
 __attribute__((aligned(0x10))) static idt_entry_t idt_entries[256];

@@ -7,8 +7,8 @@
 #include <drivers/screen.h>
 #include <fs/initrd.h>
 #include <fs/vfs.h>
-#include <lib/kmalloc.h>
-#include <lib/memory.h>
+#include <lib/memory/kmalloc.h>
+#include <lib/memory/memory.h>
 #include <multiboot.h>
 #include <panic.h>
 #include <shell/shell.h>
@@ -36,6 +36,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);
 
   init_shell();
+  init_paging();
 
   /*uint32_t physical_allocation_start = (mod_end + 0xFFF) & ~0xFFF;*/
   /*init_memory(physical_allocation_start, boot_info->mem_upper * 1024);*/
@@ -46,11 +47,11 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*print_num(boot_info->mem_upper);*/
   /*print("\n");*/
 
-  fs_node_t *root = vfs_create_directory("/");
-
-  fs_node_t *root_initrd = vfs_create_directory("/initrd");
-  vfs_mount("initrd", root_initrd);
-  process_initrd(mod_start, root_initrd);
+  /*fs_node_t *root = vfs_create_directory("/");*/
+  /**/
+  /*fs_node_t *root_initrd = vfs_create_directory("/initrd");*/
+  /*vfs_mount("initrd", root_initrd);*/
+  /*process_initrd(mod_start, root_initrd);*/
 
   init_commands();
   shell_loop();

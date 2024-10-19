@@ -11,6 +11,7 @@ char *string_substring(char *str, int start, int end);
 char *string_copy(char *str);
 void int_to_ascii(int num, char *str);
 uint32_t hex_to_int(const char *hex);
+char *int_to_hex(uint32_t n);
 void append(char *str, char c);
 void backspace(char *str);
 

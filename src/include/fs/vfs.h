@@ -23,6 +23,7 @@ struct fs_node {
   fs_operations_t *operations;
 
   struct fs_node *parent;
+  struct fs_node *children;
   struct fs_node *next;
 
   uintptr_t data;
@@ -33,6 +34,8 @@ typedef struct {
   const char *name;
   fs_operations_t *operations;
 } fs_t;
+
+static fs_node_t *global_current_directory;
 
 void vfs_mount(const char *fs_name, fs_node_t *mount_point);
 fs_node_t *vfs_create_directory(const char *name);

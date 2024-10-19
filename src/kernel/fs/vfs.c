@@ -1,10 +1,11 @@
 #include <drivers/screen.h>
 #include <fs/vfs.h>
-#include <lib/kmalloc.h>
+#include <lib/memory/kmalloc.h>
 #include <lib/string.h>
 #include <stddef.h>
 
 extern fs_operations_t initrd_operations;
+static fs_node_t *global_current_directory = NULL;
 fs_node_t *root_mount = NULL;
 
 // TODO: Make this dynamic
@@ -25,6 +26,7 @@ void vfs_mount(const char *fs_name, fs_node_t *mount_point) {
 
       if (root_mount == NULL) {
         root_mount = mount_point;
+        global_current_directory = mount_point;
       }
 
       return;
@@ -37,7 +39,7 @@ void vfs_mount(const char *fs_name, fs_node_t *mount_point) {
 }
 
 fs_node_t *vfs_create_directory(const char *name) {
-  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t), 0);
+  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t));
   node->name = string_copy(name);
   node->size = 0;
   node->flags = FS_DIRECTORY;
@@ -58,13 +60,28 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
     parent = root_mount;
   }
 
-  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t), 0);
+  if ((parent->flags & FS_DIRECTORY) == 0) {
+    print("Invalid parent type\n");
+    return NULL;
+  }
+
+  fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t));
   node->name = string_copy(name);
   node->size = size;
   node->flags = FS_FILE;
   node->data = data;
   node->parent = parent;
-  node->next = NULL;
+
+  if (parent->children == NULL) {
+    parent->children = node;
+  } else {
+    fs_node_t *current = parent->children;
+    while (current->next != NULL) {
+      current = current->next;
+    }
+
+    current->next = node;
+  }
 
   print("File created: ");
   print(parent->name);
