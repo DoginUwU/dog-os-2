@@ -11,8 +11,6 @@ extern void call_shell_keyboard_key_press(char key);
 
 char process_scancode(uint8_t scancode);
 
-/*char key_buffer[256];*/
-
 static void keyboard_callback(registers_t *regs) {
   uint8_t scancode = port_byte_in(0x60);
   char key = process_scancode(scancode);
@@ -21,26 +19,11 @@ static void keyboard_callback(registers_t *regs) {
 }
 
 char process_scancode(uint8_t scancode) {
-  /*if (scancode == BACKSPACE) {*/
-  /*  backspace(key_buffer);*/
-  /*  print_backspace();*/
-  /*  return;*/
-  /*} else if (scancode == ENTER) {*/
-  /*  print("\n");*/
-  /*  key_buffer[0] = '\0';*/
-  /**/
-  /*  return;*/
-  /*}*/
-
   keyboard_layout_t layout = keyboard_br_abnt2;
 
   for (size_t i = 0; i < layout.size; i++) {
     if (layout.mappings[i].scancode == scancode) {
       char key = layout.mappings[i].character;
-      /*char str[2] = {letter, '\0'};*/
-      /**/
-      /*append(key_buffer, letter);*/
-      /*print(str);*/
 
       return key;
     }
