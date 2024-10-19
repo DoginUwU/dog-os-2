@@ -13,7 +13,7 @@ key_mapping_t layout[] = {
     {0x0B, '0'},
     {0x0C, '-'},
     {0x0D, '='},
-    /*{0x0E, '\0'}, Backspace */
+    {0x0E, '\b'},
     /*{0x0F, 'Tab'}, Tab */
     {0x10, 'q'},
     {0x11, 'w'},
@@ -27,7 +27,7 @@ key_mapping_t layout[] = {
     {0x19, 'p'},
     /*{0x1A, '´'},*/
     {0x1B, '['},
-    /*{0x1C, '\n'}, Enter */
+    {0x1C, '\n'},
     /*{0x1D, 'Ctrl'}, Ctrl */
     {0x1E, 'a'},
     {0x1F, 's'},

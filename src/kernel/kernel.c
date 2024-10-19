@@ -1,11 +1,12 @@
+#include <commands/command.h>
 #include <cpu/gdt.h>
 #include <cpu/idt.h>
 #include <cpu/timer.h>
 #include <drivers/keyboard/keyboard.h>
-#include <drivers/screen.h>
 #include <lib/kmalloc.h>
 #include <lib/memory.h>
 #include <multiboot.h>
+#include <shell/shell.h>
 
 void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_gdt();
@@ -20,8 +21,9 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_memory(boot_info->mem_upper * 1024, physical_allocation_start);
   kmalloc_init(0x1000);
 
-  clear_screen();
-  print("Welcome to DogOS\n");
+  init_shell();
+  init_commands();
+  shell_loop();
 
   /*asm volatile("int $0x3");*/
   /*asm volatile("int $0x4");*/

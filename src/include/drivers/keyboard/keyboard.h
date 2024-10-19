@@ -18,5 +18,6 @@ typedef struct {
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
+#define KEYBOARD_BUFFER_SIZE 256
 
 #endif
