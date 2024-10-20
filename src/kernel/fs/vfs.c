@@ -170,6 +170,7 @@ void vfs_change_global_current_directory(fs_node_t *new_directory) {
 }
 
 fs_node_t *vfs_get_current_directory() { return global_current_directory; }
+
 fs_node_t *vfs_get_mount_node(fs_node_t *node) {
   fs_node_t *mount_of_node = node;
 

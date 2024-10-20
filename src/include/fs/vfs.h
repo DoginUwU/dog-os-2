@@ -9,11 +9,11 @@
 typedef struct fs_node fs_node_t;
 
 typedef struct {
-  int (*open)(fs_node_t *node);
+  /*int (*open)(fs_node_t *node);*/
   char *(*read)(fs_node_t *node, uint32_t offset, uint32_t size);
-  int (*write)(fs_node_t *node, uint32_t offset, uint32_t size,
-               const char *buffer);
-  int (*mkdir)(fs_node_t *node, const char *name);
+  /*int (*write)(fs_node_t *node, uint32_t offset, uint32_t size,*/
+  /*             const char *buffer);*/
+  /*int (*mkdir)(fs_node_t *node, const char *name);*/
 } fs_operations_t;
 
 struct fs_node {
@@ -43,7 +43,7 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
                            fs_node_t *parent);
 fs_node_t *vfs_find_node(const char *path, uint32_t flags);
 void vfs_change_global_current_directory(fs_node_t *new_directory);
-
+fs_node_t *vfs_get_mount_node(fs_node_t *node);
 char *vfs_read_file(fs_node_t *node);
 
 #endif
