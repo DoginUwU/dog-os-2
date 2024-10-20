@@ -35,7 +35,7 @@ static uint32_t first_frame() {
         uint32_t test = 0x1 << j;
 
         if (!(frames[i] & test)) {
-          return i * 4 * 8 * j;
+          return i * 8 * 4 * j;
         }
       }
     }
