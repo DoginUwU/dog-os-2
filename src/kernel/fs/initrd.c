@@ -38,15 +38,9 @@ void process_initrd(uintptr_t initrd_start, fs_node_t *node) {
   }
 }
 
-int mkdir_initrd(fs_node_t *node, const char *name) {
-  UNUSED(node);
-  UNUSED(name);
-  return 0;
-}
-
 char *read_initrd(fs_node_t *node, uint32_t offset, uint32_t size) {
+  UNUSED(size);
   return (char *)node->data + offset;
 }
 
-fs_operations_t initrd_operations = {.mkdir = mkdir_initrd,
-                                     .read = read_initrd};
+fs_operations_t initrd_operations = {.read = read_initrd};

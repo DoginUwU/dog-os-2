@@ -4,7 +4,7 @@
 #include <fs/vfs.h>
 #include <stddef.h>
 
-void ls_command(char **args) {
+int ls_command(char **args) {
   fs_node_t *node = vfs_get_current_directory()->children;
 
   while (node != NULL) {
@@ -15,7 +15,11 @@ void ls_command(char **args) {
   }
 
   UNUSED(args);
+
+  return COMMAND_CODE_SUCCESS;
 }
 
-command_t ls_cmd = {"ls", "List files and directories of current location",
-                    ls_command};
+command_t ls_cmd = {.name = "ls",
+                    .description =
+                        "List files and directories of current location",
+                    .execute = ls_command};

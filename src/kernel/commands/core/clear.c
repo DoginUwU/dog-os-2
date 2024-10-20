@@ -2,6 +2,11 @@
 #include <drivers/screen.h>
 #include <stddef.h>
 
-void clear_command() { clear_screen(); }
+int clear_command() {
+  clear_screen();
+  return COMMAND_CODE_SUCCESS;
+}
 
-command_t clear_cmd = {"clear", "Clear the entire screen", clear_command};
+command_t clear_cmd = {.name = "clear",
+                       .description = "Clear the entire screen",
+                       .execute = clear_command};

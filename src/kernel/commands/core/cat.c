@@ -5,10 +5,12 @@
 #include <fs/vfs.h>
 #include <stddef.h>
 
-void cat_command(char **args) {
+int cat_command(char **args) {
   if (args[0] == NULL) {
     print("Missing file param");
     print("\n");
+
+    return COMMAND_CODE_INVALID_PARAMS;
   }
 
   fs_node_t *node = vfs_find_node(args[0], FS_FILE);
@@ -16,7 +18,8 @@ void cat_command(char **args) {
   if (node == NULL) {
     print("No such file");
     print("\n");
-    return;
+
+    return COMMAND_CODE_INVALID_PARAMS;
   }
 
   char *buffer = vfs_read_file(node);
@@ -24,10 +27,15 @@ void cat_command(char **args) {
   if (buffer == NULL) {
     print("Nothing to show :(");
     print("\n");
-    return;
+
+    return COMMAND_CODE_SUCCESS;
   }
 
   print(buffer);
+
+  return COMMAND_CODE_SUCCESS;
 }
 
-command_t cat_cmd = {"cat", "Output the source of anything", cat_command};
+command_t cat_cmd = {.name = "cat",
+                     .description = "Output the source of anything",
+                     .execute = cat_command};
