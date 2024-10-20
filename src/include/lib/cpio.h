@@ -19,6 +19,6 @@ typedef struct {
   char c_rdevminor[8];
   char c_namesize[8];
   char c_check[8];
-} cpio_header_t;
+} __attribute__((packed)) cpio_header_t;
 
 #endif

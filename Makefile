@@ -19,15 +19,6 @@ debug: podman
 
 podman:
 	make clean
-ifeq ($(GENERATE_INITRD), true)
-	mkdir -p ${DIST_DIR}/iso/boot
-	dd if=/dev/zero of=${DIST_DIR}/iso/boot/initrd.img bs=1M count=10
-	mkfs.ext2 ${DIST_DIR}/iso/boot/initrd.img
-	sudo mkdir -p /mnt/initrd
-	sudo mount -o loop ${DIST_DIR}/iso/boot/initrd.img /mnt/initrd
-	sudo cp -r ${SRC_DIR}/initrd/* /mnt/initrd
-	sudo umount /mnt/initrd
-endif
 	podman run --rm docker.io/dockcross/linux-x86_64-full > $(DIST_DIR)/dockcross-linux-x86_64-full
 	chmod +x $(DIST_DIR)/dockcross-linux-x86_64-full
 ifeq ($(GENERATE_DATABASE), true)

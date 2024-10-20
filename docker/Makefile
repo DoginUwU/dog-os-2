@@ -20,6 +20,8 @@ create-image-with-grub: ${DIST_DIR}/boot/kernel.bin
 	cp ${DIST_DIR}/boot/kernel.bin ${DIST_DIR}/iso/boot/kernel.bin
 	cp ${SRC_DIR}/boot/grub.cfg ${DIST_DIR}/iso/boot/grub/grub.cfg
 
+	(cd ${SRC_DIR}/initrd && find . -type f -printf '%P\n' | cpio -o -H newc > ${ROOT}/${DIST_DIR}/iso/boot/initrd)
+
 	grub-mkrescue -o ${DIST_DIR}/dog-os.iso ${DIST_DIR}/iso
 
 compile_commands.json:
