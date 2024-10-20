@@ -36,10 +36,8 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);*/
 
   init_shell();
-  init_paging();
 
   /*uint32_t physical_allocation_start = (mod_end + 0xFFF) & ~0xFFF;*/
-  /*init_memory(physical_allocation_start, boot_info->mem_upper * 1024);*/
   /*print_num(physical_allocation_start);*/
   /*print("\n");*/
   /*print_num(boot_info->mem_lower);*/

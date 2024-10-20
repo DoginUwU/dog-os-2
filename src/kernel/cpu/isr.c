@@ -43,10 +43,6 @@ char *exception_messages[] = {
 };
 
 void isr_handler(registers_t *regs) {
-  if (regs->int_no == 14) {
-    page_fault(regs);
-  }
-
   // TODO: Find out why this handle error 13 (General Protection Fault)
   if (regs->int_no < 32 && regs->int_no != 13) {
     print("Exception: ");

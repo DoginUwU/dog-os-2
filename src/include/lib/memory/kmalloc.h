@@ -4,12 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define INITIAL_HEAP_SIZE 0x1000
-#define MAX_HEAP_SIZE 0x1000000
-
 void *kmalloc(size_t size);
 void *kmalloc_align(size_t size);
 void *kmalloc_align_pysical(size_t size, uint32_t *physical_address);
-void kfree(void *ptr);
 
 #endif
