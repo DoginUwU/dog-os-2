@@ -16,7 +16,7 @@ fs_t filesystems[] = {
 int num_filesystems = sizeof(filesystems) / sizeof(fs_t);
 
 void vfs_set_root(fs_node_t *mount_point) {
-  print("Novo root mount: ");
+  print("New root mount: ");
   print(mount_point->name);
   print("\n");
 
