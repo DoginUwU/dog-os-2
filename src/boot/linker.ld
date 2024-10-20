@@ -15,21 +15,21 @@ SECTIONS {
 		*(.boot)
 	}
 
-	. += 0xC0000000;
+	/*. += 0xC0000000;*/
 
-	.text ALIGN(4K): AT(ADDR(.text) - 0xC0000000) {
+	.text ALIGN(4K): /* AT(ADDR(.text) - 0xC0000000) */ {
 		*(.text)
 	}
 
-	.rodata ALIGN(4K): AT(ADDR(.rodata) - 0xC0000000) {
+	.rodata ALIGN(4K): {
 		*(.rodata)
 	}
 
-	.data ALIGN(4K): AT(ADDR(.data) - 0xC0000000) {
+	.data ALIGN(4K): {
 		*(.data)
 	}
 
-	.bss ALIGN(4K): AT(ADDR(.bss) - 0xC0000000) {
+	.bss ALIGN(4K): {
 		*(COMMON)
 		*(.bss)
 	}

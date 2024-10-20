@@ -33,7 +33,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   }
 
   uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;
-  uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);
+  /*uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);*/
 
   init_shell();
   init_paging();
@@ -47,10 +47,10 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*print_num(boot_info->mem_upper);*/
   /*print("\n");*/
 
-  /*fs_node_t *root = vfs_create_directory("/");*/
-  /**/
-  /*fs_node_t *root_initrd = vfs_create_directory("/initrd");*/
-  /*vfs_mount("initrd", root_initrd);*/
+  fs_node_t *root = vfs_create_directory("/");
+
+  fs_node_t *root_initrd = vfs_create_directory("/initrd");
+  vfs_mount("initrd", root_initrd);
   /*process_initrd(mod_start, root_initrd);*/
 
   init_commands();

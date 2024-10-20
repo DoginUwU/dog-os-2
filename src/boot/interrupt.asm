@@ -113,7 +113,7 @@ isr_common_stub:
 	popa
 	add esp, 8
 	sti
-	iret
+	ret
 
 [extern irq_handler]
 irq_common_stub:
@@ -142,4 +142,4 @@ irq_common_stub:
 	popa
 	add esp, 8
 	sti
-	iret
+	ret
