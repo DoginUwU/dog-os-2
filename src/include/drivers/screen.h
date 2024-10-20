@@ -14,9 +14,11 @@
 
 #define EMPTY_CHAR 0x08
 
-void print(const char *message);
+#include <stdarg.h>
+
+void print(const char *message, ...);
 void print_num(int num);
-void print_at(const char *message, int col, int row);
+void print_at(const char *message, int col, int row, va_list args);
 void print_backspace();
 void clear_screen();
 void set_current_base_attr(const char new_attr);

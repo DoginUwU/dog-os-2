@@ -1,4 +1,5 @@
 #include <drivers/screen.h>
+#include <lib/memory/kmalloc.h>
 #include <lib/memory/memory.h>
 #include <lib/string.h>
 #include <ports.h>
@@ -17,7 +18,7 @@ int get_offset_col(int offset);
 
 void set_current_base_attr(char new_attr) { current_base_attr = new_attr; }
 
-void print_at(const char *message, int col, int row) {
+void print_at(const char *message, int col, int row, va_list args) {
   int offset = 0;
 
   if (col >= 0 || row >= 0) {
@@ -32,14 +33,37 @@ void print_at(const char *message, int col, int row) {
   int i = 0;
 
   while (message[i] != 0) {
-    offset = print_char(message[i++], col, row, current_base_attr);
+    if (message[i] == '%' && message[i + 1] != '\0') {
+      i++;
+      switch (message[i++]) {
+      case 's':
+        char *str = va_arg(args, char *);
+        print(str);
+        break;
+      case 'd':
+        int num = va_arg(args, int);
+        print_num(num);
+        break;
+      }
+
+      offset = get_cursor_offset();
+    } else {
+      offset = print_char(message[i++], col, row, current_base_attr);
+    }
 
     row = get_offset_row(offset);
     col = get_offset_col(offset);
   }
 }
 
-void print(const char *message) { print_at(message, -1, -1); }
+void print(const char *message, ...) {
+  va_list args;
+  va_start(args, message);
+  va_list args_copy;
+  va_copy(args_copy, args);
+  print_at(message, -1, -1, args_copy);
+  va_end(args);
+}
 void print_num(int num) {
   char *str[3];
   int_to_ascii(num, (char *)str);
