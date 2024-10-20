@@ -21,6 +21,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
 
   init_gdt();
   init_idt();
+  setup_paging();
 
   init_timer(50);
   init_keyboard();
@@ -33,7 +34,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
     print("No multiboot modules found!");
   }
 
-  /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/
+  uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;
   /*uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);*/
 
   init_shell();
@@ -46,11 +47,11 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*print_num(boot_info->mem_upper);*/
   /*print("\n");*/
 
-  vfs_create_directory("/");
+  fs_node_t *root = vfs_create_directory("/", NULL);
 
-  fs_node_t *root_initrd = vfs_create_directory("/initrd");
+  fs_node_t *root_initrd = vfs_create_directory("initrd", root);
   vfs_mount("initrd", root_initrd);
-  /*process_initrd(mod_start, root_initrd);*/
+  process_initrd(mod_start, root_initrd);
 
   init_commands();
   shell_loop();

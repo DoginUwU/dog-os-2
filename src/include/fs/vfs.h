@@ -38,7 +38,7 @@ typedef struct {
 static fs_node_t *global_current_directory;
 
 void vfs_mount(const char *fs_name, fs_node_t *mount_point);
-fs_node_t *vfs_create_directory(const char *name);
+fs_node_t *vfs_create_directory(const char *name, fs_node_t *parent);
 fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
                            fs_node_t *parent);
 

@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#define VIDEO_ADDRESS 0xB8000
+#define VIDEO_ADDRESS 0xC00B8000
 
 #define MAX_ROWS 25
 #define MAX_COLS 80

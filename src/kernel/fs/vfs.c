@@ -38,14 +38,35 @@ void vfs_mount(const char *fs_name, fs_node_t *mount_point) {
   print("\n");
 }
 
-fs_node_t *vfs_create_directory(const char *name) {
+fs_node_t *vfs_create_directory(const char *name, fs_node_t *parent) {
   fs_node_t *node = (fs_node_t *)kmalloc(sizeof(fs_node_t));
+  if (parent == NULL) {
+    parent = root_mount;
+  }
+
+  if ((parent->flags & FS_DIRECTORY) == 0) {
+    print("Invalid parent type\n");
+    return NULL;
+  }
+
   node->name = string_copy(name);
   node->size = 0;
   node->flags = FS_DIRECTORY;
   node->data = 0;
   node->parent = root_mount;
   node->next = NULL;
+  node->children = NULL;
+
+  if (parent->children == NULL) {
+    parent->children = node;
+  } else {
+    fs_node_t *current = parent->children;
+    while (current->next != NULL) {
+      current = current->next;
+    }
+
+    current->next = node;
+  }
 
   print("Directory created: ");
   print(node->name);
@@ -71,6 +92,7 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
   node->flags = FS_FILE;
   node->data = data;
   node->parent = parent;
+  node->children = NULL;
 
   if (parent->children == NULL) {
     parent->children = node;
