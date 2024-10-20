@@ -60,9 +60,10 @@ fs_node_t *vfs_create_directory(const char *name, fs_node_t *parent) {
   node->size = 0;
   node->flags = FS_DIRECTORY;
   node->data = 0;
-  node->parent = root_mount;
+  node->parent = parent;
   node->next = NULL;
   node->children = NULL;
+  node->operations = NULL;
 
   if (parent->children == NULL) {
     parent->children = node;
@@ -102,6 +103,7 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
   node->parent = parent;
   node->children = NULL;
   node->next = NULL;
+  node->operations = NULL;
 
   if (parent->children == NULL) {
     parent->children = node;
@@ -123,7 +125,7 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
   return node;
 }
 
-fs_node_t *vfs_find_node(const char *path) {
+fs_node_t *vfs_find_node(const char *path, uint32_t flags) {
   char *truncated_path = string_truncate(path, "/");
 
   fs_node_t *current_node = global_current_directory->children;
@@ -137,7 +139,7 @@ fs_node_t *vfs_find_node(const char *path) {
       return NULL;
     }
 
-    if ((current_node->flags & FS_DIRECTORY) == 0) {
+    if ((current_node->flags & flags) == 0) {
       current_node = current_node->next;
       continue;
     }
@@ -168,24 +170,30 @@ void vfs_change_global_current_directory(fs_node_t *new_directory) {
 }
 
 fs_node_t *vfs_get_current_directory() { return global_current_directory; }
+fs_node_t *vfs_get_mount_node(fs_node_t *node) {
+  fs_node_t *mount_of_node = node;
 
-char *vfs_read_file(const char *name) {
-  fs_node_t *current_node = global_current_directory->children;
-
-  while (current_node != NULL) {
-    if ((current_node->flags & FS_FILE) == 0) {
-      current_node = current_node->next;
-      continue;
-    }
-
-    if (string_compare(name, current_node->name) == 0) {
-      char *buffer;
-      current_node->operations->read(current_node, 0, current_node->size,
-                                     buffer);
-
-      return buffer;
+  while (mount_of_node->operations == NULL) {
+    if (mount_of_node->parent != NULL) {
+      mount_of_node = mount_of_node->parent;
+      return mount_of_node;
+    } else {
+      print("Node: ");
+      print(mount_of_node->name);
+      print(" has no parent\n");
+      break;
     }
   }
 
   return NULL;
+}
+
+char *vfs_read_file(fs_node_t *node) {
+  fs_node_t *mount_node = vfs_get_mount_node(node);
+
+  if (mount_node == NULL) {
+    return NULL;
+  }
+
+  return mount_node->operations->read(node, 0, node->size);
 }

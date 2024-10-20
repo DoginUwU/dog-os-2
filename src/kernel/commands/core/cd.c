@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 void cd_command(char **args) {
-  fs_node_t *directory = vfs_find_node(args[0]);
+  fs_node_t *directory = vfs_find_node(args[0], FS_DIRECTORY);
 
   if (directory == NULL) {
     print("No such directory: ");

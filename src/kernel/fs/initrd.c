@@ -2,6 +2,7 @@
 #include <drivers/screen.h>
 #include <fs/initrd.h>
 #include <lib/cpio.h>
+#include <lib/memory/kmalloc.h>
 #include <lib/memory/memory.h>
 #include <lib/string.h>
 #include <stddef.h>
@@ -43,4 +44,9 @@ int mkdir_initrd(fs_node_t *node, const char *name) {
   return 0;
 }
 
-fs_operations_t initrd_operations = {.mkdir = mkdir_initrd};
+char *read_initrd(fs_node_t *node, uint32_t offset, uint32_t size) {
+  return (char *)node->data + offset;
+}
+
+fs_operations_t initrd_operations = {.mkdir = mkdir_initrd,
+                                     .read = read_initrd};
