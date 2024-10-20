@@ -1,3 +1,4 @@
+#include <common.h>
 #include <cpu/idt.h>
 #include <cpu/isr.h>
 #include <drivers/keyboard/keyboard.h>
@@ -16,6 +17,8 @@ static void keyboard_callback(registers_t *regs) {
   char key = process_scancode(scancode);
 
   call_shell_keyboard_key_press(key);
+
+  UNUSED(regs);
 }
 
 char process_scancode(uint8_t scancode) {

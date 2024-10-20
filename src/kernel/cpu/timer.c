@@ -1,3 +1,4 @@
+#include <common.h>
 #include <cpu/idt.h>
 #include <cpu/isr.h>
 #include <cpu/timer.h>
@@ -13,6 +14,7 @@ static void timer_callback(registers_t *regs) {
   /*print("tick: ");*/
   /*print_num(tick);*/
   /*print("\n");*/
+  UNUSED(regs);
 }
 
 void init_timer(uint32_t freq) {

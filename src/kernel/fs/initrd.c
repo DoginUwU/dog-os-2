@@ -1,3 +1,4 @@
+#include <common.h>
 #include <drivers/screen.h>
 #include <fs/initrd.h>
 #include <lib/cpio.h>
@@ -22,6 +23,9 @@ void process_initrd(uintptr_t initrd_start, fs_node_t *node) {
 
 int mkdir_initrd(fs_node_t *node, const char *name) {
   print("oi");
+
+  UNUSED(node);
+  UNUSED(name);
   return 0;
 }
 

@@ -5,4 +5,6 @@
 #define KERNEL_MALLOC 0x00400000
 #define MULTIBOOT_MAGIC 0x1BADB002
 
+#define UNUSED(x) (void)(x)
+
 #endif

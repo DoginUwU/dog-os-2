@@ -3,7 +3,7 @@
 #include <stddef.h>
 
 void reverse(char *str);
-int str_length(char *str);
+int str_length(const char *str);
 
 void int_to_ascii(int num, char *str) {
   int i, sign;
@@ -35,7 +35,7 @@ void reverse(char *str) {
   }
 }
 
-int str_length(char *str) {
+int str_length(const char *str) {
   int i = 0;
 
   while (str[i] != '\0') {
@@ -45,7 +45,7 @@ int str_length(char *str) {
   return i;
 }
 
-void append(char *str, char c) {
+void append(char *str, const char c) {
   int len = str_length(str);
 
   str[len] = c;
@@ -58,7 +58,7 @@ void backspace(char *str) {
   str[len - 1] = '\0';
 }
 
-int string_compare(char *a, char *b) {
+int string_compare(const char *a, const char *b) {
   while (*a && *b) {
     if (*a != *b) {
       return 1;
@@ -71,7 +71,7 @@ int string_compare(char *a, char *b) {
   return *a || *b;
 }
 
-int string_compare_num(char *a, char *b, int n) {
+int string_compare_num(const char *a, const char *b, int n) {
   for (int i = 0; i < n; i++) {
     if (a[i] != b[i]) {
       return 1;
@@ -141,7 +141,7 @@ uint32_t hex_to_int(const char *hex) {
   return result;
 }
 
-char *string_substring(char *str, int start, int end) {
+char *string_substring(const char *str, int start, int end) {
   char *substring = (char *)kmalloc(end - start + 1);
 
   for (int i = start; i < end; i++) {
@@ -153,7 +153,7 @@ char *string_substring(char *str, int start, int end) {
   return substring;
 }
 
-char *string_copy(char *str) {
+char *string_copy(const char *str) {
   char *copy = (char *)kmalloc(str_length(str) + 1);
 
   for (int i = 0; i < str_length(str); i++) {

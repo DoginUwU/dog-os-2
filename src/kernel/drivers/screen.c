@@ -6,7 +6,7 @@
 
 int current_base_attr = WHITE_ON_BLACK;
 
-int print_char(char c, int col, int row, char attr);
+int print_char(const char c, int col, int row, char attr);
 
 int get_cursor_offset();
 void set_cursor_offset(int offset);
@@ -17,7 +17,7 @@ int get_offset_col(int offset);
 
 void set_current_base_attr(char new_attr) { current_base_attr = new_attr; }
 
-void print_at(char *message, int col, int row) {
+void print_at(const char *message, int col, int row) {
   int offset = 0;
 
   if (col >= 0 || row >= 0) {
@@ -39,14 +39,14 @@ void print_at(char *message, int col, int row) {
   }
 }
 
-void print(char *message) { print_at(message, -1, -1); }
+void print(const char *message) { print_at(message, -1, -1); }
 void print_num(int num) {
   char *str[3];
   int_to_ascii(num, (char *)str);
   print((char *)str);
 }
 
-int print_char(char c, int col, int row, char attr) {
+int print_char(const char c, int col, int row, char attr) {
   uint8_t *video_memory = (uint8_t *)VIDEO_ADDRESS;
 
   if (!attr) {

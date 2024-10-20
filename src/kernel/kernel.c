@@ -14,6 +14,7 @@
 #include <shell/shell.h>
 
 void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
+  UNUSED(magic_address);
   /*if (magic_address != MULTIBOOT_MAGIC) {*/
   /*  panic("Multiboot Magic Address is wrong!");*/
   /*}*/
@@ -32,7 +33,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
     print("No multiboot modules found!");
   }
 
-  uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;
+  /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/
   /*uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);*/
 
   init_shell();
@@ -45,7 +46,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*print_num(boot_info->mem_upper);*/
   /*print("\n");*/
 
-  fs_node_t *root = vfs_create_directory("/");
+  vfs_create_directory("/");
 
   fs_node_t *root_initrd = vfs_create_directory("/initrd");
   vfs_mount("initrd", root_initrd);
