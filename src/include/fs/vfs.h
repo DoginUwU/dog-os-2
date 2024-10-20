@@ -44,4 +44,6 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
 fs_node_t *vfs_find_node(const char *path);
 void vfs_change_global_current_directory(fs_node_t *new_directory);
 
+char *vfs_read_file(const char *name);
+
 #endif

@@ -3,7 +3,6 @@
 #include <stddef.h>
 
 void reverse(char *str);
-int str_length(const char *str);
 
 void int_to_ascii(int num, char *str) {
   int i, sign;
@@ -28,14 +27,14 @@ void int_to_ascii(int num, char *str) {
 void reverse(char *str) {
   int c, i, j;
 
-  for (i = 0, j = str_length(str) - 1; i < j; i++, j--) {
+  for (i = 0, j = string_length(str) - 1; i < j; i++, j--) {
     c = str[i];
     str[i] = str[j];
     str[j] = c;
   }
 }
 
-int str_length(const char *str) {
+int string_length(const char *str) {
   int i = 0;
 
   while (str[i] != '\0') {
@@ -46,14 +45,14 @@ int str_length(const char *str) {
 }
 
 void append(char *str, const char c) {
-  int len = str_length(str);
+  int len = string_length(str);
 
   str[len] = c;
   str[len + 1] = '\0';
 }
 
 void backspace(char *str) {
-  int len = str_length(str);
+  int len = string_length(str);
 
   str[len - 1] = '\0';
 }
@@ -129,13 +128,21 @@ char *string_first_ocorrence(char *str, char c) {
   return NULL;
 }
 
-uint32_t hex_to_int(const char *hex) {
+uint32_t hex_to_int(const char *hex, uint32_t max_size) {
   uint32_t result = 0;
 
-  while (*hex) {
-    result =
-        (result << 4) | (*hex > '9' ? (*hex & ~0x20) - 'A' + 10 : (*hex - '0'));
-    hex++;
+  for (uint32_t i = 0; i < max_size; i++) {
+    result *= 16;
+
+    if (hex[i] >= '0' && hex[i] <= '9') {
+      result += hex[i] - '0';
+    } else if (hex[i] >= 'a' && hex[i] <= 'f') {
+      result += hex[i] - 'a' + 10;
+    } else if (hex[i] >= 'A' && hex[i] <= 'F') {
+      result += hex[i] - 'A' + 10;
+    } else {
+      return result;
+    }
   }
 
   return result;
@@ -154,13 +161,13 @@ char *string_substring(const char *str, int start, int end) {
 }
 
 char *string_copy(const char *str) {
-  char *copy = (char *)kmalloc(str_length(str) + 1);
+  char *copy = (char *)kmalloc(string_length(str) + 1);
 
-  for (int i = 0; i < str_length(str); i++) {
+  for (int i = 0; i < string_length(str); i++) {
     copy[i] = str[i];
   }
 
-  copy[str_length(str)] = '\0';
+  copy[string_length(str)] = '\0';
 
   return copy;
 }

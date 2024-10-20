@@ -2,6 +2,7 @@
 #define CPIO_H
 
 #define CPIO_MAGIC "070701"
+#define CPIO_TRAILER "TRAILER!!!"
 
 typedef struct {
   char c_magic[6];
@@ -19,7 +20,5 @@ typedef struct {
   char c_namesize[8];
   char c_check[8];
 } cpio_header_t;
-
-cpio_header_t *cpio_next(cpio_header_t *cpio_header);
 
 #endif

@@ -168,3 +168,24 @@ void vfs_change_global_current_directory(fs_node_t *new_directory) {
 }
 
 fs_node_t *vfs_get_current_directory() { return global_current_directory; }
+
+char *vfs_read_file(const char *name) {
+  fs_node_t *current_node = global_current_directory->children;
+
+  while (current_node != NULL) {
+    if ((current_node->flags & FS_FILE) == 0) {
+      current_node = current_node->next;
+      continue;
+    }
+
+    if (string_compare(name, current_node->name) == 0) {
+      char *buffer;
+      current_node->operations->read(current_node, 0, current_node->size,
+                                     buffer);
+
+      return buffer;
+    }
+  }
+
+  return NULL;
+}

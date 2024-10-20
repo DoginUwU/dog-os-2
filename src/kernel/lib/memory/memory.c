@@ -60,3 +60,7 @@ void *memory_set(void *dest, int val, size_t count) {
 
   return dest;
 }
+
+void *align_up(void *ptr, uint32_t align) {
+  return (void *)(((uint32_t)ptr + align - 1) & ~(align - 1));
+}

@@ -10,9 +10,10 @@ char *string_first_ocorrence(char *str, char c);
 char *string_substring(const char *str, int start, int end);
 char *string_copy(const char *str);
 void int_to_ascii(int num, char *str);
-uint32_t hex_to_int(const char *hex);
+uint32_t hex_to_int(const char *hex, uint32_t max_size);
 char *int_to_hex(uint32_t n);
 void append(char *str, char c);
 void backspace(char *str);
+int string_length(const char *str);
 
 #endif

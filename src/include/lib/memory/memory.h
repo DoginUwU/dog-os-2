@@ -33,5 +33,6 @@ void map_page(uint32_t *page_directory, uint32_t virtual_address,
 
 void memory_copy(uint8_t *src, uint8_t *dest, size_t count);
 void *memory_set(void *dest, int val, size_t count);
+void *align_up(void *ptr, uint32_t align);
 
 #endif

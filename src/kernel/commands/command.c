@@ -14,12 +14,14 @@ extern command_t echo_cmd;
 extern command_t clear_cmd;
 extern command_t ls_cmd;
 extern command_t cd_cmd;
+extern command_t cat_cmd;
 
 void init_commands() {
   register_command(&echo_cmd);
   register_command(&clear_cmd);
   register_command(&ls_cmd);
   register_command(&cd_cmd);
+  register_command(&cat_cmd);
 }
 
 void register_command(command_t *command) {
