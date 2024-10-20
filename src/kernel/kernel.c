@@ -48,6 +48,8 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*print("\n");*/
 
   fs_node_t *root = vfs_create_directory("/", NULL);
+  vfs_set_root(root);
+  vfs_mount("initrd", root);
 
   fs_node_t *root_initrd = vfs_create_directory("initrd", root);
   vfs_mount("initrd", root_initrd);

@@ -13,11 +13,13 @@ int command_count = 0;
 extern command_t echo_cmd;
 extern command_t clear_cmd;
 extern command_t ls_cmd;
+extern command_t cd_cmd;
 
 void init_commands() {
   register_command(&echo_cmd);
   register_command(&clear_cmd);
   register_command(&ls_cmd);
+  register_command(&cd_cmd);
 }
 
 void register_command(command_t *command) {

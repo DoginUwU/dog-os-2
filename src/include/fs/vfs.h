@@ -35,11 +35,13 @@ typedef struct {
   fs_operations_t *operations;
 } fs_t;
 
-static fs_node_t *global_current_directory;
-
+void vfs_set_root(fs_node_t *mount_point);
 void vfs_mount(const char *fs_name, fs_node_t *mount_point);
+fs_node_t *vfs_get_current_directory();
 fs_node_t *vfs_create_directory(const char *name, fs_node_t *parent);
 fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
                            fs_node_t *parent);
+fs_node_t *vfs_find_node(const char *path);
+void vfs_change_global_current_directory(fs_node_t *new_directory);
 
 #endif

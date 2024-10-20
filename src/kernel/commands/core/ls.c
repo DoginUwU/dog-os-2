@@ -4,19 +4,14 @@
 #include <fs/vfs.h>
 #include <stddef.h>
 
-extern fs_node_t *global_current_directory;
-
 void ls_command(char **args) {
-  fs_node_t *node = global_current_directory->children;
+  fs_node_t *node = vfs_get_current_directory()->children;
 
   while (node != NULL) {
     print(node->name);
 
     node = node->next;
-
-    if (node != NULL) {
-      print("\n");
-    }
+    print("\n");
   }
 
   UNUSED(args);

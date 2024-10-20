@@ -7,6 +7,8 @@ void echo_command(char **args) {
     print(args[i]);
     print(" ");
   }
+
+  print("\n");
 }
 
 command_t echo_cmd = {"echo", "Display the output of args", echo_command};

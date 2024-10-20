@@ -28,7 +28,6 @@ void read_command() {
       print("\n");
       int executed = execute_command(keyboard_buffer);
       if (executed == 1) {
-        print("\n");
       } else if (keyboard_buffer[0] != '\0') {
         print("command not found: ");
         print(keyboard_buffer);
