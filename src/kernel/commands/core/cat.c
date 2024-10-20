@@ -1,4 +1,3 @@
-
 #include <commands/command.h>
 #include <common.h>
 #include <drivers/screen.h>
@@ -7,8 +6,7 @@
 
 int cat_command(char **args) {
   if (args[0] == NULL) {
-    print("Missing file param");
-    print("\n");
+    print("Missing file param\n");
 
     return COMMAND_CODE_INVALID_PARAMS;
   }
@@ -16,8 +14,7 @@ int cat_command(char **args) {
   fs_node_t *node = vfs_find_node(args[0], FS_FILE);
 
   if (node == NULL) {
-    print("No such file");
-    print("\n");
+    print("No such file\n");
 
     return COMMAND_CODE_INVALID_PARAMS;
   }
@@ -25,8 +22,7 @@ int cat_command(char **args) {
   char *buffer = vfs_read_file(node);
 
   if (buffer == NULL) {
-    print("Nothing to show :(");
-    print("\n");
+    print("Nothing to show :(\n");
 
     return COMMAND_CODE_SUCCESS;
   }

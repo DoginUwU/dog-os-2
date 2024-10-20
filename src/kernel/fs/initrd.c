@@ -40,6 +40,7 @@ void process_initrd(uintptr_t initrd_start, fs_node_t *node) {
 
 char *read_initrd(fs_node_t *node, uint32_t offset, uint32_t size) {
   UNUSED(size);
+
   return (char *)node->data + offset;
 }
 

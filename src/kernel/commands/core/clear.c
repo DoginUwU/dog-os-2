@@ -4,6 +4,7 @@
 
 int clear_command() {
   clear_screen();
+
   return COMMAND_CODE_SUCCESS;
 }
 
