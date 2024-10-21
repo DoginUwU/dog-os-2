@@ -22,24 +22,7 @@ void *kmalloc_internal(size_t size, int align, uint32_t *physical_address) {
   return (void *)temp;
 }
 
-void *kmalloc(size_t size) {
-  static uint32_t placement_address_test = KERNEL_MALLOC;
-
-  uint32_t num_pages = (size / PAGE_SIZE) + 1;
-
-  for (uint32_t i = 0; i < num_pages; i++) {
-    uint32_t physical_page = allocate_physical_page();
-    if (physical_page == 0) {
-      return 0;
-    }
-
-    map_page(initial_page_dir, placement_address, physical_page,
-             PAGE_FLAG_PRESENT | PAGE_FLAG_RW);
-    placement_address += PAGE_SIZE;
-  }
-
-  return (void *)(placement_address - (num_pages * PAGE_SIZE));
-}
+void *kmalloc(size_t size) { return kmalloc_internal(size, 0, 0); }
 void *kmalloc_align(size_t size) { return kmalloc_internal(size, 1, 0); }
 void *kmalloc_align_pysical(size_t size, uint32_t *physical_address) {
   return kmalloc_internal(size, 1, physical_address);

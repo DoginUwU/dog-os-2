@@ -30,11 +30,11 @@ section .boot
 global _start
 
 _start:
-	mov ecx, (initial_page_dir - 0xC0000000)
-	mov cr3, ecx ; page directory loc
+	mov ecx, (initial_page_directory - 0xC0000000)
+	mov cr3, ecx 
 
 	mov ecx, cr4
-	or ecx, 0x10
+	or ecx, 0x10 ; enable physical address extension
 	mov cr4, ecx
 
 	mov ecx, cr0
@@ -58,14 +58,13 @@ halt:
 
 section .data
 align 4096
-global initial_page_dir
+global initial_page_directory
 
-initial_page_dir:
-	dd 10000011b
+initial_page_directory:
+	dd 10000011b 		; P | R/W | PS (4mb)
 	times 768-1 dd 0
-
-	dd (0 << 22) | 10000011b
-	dd (1 << 22) | 10000011b
-	dd (2 << 22) | 10000011b
-	dd (3 << 22) | 10000011b
+	dd (0 << 22) | 10000011b ; 0 to 4mb
+	dd (1 << 22) | 10000011b ; 4 to 8mb
+	dd (2 << 22) | 10000011b ; 8 to 12mb
+	dd (3 << 22) | 10000011b ; 12 to 16mb
 	times 256-4 dd 0
