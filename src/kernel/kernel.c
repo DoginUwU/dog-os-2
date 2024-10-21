@@ -31,7 +31,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   }
 
   if (boot_info->mods_count == 0) {
-    print("No multiboot modules found!");
+    panic("No multiboot modules found!");
   }
 
   init_shell();

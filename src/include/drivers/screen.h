@@ -7,6 +7,7 @@
 #define MAX_COLS 80
 
 #define WHITE_ON_BLACK 0x07
+#define GRAY_ON_BLACK 0x08
 #define RED_ON_WHITE 0xF4
 
 #define REG_SCREEN_CTRL 0x3D4
@@ -17,10 +18,12 @@
 #include <stdarg.h>
 
 void print(const char *message, ...);
+void print_va_list(const char *message, va_list args);
 void print_num(int num);
 void print_at(const char *message, int col, int row, va_list args);
 void print_backspace();
 void clear_screen();
-void set_current_base_attr(const char new_attr);
+void set_current_base_attr(int new_attr);
+int get_current_base_attr();
 
 #endif

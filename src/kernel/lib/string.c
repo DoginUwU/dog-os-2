@@ -177,3 +177,21 @@ char *int_to_hex(uint32_t n) {
   int_to_ascii(n, str);
   return str;
 }
+
+char *string_concat(const char *a, const char *b) {
+  char *concat = (char *)kmalloc(string_length(a) + string_length(b) + 1);
+
+  int i = 0;
+
+  for (int j = 0; j < string_length(a); j++) {
+    concat[i++] = a[j];
+  }
+
+  for (int j = 0; j < string_length(b); j++) {
+    concat[i++] = b[j];
+  }
+
+  concat[i] = '\0';
+
+  return concat;
+}

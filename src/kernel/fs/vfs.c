@@ -1,5 +1,6 @@
 #include <drivers/screen.h>
 #include <fs/vfs.h>
+#include <lib/logging.h>
 #include <lib/memory/kmalloc.h>
 #include <lib/string.h>
 #include <stddef.h>
@@ -16,9 +17,7 @@ fs_t filesystems[] = {
 int num_filesystems = sizeof(filesystems) / sizeof(fs_t);
 
 void vfs_set_root(fs_node_t *mount_point) {
-  print("New root mount: ");
-  print(mount_point->name);
-  print("\n");
+  log_info("Root mounted in [%s]", mount_point->name);
 
   root_mount = mount_point;
   global_current_directory = mount_point;
@@ -29,19 +28,15 @@ void vfs_mount(const char *fs_name, fs_node_t *mount_point) {
     if (string_compare(fs_name, filesystems[i].name) == 0) {
       mount_point->operations = filesystems[i].operations;
       mount_point->flags = FS_DIRECTORY;
-      print("Filesystem loaded: ");
-      print(filesystems[i].name);
-      print(" into ");
-      print(mount_point->name);
-      print("\n");
+
+      log_info("Filesystem [%s] loaded into [%s]", filesystems[i].name,
+               mount_point->name);
 
       return;
     }
   }
 
-  print("Filesystem not found: ");
-  print(fs_name);
-  print("\n");
+  log_info("Filesystem [%s] not found", fs_name);
 }
 
 fs_node_t *vfs_create_directory(const char *name, fs_node_t *parent) {
@@ -76,9 +71,7 @@ fs_node_t *vfs_create_directory(const char *name, fs_node_t *parent) {
     current->next = node;
   }
 
-  print("Directory created: ");
-  print(node->name);
-  print("\n");
+  log_info("Directory [%s] created in [%s]", node->name, parent->name);
 
   return node;
 }
@@ -116,11 +109,7 @@ fs_node_t *vfs_create_file(const char *name, uintptr_t data, uint32_t size,
     current->next = node;
   }
 
-  print("File created: ");
-  print(parent->name);
-  print("/");
-  print(node->name);
-  print("\n");
+  log_info("File [%s] created in [%s]", node->name, parent->name);
 
   return node;
 }

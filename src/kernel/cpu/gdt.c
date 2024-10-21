@@ -1,4 +1,5 @@
 #include <cpu/gdt.h>
+#include <lib/logging.h>
 
 extern void gdt_flush(uint32_t);
 

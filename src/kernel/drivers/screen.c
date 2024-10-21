@@ -16,7 +16,8 @@ int get_offset(int col, int row);
 int get_offset_row(int offset);
 int get_offset_col(int offset);
 
-void set_current_base_attr(char new_attr) { current_base_attr = new_attr; }
+void set_current_base_attr(int new_attr) { current_base_attr = new_attr; }
+int get_current_base_attr() { return current_base_attr; }
 
 void print_at(const char *message, int col, int row, va_list args) {
   int offset = 0;
@@ -38,7 +39,7 @@ void print_at(const char *message, int col, int row, va_list args) {
       switch (message[i++]) {
       case 's':
         char *str = va_arg(args, char *);
-        print(str);
+        print(str, args);
         break;
       case 'd':
         int num = va_arg(args, int);
@@ -64,6 +65,11 @@ void print(const char *message, ...) {
   print_at(message, -1, -1, args_copy);
   va_end(args);
 }
+
+void print_va_list(const char *message, va_list args) {
+  print_at(message, -1, -1, args);
+}
+
 void print_num(int num) {
   char *str[3];
   int_to_ascii(num, (char *)str);
