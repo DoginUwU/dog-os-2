@@ -2,6 +2,7 @@ ENTRY(_start)
 
 SECTIONS {
 	. = 0x00100000;
+	kernel_phyiscal_start = .;
 
 	.multiboot ALIGN(4K): {
 		*(.multiboot)
@@ -16,6 +17,7 @@ SECTIONS {
 	}
 
 	. += 0xC0000000;
+	kernel_virtual_start = .;
 
 	.text ALIGN(4K): AT(ADDR(.text) - 0xC0000000) {
 		*(.text)
@@ -34,5 +36,6 @@ SECTIONS {
 		*(.bss)
 	}
 
-	_kernel_end = .;
+	kernel_virtual_end = .;
+	kernel_physical_end = . - 0xC0000000;
 }

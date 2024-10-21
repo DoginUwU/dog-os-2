@@ -46,6 +46,7 @@ _start:
 section .text
 extern kernel_main
 higher_half:
+	invlpg [0]
 	mov esp, stack_top
 	push ebx
 	push eax

@@ -4,8 +4,8 @@
 #include <lib/memory/memory.h>
 #include <stdint.h>
 
-extern uint32_t _kernel_end;
-uint32_t placement_address = (uint32_t)&_kernel_end;
+extern uint32_t kernel_virtual_end;
+uint32_t placement_address = (uint32_t)&kernel_virtual_end;
 
 void *kmalloc_internal(size_t size, int align, uint32_t *physical_address) {
   if (align == 1 && (placement_address & 0xFFFFF000)) {
