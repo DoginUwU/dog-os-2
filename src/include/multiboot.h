@@ -57,4 +57,22 @@ typedef struct multiboot_info {
   uint8_t framebuffer_bpp;
 } multiboot_info_t;
 
+typedef struct multiboot_mmap_entry {
+  uint32_t size;
+  uint32_t addr_low;
+  uint32_t addr_high;
+  uint32_t len_low;
+  uint32_t len_high;
+#define MULTIBOOT_MEMORY_AVAILABLE 1
+#define MULTIBOOT_MEMORY_RESERVED 2
+#define MULTIBOOT_MEMORY_ACPI_RECLAIMABLE 3
+#define MULTIBOOT_MEMORY_NVS 4
+#define MULTIBOOT_MEMORY_BADRAM 5
+  uint32_t type;
+} __attribute__((packed)) multiboot_memory_map_t;
+
+void check_multiboot(multiboot_info_t *boot_info);
+multiboot_info_t *get_multiboot_info();
+multiboot_memory_map_t *get_multiboot_memory_map(uint32_t index);
+
 #endif

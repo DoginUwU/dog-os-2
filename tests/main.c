@@ -1,6 +1,5 @@
 #include "../unity/unity.h"
 #include "lib/memory/test_virtual_memory_manager.h"
-#include <stdint.h>
 
 void setUp(void) {}
 

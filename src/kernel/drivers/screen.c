@@ -3,7 +3,6 @@
 #include <lib/memory/memory.h>
 #include <lib/string.h>
 #include <ports.h>
-#include <stdint.h>
 
 int current_base_attr = WHITE_ON_BLACK;
 
@@ -40,10 +39,17 @@ void print_at(const char *message, int col, int row, va_list args) {
       case 's':
         char *str = va_arg(args, char *);
         print(str, args);
+        str = NULL;
         break;
       case 'd':
         int num = va_arg(args, int);
         print_num(num);
+        num = 0;
+        break;
+      case 'x':
+        uint32_t num_hex = va_arg(args, uint32_t);
+        print_hex_32(num_hex);
+        num_hex = 0;
         break;
       }
 
@@ -74,6 +80,11 @@ void print_num(int num) {
   char *str[3];
   int_to_ascii(num, (char *)str);
   print((char *)str);
+}
+
+void print_hex_32(uint32_t num) {
+  char *string = int_to_hex(num);
+  print((char *)string);
 }
 
 int print_char(const char c, int col, int row, char attr) {

@@ -15,6 +15,7 @@ extern command_t clear_cmd;
 extern command_t ls_cmd;
 extern command_t cd_cmd;
 extern command_t cat_cmd;
+extern command_t memorymap_cmd;
 
 void init_commands() {
   register_command(&echo_cmd);
@@ -22,6 +23,7 @@ void init_commands() {
   register_command(&ls_cmd);
   register_command(&cd_cmd);
   register_command(&cat_cmd);
+  register_command(&memorymap_cmd);
 }
 
 void register_command(command_t *command) {

@@ -19,19 +19,13 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*  panic("Multiboot Magic Address is wrong!");*/
   /*}*/
 
+  check_multiboot(boot_info);
+
   init_gdt();
   init_idt();
 
   init_timer(50);
   init_keyboard();
-
-  if (!boot_info) {
-    panic("Multiboot info header is missing!");
-  }
-
-  if (boot_info->mods_count == 0) {
-    panic("No multiboot modules found!");
-  }
 
   init_shell();
 

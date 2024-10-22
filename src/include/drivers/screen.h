@@ -16,10 +16,12 @@
 #define EMPTY_CHAR 0x08
 
 #include <stdarg.h>
+#include <stdint.h>
 
 void print(const char *message, ...);
 void print_va_list(const char *message, va_list args);
 void print_num(int num);
+void print_hex_32(uint32_t num);
 void print_at(const char *message, int col, int row, va_list args);
 void print_backspace();
 void clear_screen();

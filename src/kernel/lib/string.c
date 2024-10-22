@@ -172,9 +172,33 @@ char *string_copy(const char *str) {
   return copy;
 }
 
-char *int_to_hex(uint32_t n) {
-  char *str = (char *)kmalloc(11);
-  int_to_ascii(n, str);
+char *int_to_hex(uint32_t num) {
+  const char *hex = "0123456789ABCDEF";
+  char *str = (char *)kmalloc(9);
+  str[0] = '0';
+  str[1] = 'x';
+  str[8] = '\0';
+
+  for (int i = 7; i > 1; i--) {
+    str[i] = hex[num & 0xF];
+    num >>= 4;
+  }
+
+  return str;
+}
+
+char *int_to_hex_64(uint64_t n) {
+  const char *hex = "0123456789ABCDEF";
+  char *str = (char *)kmalloc(17);
+  str[0] = '0';
+  str[1] = 'x';
+  str[16] = '\0';
+
+  for (int i = 15; i > 1; i--) {
+    str[i] = hex[n & 0xF];
+    n >>= 4;
+  }
+
   return str;
 }
 
