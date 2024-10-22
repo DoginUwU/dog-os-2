@@ -174,12 +174,12 @@ char *string_copy(const char *str) {
 
 char *int_to_hex(uint32_t num) {
   const char *hex = "0123456789ABCDEF";
-  char *str = (char *)kmalloc(9);
+  char *str = (char *)kmalloc(11);
   str[0] = '0';
   str[1] = 'x';
-  str[8] = '\0';
+  str[10] = '\0';
 
-  for (int i = 7; i > 1; i--) {
+  for (int i = 9; i > 1; i--) {
     str[i] = hex[num & 0xF];
     num >>= 4;
   }

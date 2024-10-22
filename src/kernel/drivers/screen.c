@@ -42,7 +42,7 @@ void print_at(const char *message, int col, int row, va_list args) {
         str = NULL;
         break;
       case 'd':
-        int num = va_arg(args, int);
+        uint32_t num = va_arg(args, uint32_t);
         print_num(num);
         num = 0;
         break;

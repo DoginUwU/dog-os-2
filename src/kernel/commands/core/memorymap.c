@@ -13,7 +13,7 @@ int memorymap_command(char **args) {
   multiboot_memory_map_t *memory_map =
       (multiboot_memory_map_t *)boot_info->mmap_addr;
 
-  for (uint32_t i = 0; i < boot_info->mmap_length;
+  for (size_t i = 0; i < boot_info->mmap_length;
        i += sizeof(multiboot_memory_map_t)) {
 
     print("Size: %x | ", memory_map->addr_low);
@@ -42,6 +42,10 @@ int memorymap_command(char **args) {
 
     memory_map++;
   }
+
+  memory_map--;
+
+  print("\nTotal memory: %x\n", memory_map->addr_low + memory_map->len_low - 1);
 
   return COMMAND_CODE_SUCCESS;
 }
