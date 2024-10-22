@@ -148,12 +148,16 @@ int32_t find_free_blocks(uint32_t num_blocks) {
         uint32_t bit = 1 << j;
 
         if (!(memory_map[i] & bit)) {
-          uint32_t start_bit = i * 32 + bit; // Get bit at i with memory map
-          uint32_t free_blocks = 0;
-
-          for (uint32_t count = 0; count <= num_blocks; count++) {
-            if (!test_memory_block(start_bit + count)) {
-              free_blocks++;
+          for (uint32_t count = 0, free_blocks = 0; count <= num_blocks;
+               count++) {
+            if ((j + count > 31) && (i + 1 <= max_blocks / 32)) {
+              if (!(memory_map[i + 1] & (1 << ((j + count) - 32)))) {
+                free_blocks++;
+              }
+            } else {
+              if (!(memory_map[i] & (1 << (j + count)))) {
+                free_blocks++;
+              }
             }
 
             if (free_blocks == num_blocks) {
