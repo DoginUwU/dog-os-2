@@ -1,6 +1,9 @@
 #include <lib/memory/virtual_memory_manager.h>
 #include <stddef.h>
 
+page_directory_t *current_page_directory = 0;
+physical_address current_page_directory_address = 0;
+
 page_table_entry *get_page_table_entry(page_table_t *page_table,
                                        const virtual_address address) {
   if (page_table) {

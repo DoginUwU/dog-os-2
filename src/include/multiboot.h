@@ -71,7 +71,7 @@ typedef struct multiboot_mmap_entry {
   uint32_t type;
 } __attribute__((packed)) multiboot_memory_map_t;
 
-void check_multiboot(multiboot_info_t *boot_info);
+void check_multiboot(uint32_t magic_address, multiboot_info_t *boot_info);
 multiboot_info_t *get_multiboot_info();
 multiboot_memory_map_t *get_multiboot_memory_map(uint32_t index);
 

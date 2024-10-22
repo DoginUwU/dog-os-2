@@ -3,6 +3,7 @@
 #include <drivers/screen.h>
 #include <fs/vfs.h>
 #include <lib/math.h>
+#include <lib/memory/phyisical_memory_manager.h>
 #include <multiboot.h>
 #include <stddef.h>
 
@@ -45,7 +46,12 @@ int memorymap_command(char **args) {
 
   memory_map--;
 
-  print("\nTotal memory: %x\n", memory_map->addr_low + memory_map->len_low - 1);
+  print("\nTotal memory (bytes): %x\n",
+        memory_map->addr_low + memory_map->len_low - 1);
+  print("Total physical memory blocks (4KB): %x\n", max_blocks);
+  print("Total used physical memory blocks (4KB): %x\n", used_blocks);
+  print("Total free physical memory blocks (4KB): %x\n",
+        max_blocks - used_blocks);
 
   return COMMAND_CODE_SUCCESS;
 }

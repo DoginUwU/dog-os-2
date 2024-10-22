@@ -1,10 +1,16 @@
+#include <common.h>
 #include <multiboot.h>
 #include <panic.h>
 #include <stddef.h>
 
 multiboot_info_t *stored_boot_info = NULL;
 
-void check_multiboot(multiboot_info_t *boot_info) {
+void check_multiboot(uint32_t magic_address, multiboot_info_t *boot_info) {
+  UNUSED(magic_address);
+  /*if (magic_address != MULTIBOOT_MAGIC) {*/
+  /*  panic("Multiboot Magic Address is wrong!");*/
+  /*}*/
+
   if (boot_info == NULL) {
     panic("Multiboot info header is missing!");
   }

@@ -7,19 +7,17 @@
 #include <drivers/screen.h>
 #include <fs/initrd.h>
 #include <fs/vfs.h>
+#include <lib/logging.h>
 #include <lib/memory/kmalloc.h>
 #include <lib/memory/memory.h>
+#include <lib/memory/phyisical_memory_manager.h>
 #include <multiboot.h>
 #include <panic.h>
 #include <shell/shell.h>
+#include <stdint.h>
 
 void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
-  UNUSED(magic_address);
-  /*if (magic_address != MULTIBOOT_MAGIC) {*/
-  /*  panic("Multiboot Magic Address is wrong!");*/
-  /*}*/
-
-  check_multiboot(boot_info);
+  check_multiboot(magic_address, boot_info);
 
   init_gdt();
   init_idt();
@@ -28,6 +26,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_keyboard();
 
   init_shell();
+  init_memory_manager();
 
   char *str = kmalloc(1024);
   memory_set(str, 0, 1024);

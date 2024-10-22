@@ -59,8 +59,8 @@ typedef struct {
   page_directory_entry entries[PAGES_PER_DIRECTORY];
 } page_directory_t;
 
-static page_directory_t *current_page_directory = 0;
-static physical_address current_page_directory_address = 0;
+extern page_directory_t *current_page_directory;
+extern physical_address current_page_directory_address;
 
 page_table_entry *get_page_table_entry(page_table_t *page_table,
                                        const virtual_address address);
