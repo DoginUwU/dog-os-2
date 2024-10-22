@@ -2,4 +2,5 @@ ata0-slave: type=cdrom, path=dist/dog-os.iso, status=inserted
 boot:cdrom
 display_library: x, options = "gui_debug"
 panic: action=ask
+clock: sync=realtime, time0=local, rtc_sync=1
 
