@@ -9,6 +9,7 @@
 extern uint32_t *memory_map;
 extern uint32_t max_blocks;
 extern uint32_t used_blocks;
+extern uint8_t phyisical_memory_ready;
 
 void init_memory_manager();
 
@@ -16,7 +17,7 @@ void init_memory_blocks(uint32_t start_address, uint32_t size);
 void init_memory_region(uint32_t base_address, uint32_t size);
 void lock_memory_region(uint32_t base_address, uint32_t size);
 
-uint32_t *allocate_blocks(uint32_t num_blocks);
+void *allocate_blocks(uint32_t num_blocks);
 void free_blocks(uint32_t *address, uint32_t num_blocks);
 
 void set_memory_block(uint32_t block);

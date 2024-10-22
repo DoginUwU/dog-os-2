@@ -1,4 +1,5 @@
 #include <lib/memory/kmalloc.h>
+#include <lib/memory/phyisical_memory_manager.h>
 #include <lib/string.h>
 #include <stddef.h>
 
@@ -204,6 +205,10 @@ char *int_to_hex_64(uint64_t n) {
 
 char *string_concat(const char *a, const char *b) {
   char *concat = (char *)kmalloc(string_length(a) + string_length(b) + 1);
+
+  if (concat == NULL) {
+    return NULL;
+  }
 
   int i = 0;
 

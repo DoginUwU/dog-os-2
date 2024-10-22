@@ -1,4 +1,5 @@
 #include <common.h>
+#include <drivers/screen.h>
 #include <lib/logging.h>
 #include <lib/memory/memory.h>
 #include <lib/memory/phyisical_memory_manager.h>
@@ -8,13 +9,16 @@
 uint32_t *memory_map = 0;
 uint32_t max_blocks = 0;
 uint32_t used_blocks = 0;
+uint8_t phyisical_memory_ready = 0;
 
 void init_memory_manager() {
   multiboot_info_t *boot_info = get_multiboot_info();
 
   multiboot_memory_map_t *memory_map =
       (multiboot_memory_map_t *)boot_info->mmap_addr;
-  uint32_t total_memory = memory_map->addr_low + memory_map->len_low - 1;
+  multiboot_memory_map_t *last_memory_map = memory_map + boot_info->mmap_length;
+  uint32_t total_memory =
+      last_memory_map->addr_low + last_memory_map->len_low - 1;
 
   init_memory_blocks(KERNEL_MALLOC, total_memory);
 
@@ -30,6 +34,9 @@ void init_memory_manager() {
 
   // Set memory regions for the kernel as used/reserved
   lock_memory_region(0x1000, 0x9000); // Reserve memory below A000h
+  lock_memory_region(KERNEL_MALLOC, max_blocks / BLOCKS_PER_BYTE);
+
+  phyisical_memory_ready = 1;
 }
 
 void init_memory_blocks(uint32_t start_address, uint32_t size) {
@@ -67,14 +74,21 @@ void lock_memory_region(uint32_t base_address, uint32_t size) {
   log_info("Memory used blocks: %x", used_blocks);
 }
 
-uint32_t *allocate_blocks(uint32_t num_blocks) {
+void *allocate_blocks(uint32_t num_blocks) {
+  if (num_blocks == 0) {
+    num_blocks = 1;
+  }
+
   if ((max_blocks - used_blocks) < num_blocks) {
+    log_info(
+        "Num of blocks requested on allocation is higher than free blocks\n");
     return NULL;
   }
 
   int32_t start_block = find_free_blocks(num_blocks);
 
   if (start_block == -1) {
+    log_info("No memory blocks found to be allocated\n");
     return NULL;
   }
 
@@ -86,7 +100,9 @@ uint32_t *allocate_blocks(uint32_t num_blocks) {
 
   uint32_t address = start_block * BLOCK_SIZE;
 
-  return (uint32_t *)address;
+  log_info("Allocating memory into %x", address);
+
+  return (void *)address;
 }
 
 void free_blocks(uint32_t *address, uint32_t num_blocks) {

@@ -28,13 +28,20 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_shell();
   init_memory_manager();
 
-  char *str = kmalloc(1024);
+  char *str = allocate_blocks(1024 / BLOCK_SIZE);
   memory_set(str, 0, 1024);
   str[0] = 'A';
   str[1] = 'B';
   str[2] = 'A';
   str[3] = 'L';
   str[4] = 'O';
+  str[5] = '\0';
+  print("%s \n", str);
+  str = allocate_blocks(1024 / BLOCK_SIZE);
+  str[0] = 'O';
+  str[1] = 'V';
+  str[2] = 'O';
+  str[3] = '\0';
   print("%s \n", str);
 
   /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/
