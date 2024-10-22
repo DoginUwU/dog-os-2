@@ -11,6 +11,6 @@ void panic(const char *cause) {
   print_num(__LINE__);
 
   while (1) {
-    asm volatile("hlt");
+    asm volatile("cli;hlt");
   }
 }

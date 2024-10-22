@@ -14,4 +14,6 @@ typedef struct {
 void irq_install_handler(int irq, void (*handler)(registers_t *r));
 void irq_uninstall_handler(int irq);
 
+void page_fault(registers_t *regs);
+
 #endif

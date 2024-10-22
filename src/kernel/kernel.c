@@ -11,6 +11,7 @@
 #include <lib/memory/kmalloc.h>
 #include <lib/memory/memory.h>
 #include <lib/memory/phyisical_memory_manager.h>
+#include <lib/memory/virtual_memory_manager.h>
 #include <multiboot.h>
 #include <panic.h>
 #include <shell/shell.h>
@@ -27,6 +28,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
 
   init_shell();
   init_memory_manager();
+  init_virtual_memory_manager();
 
   char *str = allocate_blocks(1024 / BLOCK_SIZE);
   memory_set(str, 0, 1024);

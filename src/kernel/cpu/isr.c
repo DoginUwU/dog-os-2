@@ -43,14 +43,48 @@ char *exception_messages[] = {
     "Reserved",
 };
 
+void page_fault(registers_t *regs) {
+  uint32_t fault_address;
+  asm volatile("mov %%cr2, %0" : "=r"(fault_address));
+
+  int present = !(regs->err_code & 0x1);
+  int rw = regs->err_code & 0x2;
+  int us = regs->err_code & 0x4;
+  int reserved = regs->err_code & 0x8;
+  int id = regs->err_code & 0x10;
+
+  print("Page Fault occurred with (");
+
+  if (present) {
+    print("PRESENT");
+  }
+
+  if (rw) {
+    print("READ-WRITE");
+  }
+
+  if (us) {
+    print("USER-MODE");
+  }
+
+  if (reserved) {
+    print("RESERVED");
+  }
+
+  print(") at %x ", fault_address);
+  print("ID: %d\n", id);
+
+  panic("Page Fault Exception!!!");
+}
+
 void isr_handler(registers_t *regs) {
-  /*if (regs->int_no == 14) {*/
-  /*  page_fault(regs);*/
-  /*  return;*/
-  /*}*/
+  if (regs->int_no == 14) {
+    page_fault(regs);
+    return;
+  }
 
   // TODO: Find out why this handle error 13 (General Protection Fault)
-  if (regs->int_no < 32 && regs->int_no != 13) {
+  if (regs->int_no < 32 && regs->int_no != 13 && regs->int_no != 6) {
     print("Exception: ");
     print(exception_messages[regs->int_no]);
     panic("ISR Exception");

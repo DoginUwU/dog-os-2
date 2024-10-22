@@ -46,28 +46,30 @@ typedef enum {
   PDE_FRAME = 0x7FFFF000  // 12 bit shift
 } PAGE_DIRECTORY_FLAGS;
 
-typedef uint32_t page_table_entry;
-typedef uint32_t page_directory_entry;
-typedef uint32_t physical_address;
-typedef uint32_t virtual_address;
-
 typedef struct {
-  page_table_entry entries[PAGES_PER_TABLE];
+  uint32_t entries[PAGES_PER_TABLE];
 } page_table_t;
 
 typedef struct {
-  page_directory_entry entries[PAGES_PER_DIRECTORY];
+  uint32_t entries[PAGES_PER_DIRECTORY];
 } page_directory_t;
 
 extern page_directory_t *current_page_directory;
-extern physical_address current_page_directory_address;
+/*extern uint32_t current_page_directory_address;*/
 
-page_table_entry *get_page_table_entry(page_table_t *page_table,
-                                       const virtual_address address);
-page_directory_entry *get_page_directory_entry(page_directory_t *page_directory,
-                                               const virtual_address address);
-page_table_entry *get_page(const virtual_address address);
+void init_virtual_memory_manager();
 
-void *allocate_page(page_table_entry *page_entry);
+uint32_t *get_page_table_entry(page_table_t *page_table,
+                               const uint32_t address);
+uint32_t *get_page_directory_entry(page_directory_t *page_directory,
+                                   const uint32_t address);
+uint32_t *get_page(const uint32_t address);
+
+void *allocate_page(uint32_t *page_entry);
+void free_page(uint32_t *page_entry);
+int set_page_directory(page_directory_t *page_directory);
+void flush_tlb_entry(const uint32_t address);
+int map_page(void *physical_address, void *virtual_address);
+int unmap_page(void *virtual_address);
 
 #endif
