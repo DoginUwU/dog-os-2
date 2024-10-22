@@ -7,8 +7,6 @@
 #include <panic.h>
 #include <stdint.h>
 
-void setup_paging() {}
-
 void memory_copy(uint8_t *src, uint8_t *dest, size_t count) {
   for (size_t i = 0; i < count; i++) {
     *(dest + i) = *(src + i);

@@ -1,7 +1,7 @@
 #include <common.h>
 #include <lib/math.h>
 #include <lib/memory/kmalloc.h>
-#include <lib/memory/memory.h>
+#include <lib/memory/virtual_memory_manager.h>
 #include <stdint.h>
 
 extern uint32_t kernel_virtual_end;

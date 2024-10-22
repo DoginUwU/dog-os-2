@@ -31,4 +31,7 @@ clean:
 	find $(DIST_DIR) -type f ! -name 'initrd.img' -delete
 	mkdir -p $(DIST_DIR)
 
+unity-test:
+	$(DIST_DIR)/dockcross-linux-x86_64-full make -f docker/Makefile unity-test
+
 .PHONY: run debug podman clean

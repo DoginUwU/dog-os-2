@@ -3,8 +3,13 @@ LD = ld
 NASM = nasm
 CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -fno-builtin -fno-stack-protector
 
+CFLAGS_UNITY_TEST = -Isrc/include -Iunity
+
 SRC_DIR = src
 DIST_DIR = dist
+
+UNITY_DIR = unity
+UNITY_TEST_DIR = tests
 
 C_SOURCES = $(shell find ${SRC_DIR} -name '*.c')
 C_HEADERS = $(shell find ${SRC_DIR} -name '*.h')
@@ -39,4 +44,11 @@ ${DIST_DIR}/%.o: ${SRC_DIR}/%.c ${C_HEADERS} | $(DIST_DIRS)
 
 ${DIST_DIR}/%.o: ${SRC_DIR}/%.asm | $(DIST_DIRS)
 		${NASM} -f elf32 $< -o $@
+		
+TEST_FILES = $(shell find ${UNITY_TEST_DIR} -name '*.c')
 
+unity-test: ${DIST_DIR}/unity-test
+	${DIST_DIR}/unity-test
+
+${DIST_DIR}/unity-test: ${UNITY_DIR}/unity.c ${TEST_FILES} | ${DIST_DIRS}
+	${CC} ${CFLAGS_UNITY_TEST} $^ -o $@

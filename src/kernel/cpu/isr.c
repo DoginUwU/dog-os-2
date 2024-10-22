@@ -1,8 +1,9 @@
 #include <cpu/isr.h>
 #include <drivers/screen.h>
-#include <lib/memory/memory.h>
 #include <panic.h>
 #include <ports.h>
+
+/*extern void page_fault(registers_t *regs);*/
 
 void *irq_routines[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -43,6 +44,11 @@ char *exception_messages[] = {
 };
 
 void isr_handler(registers_t *regs) {
+  /*if (regs->int_no == 14) {*/
+  /*  page_fault(regs);*/
+  /*  return;*/
+  /*}*/
+
   // TODO: Find out why this handle error 13 (General Protection Fault)
   if (regs->int_no < 32 && regs->int_no != 13) {
     print("Exception: ");
