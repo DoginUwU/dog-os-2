@@ -109,9 +109,15 @@ void free_blocks(uint32_t *address, uint32_t num_blocks) {
   // Rollback BLOCK_SIZE
   int32_t start_block = (uint32_t)address / BLOCK_SIZE;
 
+  if (num_blocks == 0) {
+    num_blocks = 1;
+  }
+
   for (uint32_t i = 0; i < num_blocks; i++) {
     unset_memory_block(start_block + i);
   }
+
+  log_info("New blocks available to use at %x", address);
 
   used_blocks -= num_blocks;
 }
@@ -133,7 +139,7 @@ int32_t find_free_blocks(uint32_t num_blocks) {
     return -1;
   }
 
-  // 32 blocks per tick
+  // 32 blocks at time
   // TODO: Refactor this to better performance
   for (uint32_t i = 0; i < max_blocks / 32; i++) {
     if (memory_map[i] != 0xFFFFFFFF) {

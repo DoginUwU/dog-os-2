@@ -37,12 +37,14 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   str[4] = 'O';
   str[5] = '\0';
   print("%s \n", str);
+  free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);
   str = allocate_blocks(1024 / BLOCK_SIZE);
   str[0] = 'O';
   str[1] = 'V';
   str[2] = 'O';
   str[3] = '\0';
   print("%s \n", str);
+  free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);
 
   /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/
   /*uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);*/
