@@ -48,9 +48,9 @@ int memorymap_command(char **args) {
 
   print("\nTotal memory (bytes): %x\n",
         memory_map->addr_low + memory_map->len_low - 1);
-  print("Total physical memory blocks (4KB): %x\n", max_blocks);
-  print("Total used physical memory blocks (4KB): %x\n", used_blocks);
-  print("Total free physical memory blocks (4KB): %x\n",
+  print("Total physical memory blocks (4KB): %d\n", max_blocks);
+  print("Total used physical memory blocks (4KB): %d\n", used_blocks);
+  print("Total free physical memory blocks (4KB): %d\n",
         max_blocks - used_blocks);
 
   return COMMAND_CODE_SUCCESS;
