@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void enter_user_mode(const uint32_t user_stack, const uint32_t user_code);
+void enter_user_mode();
 
 #endif

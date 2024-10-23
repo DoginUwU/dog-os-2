@@ -1,4 +1,5 @@
 [global gdt_flush]
+[global tss_flush]
 
 gdt_flush:
 	mov eax, [esp+4]
@@ -19,4 +20,9 @@ complete_flush:
 	;mov fs, ax
 	;mov gs, ax
 	;mov ss, ax
+	ret
+
+tss_flush:
+	mov ax, 0x2B
+	ltr ax ; Loads 0x2B into task register
 	ret
