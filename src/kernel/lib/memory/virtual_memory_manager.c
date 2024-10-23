@@ -133,13 +133,13 @@ page_table_t *create_page_table(uint32_t address, uint32_t virtual_address,
   uint32_t current_virtual_address = virtual_address;
 
   for (uint32_t i = 0; i < PAGES_PER_TABLE; i++) {
-    current_frame += PAGE_SIZE;
-    current_virtual_address += PAGE_SIZE;
-
     uint32_t page = flags;
     SET_FRAME(&page, current_frame);
 
     page_table->entries[PAGE_TABLE_INDEX(current_virtual_address)] = page;
+
+    current_frame += PAGE_SIZE;
+    current_virtual_address += PAGE_SIZE;
   }
 
   return page_table;
@@ -161,26 +161,26 @@ void init_virtual_memory_manager() {
   }
 
   // START OF LINK KERNEL IN 0x00100000 to 0xC00000000
-  page_table_t *page_table_3G =
+  // 0x00000000 -> 0x00000000 for 4MB identity
+  page_table_t *low_memory_page_table =
       create_page_table(0x0, 0x0, PTE_PRESENT | PTE_READ_WRITE);
-  page_table_t *page_table = create_page_table(
+  // 0x00100000 -> 0xC0000000 for higher half kernel
+  page_table_t *kernel_page_table = create_page_table(
       KERNEL_ADDRESS, KERNEL_HIGHER_HALF_ADDRESS, PTE_PRESENT | PTE_READ_WRITE);
 
-  uint32_t *page_dir_entry =
+  uint32_t *page_dir_entry_kernel =
       &page_directory
            ->entries[PAGE_DIRECTORY_INDEX(KERNEL_HIGHER_HALF_ADDRESS)];
-  *page_dir_entry |= PDE_PRESENT | PDE_READ_WRITE;
-  SET_FRAME(page_dir_entry, (uint32_t)page_table);
+  *page_dir_entry_kernel |= PDE_PRESENT | PDE_READ_WRITE;
+  SET_FRAME(page_dir_entry_kernel, (uint32_t)kernel_page_table);
 
-  uint32_t *page_dir_entry_3G =
+  uint32_t *page_dir_entry_identity =
       &page_directory->entries[PAGE_DIRECTORY_INDEX(0x00000000)];
-  *page_dir_entry_3G |= PDE_PRESENT | PDE_READ_WRITE;
-  SET_FRAME(page_dir_entry_3G, (uint32_t)page_table_3G);
+  *page_dir_entry_identity |= PDE_PRESENT | PDE_READ_WRITE;
+  SET_FRAME(page_dir_entry_identity, (uint32_t)low_memory_page_table);
   // END OF LINK KERNEL IN 0x00100000 to 0xC00000000
 
-  int page_directory_setted = set_page_directory(page_directory);
-
-  if (!page_directory_setted) {
+  if (!set_page_directory(page_directory)) {
     panic("Failed to change the current page directory");
   }
 
