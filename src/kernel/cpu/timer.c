@@ -6,14 +6,14 @@
 #include <ports.h>
 #include <stdint.h>
 
-uint32_t tick = 0;
+/*uint32_t tick = 0;*/
 
 static void timer_callback(registers_t *regs) {
-  tick++;
-
-  print("tick: ");
-  print_num(tick);
-  print("\n");
+  /*tick++;*/
+  /**/
+  /*print("tick: ");*/
+  /*print_num(tick);*/
+  /*print("\n");*/
   UNUSED(regs);
 }
 

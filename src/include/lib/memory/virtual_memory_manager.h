@@ -17,7 +17,8 @@
 #define CLEAR_ATTRIBUTE(entry, attribute) (*entry &= ~attribute)
 #define TEST_ATTRIBUTE(entry, attribute) (*entry & attribute)
 #define SET_FRAME(entry, address)                                              \
-  (*entry = (*entry & ~0x7FFFF000) | address) // Only set frame, not attributes
+  (*entry = (*entry & ~0x7FFFF000) |                                           \
+            ((address) & 0x7FFFF000)) // Only set frame, not attributes
 
 typedef enum {
   PTE_PRESENT = 1 << 0,
@@ -55,7 +56,6 @@ typedef struct {
 } page_directory_t;
 
 extern page_directory_t *current_page_directory;
-/*extern uint32_t current_page_directory_address;*/
 
 void init_virtual_memory_manager();
 

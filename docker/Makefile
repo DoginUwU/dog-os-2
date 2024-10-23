@@ -50,5 +50,5 @@ TEST_FILES = $(shell find ${UNITY_TEST_DIR} -name '*.c')
 unity-test: ${DIST_DIR}/unity-test
 	${DIST_DIR}/unity-test
 
-${DIST_DIR}/unity-test: ${UNITY_DIR}/unity.c ${TEST_FILES} | ${DIST_DIRS}
-	${CC} ${CFLAGS_UNITY_TEST} $^ -o $@
+${DIST_DIR}/unity-test: ${TEST_FILES} ${UNITY_DIR}/unity.c | ${DIST_DIRS}
+	${CC} ${CFLAGS_UNITY_TEST} $^ ${SRC_DIR}/kernel/lib/memory/virtual_memory_manager.c -o $@
