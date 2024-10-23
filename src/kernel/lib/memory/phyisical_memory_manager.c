@@ -80,9 +80,10 @@ void *allocate_blocks(uint32_t num_blocks) {
     num_blocks = 1;
   }
 
-  if ((max_blocks - used_blocks) < num_blocks) {
+  if (num_blocks > (max_blocks - used_blocks)) {
     log_info(
         "Num of blocks requested on allocation is higher than free blocks\n");
+
     return NULL;
   }
 
@@ -90,6 +91,7 @@ void *allocate_blocks(uint32_t num_blocks) {
 
   if (start_block == -1) {
     log_info("No memory blocks found to be allocated\n");
+
     return NULL;
   }
 

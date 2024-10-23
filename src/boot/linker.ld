@@ -4,14 +4,6 @@ SECTIONS {
 	. = 0x00100000;
 	kernel_phyiscal_start = .;
 
-	.multiboot ALIGN(4K): {
-		*(.multiboot)
-	}
-
-	.note.gnu.build-id ALIGN(4K): {
-		*(.note.gnu.build-id)
-	}
-
 	.boot ALIGN(4K): {
 		*(.boot)
 	}
