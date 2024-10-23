@@ -23,6 +23,6 @@ complete_flush:
 	ret
 
 tss_flush:
-	mov ax, 0x2B
+	mov ax, (5 * 8) | 0
 	ltr ax ; Loads 0x2B into task register
 	ret

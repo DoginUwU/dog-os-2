@@ -12,7 +12,7 @@ int buffer_ready = 0;
 int listen_for_user_commands = 1;
 
 void init_shell() {
-  clear_screen();
+  /*clear_screen();*/
   print("Welcome to DogOS v0.1\n");
   print("This build is unstable and may have some issues!\n\n");
 }

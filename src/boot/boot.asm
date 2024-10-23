@@ -57,9 +57,30 @@ halt:
 	hlt
 	jmp halt
 
+global jump_usermode
+extern usermode_main
+jump_usermode:
+	cli
+	mov ax, 0x23
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+
+	mov eax, esp
+	push 0x23
+	push eax
+	pushf
+	pop eax
+	or eax, 0x200
+	push eax
+	push 0x1B
+	push usermode_main
+	iret
+
 section .data
 align 4096
-global initial_page_directory
+;global initial_page_directory
 
 ;initial_page_directory:
 ;	dd 10000011b 		; P | R/W | PS (4mb)
