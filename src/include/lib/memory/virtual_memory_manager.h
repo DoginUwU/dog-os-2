@@ -13,9 +13,6 @@
 #define GET_FRAME(directory_entry)                                             \
   ((*directory_entry) &                                                        \
    ~0xFFF) // Remove lowest 12 bits for return frame address
-#define SET_ATTRIBUTE(entry, attribute) (*entry |= attribute)
-#define CLEAR_ATTRIBUTE(entry, attribute) (*entry &= ~attribute)
-#define TEST_ATTRIBUTE(entry, attribute) (*entry & attribute)
 #define SET_FRAME(entry, address)                                              \
   (*entry = (*entry & ~0x7FFFF000) |                                           \
             ((address) & 0x7FFFF000)) // Only set frame, not attributes

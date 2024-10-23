@@ -135,36 +135,48 @@ uint8_t test_memory_block(uint32_t block) {
   return memory_map[block / 32] & (1 << (block % 32));
 }
 
+int is_block_free(uint32_t block_index, uint32_t bit_index) {
+  int test = (memory_map[block_index]) & (1 << bit_index);
+
+  return test == 0;
+}
+
+int are_blocks_free(uint32_t start_block, uint32_t start_bit,
+                    uint32_t num_blocks) {
+  uint32_t free_blocks = 0;
+
+  for (uint32_t i = 0; i < num_blocks; i++) {
+    uint32_t current_block = start_block + (start_bit + i) / 32;
+    uint32_t current_bit = (start_bit + i) % 32;
+
+    if (current_block >= max_blocks / 32) {
+      return 0;
+    }
+
+    if (!is_block_free(current_block, current_bit)) {
+      return 0;
+    }
+
+    free_blocks++;
+  }
+
+  return free_blocks == num_blocks;
+}
+
 int32_t find_free_blocks(uint32_t num_blocks) {
   if (num_blocks == 0) {
     return -1;
   }
 
-  // 32 blocks at time
-  // TODO: Refactor this to better performance
-  for (uint32_t i = 0; i < max_blocks / 32; i++) {
-    if (memory_map[i] != 0xFFFFFFFF) {
-      // Find unused bit by testing each
-      for (uint32_t j = 0; j < 32; j++) {
-        uint32_t bit = 1 << j;
+  for (uint32_t block = 0; block < max_blocks / 32; block++) {
+    if (memory_map[block] == 0xFFFFFFFF) {
+      continue;
+    }
 
-        if (!(memory_map[i] & bit)) {
-          for (uint32_t count = 0, free_blocks = 0; count <= num_blocks;
-               count++) {
-            if ((j + count > 31) && (i + 1 <= max_blocks / 32)) {
-              if (!(memory_map[i + 1] & (1 << ((j + count) - 32)))) {
-                free_blocks++;
-              }
-            } else {
-              if (!(memory_map[i] & (1 << (j + count)))) {
-                free_blocks++;
-              }
-            }
-
-            if (free_blocks == num_blocks) {
-              return i * 32 + j;
-            }
-          }
+    for (uint32_t bit = 0; bit < 32; bit++) {
+      if (is_block_free(block, bit)) {
+        if (are_blocks_free(block, bit, num_blocks)) {
+          return block * 32 + bit;
         }
       }
     }
