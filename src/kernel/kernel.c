@@ -8,7 +8,7 @@
 #include <fs/initrd.h>
 #include <fs/vfs.h>
 #include <lib/logging.h>
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/memory/memory.h>
 #include <lib/memory/phyisical_memory_manager.h>
 #include <lib/memory/virtual_memory_manager.h>

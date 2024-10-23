@@ -2,7 +2,7 @@
 #include <cpu/idt.h>
 #include <drivers/screen.h>
 #include <lib/math.h>
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/memory/memory.h>
 #include <panic.h>
 #include <stdint.h>

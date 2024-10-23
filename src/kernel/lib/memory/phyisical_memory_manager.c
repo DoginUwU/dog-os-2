@@ -25,7 +25,8 @@ void init_memory_manager() {
   for (uint32_t i = 0; i < boot_info->mmap_length;
        i += sizeof(multiboot_memory_map_t)) {
     if (memory_map->type == 1) {
-      log_info("Memory map found to use at %x", memory_map->addr_low);
+      log_info("Memory map found to use at %x to %x", memory_map->addr_low,
+               memory_map->len_low);
       init_memory_region(memory_map->addr_low, memory_map->len_low);
     }
 
@@ -56,8 +57,8 @@ void init_memory_region(uint32_t base_address, uint32_t size) {
     used_blocks--;
   }
 
-  log_info("Memory region started using %x blocks", used_blocks);
-  log_info("Memory free blocks: %x", max_blocks - used_blocks);
+  log_info("Memory region started using %d blocks", used_blocks);
+  log_info("Memory free blocks: %d", max_blocks - used_blocks);
 
   set_memory_block(0);
 }
@@ -71,7 +72,7 @@ void lock_memory_region(uint32_t base_address, uint32_t size) {
     used_blocks++;
   }
 
-  log_info("Memory used blocks: %x", used_blocks);
+  log_info("Memory used blocks: %d", used_blocks);
 }
 
 void *allocate_blocks(uint32_t num_blocks) {

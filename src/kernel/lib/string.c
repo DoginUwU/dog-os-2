@@ -1,4 +1,4 @@
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/memory/phyisical_memory_manager.h>
 #include <lib/string.h>
 #include <stddef.h>

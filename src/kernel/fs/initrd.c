@@ -2,7 +2,7 @@
 #include <drivers/screen.h>
 #include <fs/initrd.h>
 #include <lib/cpio.h>
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/memory/memory.h>
 #include <lib/string.h>
 #include <stddef.h>

@@ -1,5 +1,5 @@
 #include <drivers/screen.h>
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/memory/memory.h>
 #include <lib/string.h>
 #include <ports.h>

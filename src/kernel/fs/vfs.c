@@ -1,7 +1,7 @@
 #include <drivers/screen.h>
 #include <fs/vfs.h>
 #include <lib/logging.h>
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/string.h>
 #include <stddef.h>
 

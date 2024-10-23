@@ -1,6 +1,6 @@
 #include <common.h>
 #include <lib/math.h>
-#include <lib/memory/kmalloc.h>
+#include <lib/memory/malloc.h>
 #include <lib/memory/virtual_memory_manager.h>
 #include <stdint.h>
 
