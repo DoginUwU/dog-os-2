@@ -12,6 +12,7 @@
 #include <lib/memory/memory.h>
 #include <lib/memory/phyisical_memory_manager.h>
 #include <lib/memory/virtual_memory_manager.h>
+#include <lib/syscalls.h>
 #include <multiboot.h>
 #include <panic.h>
 #include <shell/shell.h>
@@ -68,5 +69,6 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*process_initrd(mod_start, root_initrd);*/
 
   init_commands();
+  /*enter_user_mode(0xBFFFFFFF, 0x08000000);*/
   shell_loop();
 }
