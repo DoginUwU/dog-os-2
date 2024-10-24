@@ -45,6 +45,6 @@ align 4096
 section .bss
 align 16
 stack_bottom:
-	resb 16384 * 8
+	resb 16384 * 8 * 8
 stack_top:
 
