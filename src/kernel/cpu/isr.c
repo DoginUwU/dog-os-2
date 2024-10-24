@@ -3,8 +3,6 @@
 #include <panic.h>
 #include <ports.h>
 
-/*extern void page_fault(registers_t *regs);*/
-
 void *irq_routines[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 char *exception_messages[] = {
@@ -72,7 +70,7 @@ void page_fault(registers_t *regs) {
   }
 
   print(") at %x ", fault_address);
-  print("ID: %d CODE: %x\n", id, regs->err_code);
+  print("ID: %d CODE: %d\n", id, regs->err_code);
 
   panic("Page Fault Exception!!!");
 }

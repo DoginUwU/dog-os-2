@@ -145,18 +145,21 @@ page_table_t *create_page_table(uint32_t address, uint32_t virtual_address,
   return page_table;
 }
 
-void create_and_insert_table(uint32_t address, uint32_t virtual_address,
-                             uint32_t table_flags, uint32_t directory_flags) {
+void create_and_insert_table(page_directory_t *directory, uint32_t address,
+                             uint32_t virtual_address, uint32_t table_flags,
+                             uint32_t directory_flags) {
   page_table_t *page_table =
       create_page_table(address, virtual_address, table_flags);
 
   uint32_t *page_dir_entry =
-      &current_page_directory->entries[PAGE_DIRECTORY_INDEX(virtual_address)];
+      &directory->entries[PAGE_DIRECTORY_INDEX(virtual_address)];
   *page_dir_entry |= directory_flags;
   SET_FRAME(page_dir_entry, (uint32_t)page_table);
 }
 
-#define USER_SPACE_START 0x40000000
+extern uint32_t _user_stack_end;
+
+#define USER_SPACE_START 0x00000000
 
 void init_virtual_memory_manager() {
   page_directory_t *page_directory = (page_directory_t *)allocate_blocks(3);
@@ -191,7 +194,7 @@ void init_virtual_memory_manager() {
   SET_FRAME(page_dir_entry_identity, (uint32_t)low_memory_page_table);
   // END OF LINK KERNEL IN 0x00100000 to 0xC00000000
 
-  create_and_insert_table(USER_SPACE_START, USER_SPACE_START,
+  create_and_insert_table(page_directory, USER_SPACE_START, USER_SPACE_START,
                           PTE_PRESENT | PTE_READ_WRITE | PTE_USER,
                           PDE_PRESENT | PDE_READ_WRITE | PDE_USER);
 
