@@ -51,22 +51,22 @@ void page_fault(registers_t *regs) {
   int reserved = regs->err_code & 0x8;
   int id = regs->err_code & 0x10;
 
-  print("Page Fault occurred with (");
+  print("Page Fault occurred without (");
 
   if (present) {
-    print("PRESENT");
+    print(" PRESENT ");
   }
 
   if (rw) {
-    print("READ-WRITE");
+    print(" READ-WRITE ");
   }
 
   if (us) {
-    print("USER-MODE");
+    print(" USER-MODE ");
   }
 
   if (reserved) {
-    print("RESERVED");
+    print(" RESERVED ");
   }
 
   print(") at %x ", fault_address);
