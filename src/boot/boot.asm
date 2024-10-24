@@ -25,12 +25,6 @@ global _start
 _start:
 	jmp higher_half
 
-section .bss
-align 16
-stack_bottom:
-	resb 16384 * 8
-stack_top:
-
 section .text
 extern kernel_main
 higher_half:
@@ -45,27 +39,12 @@ halt:
 	hlt
 	jmp halt
 
-global jump_usermode
-extern usermode_main
-jump_usermode:
-	mov ax, 0x23
-	mov ds, ax
-	mov es, ax
-	mov fs, ax
-	mov gs, ax
-
-	mov eax, esp
-	push 0x23
-	push eax
-	pushf
-
-	pop eax
-	or eax, 0x200
-	push eax
-
-	push 0x1B
-	push usermode_main
-	iret
-
 section .data
 align 4096
+
+section .bss
+align 16
+stack_bottom:
+	resb 16384 * 8
+stack_top:
+

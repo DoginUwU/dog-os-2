@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void enter_user_mode();
+void switch_to_user_mode();
 
 #endif

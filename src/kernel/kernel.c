@@ -32,9 +32,9 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_memory_manager();
   /*init_virtual_memory_manager();*/
 
-  enter_user_mode();
+  /*enter_user_mode();*/
+  switch_to_user_mode();
   /*usermode_main();*/
-  /*print("oi");*/
   /*init_shell();*/
 
   /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/
@@ -60,9 +60,9 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*shell_loop();*/
 }
 
-void usermode_main() {
+__attribute__((section(".user_text"))) void usermode_main() {
   init_shell();
-  /**/
+
   /*char *str = allocate_blocks(1024 / BLOCK_SIZE);*/
   /*memory_set(str, 0, 1024);*/
   /*str[0] = 'A';*/
@@ -80,7 +80,7 @@ void usermode_main() {
   /*str[3] = '\0';*/
   /*print("%s \n", str);*/
   /*free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);*/
-  /**/
+
   init_commands();
   shell_loop();
 }
