@@ -145,9 +145,20 @@ page_table_t *create_page_table(uint32_t address, uint32_t virtual_address,
   return page_table;
 }
 
-void init_virtual_memory_manager() {
-  irq_install_handler(IRQ_PAGE_FAULT, page_fault);
+void create_and_insert_table(uint32_t address, uint32_t virtual_address,
+                             uint32_t table_flags, uint32_t directory_flags) {
+  page_table_t *page_table =
+      create_page_table(address, virtual_address, table_flags);
 
+  uint32_t *page_dir_entry =
+      &current_page_directory->entries[PAGE_DIRECTORY_INDEX(virtual_address)];
+  *page_dir_entry |= directory_flags;
+  SET_FRAME(page_dir_entry, (uint32_t)page_table);
+}
+
+#define USER_SPACE_START 0x40000000
+
+void init_virtual_memory_manager() {
   page_directory_t *page_directory = (page_directory_t *)allocate_blocks(3);
 
   if (page_directory == NULL) {
@@ -179,6 +190,10 @@ void init_virtual_memory_manager() {
   *page_dir_entry_identity |= PDE_PRESENT | PDE_READ_WRITE;
   SET_FRAME(page_dir_entry_identity, (uint32_t)low_memory_page_table);
   // END OF LINK KERNEL IN 0x00100000 to 0xC00000000
+
+  create_and_insert_table(USER_SPACE_START, USER_SPACE_START,
+                          PTE_PRESENT | PTE_READ_WRITE | PTE_USER,
+                          PDE_PRESENT | PDE_READ_WRITE | PDE_USER);
 
   if (!set_page_directory(page_directory)) {
     panic("Failed to change the current page directory");

@@ -30,10 +30,10 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_keyboard();
 
   init_memory_manager();
-  init_virtual_memory_manager();
+  /*init_virtual_memory_manager();*/
 
-  /*enter_user_mode();*/
-  usermode_main();
+  enter_user_mode();
+  /*usermode_main();*/
   /*print("oi");*/
   /*init_shell();*/
 
@@ -62,25 +62,25 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
 
 void usermode_main() {
   init_shell();
-
-  char *str = allocate_blocks(1024 / BLOCK_SIZE);
-  memory_set(str, 0, 1024);
-  str[0] = 'A';
-  str[1] = 'B';
-  str[2] = 'A';
-  str[3] = 'L';
-  str[4] = 'O';
-  str[5] = '\0';
-  print("%s \n", str);
-  free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);
-  str = allocate_blocks(1024 / BLOCK_SIZE);
-  str[0] = 'O';
-  str[1] = 'V';
-  str[2] = 'O';
-  str[3] = '\0';
-  print("%s \n", str);
-  free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);
-
+  /**/
+  /*char *str = allocate_blocks(1024 / BLOCK_SIZE);*/
+  /*memory_set(str, 0, 1024);*/
+  /*str[0] = 'A';*/
+  /*str[1] = 'B';*/
+  /*str[2] = 'A';*/
+  /*str[3] = 'L';*/
+  /*str[4] = 'O';*/
+  /*str[5] = '\0';*/
+  /*print("%s \n", str);*/
+  /*free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);*/
+  /*str = allocate_blocks(1024 / BLOCK_SIZE);*/
+  /*str[0] = 'O';*/
+  /*str[1] = 'V';*/
+  /*str[2] = 'O';*/
+  /*str[3] = '\0';*/
+  /*print("%s \n", str);*/
+  /*free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);*/
+  /**/
   init_commands();
   shell_loop();
 }

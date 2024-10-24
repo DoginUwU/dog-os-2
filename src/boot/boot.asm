@@ -41,13 +41,13 @@ higher_half:
 	call kernel_main
 
 halt:
+	cli
 	hlt
 	jmp halt
 
 global jump_usermode
 extern usermode_main
 jump_usermode:
-	cli
 	mov ax, 0x23
 	mov ds, ax
 	mov es, ax
@@ -58,9 +58,11 @@ jump_usermode:
 	push 0x23
 	push eax
 	pushf
+
 	pop eax
 	or eax, 0x200
 	push eax
+
 	push 0x1B
 	push usermode_main
 	iret

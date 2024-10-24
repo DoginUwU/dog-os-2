@@ -72,7 +72,7 @@ void page_fault(registers_t *regs) {
   }
 
   print(") at %x ", fault_address);
-  print("ID: %d\n", id);
+  print("ID: %d CODE: %x\n", id, regs->err_code);
 
   panic("Page Fault Exception!!!");
 }
