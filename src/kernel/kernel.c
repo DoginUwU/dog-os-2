@@ -32,8 +32,8 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_memory_manager();
   init_virtual_memory_manager();
 
-  switch_to_user_mode();
-  /*usermode_main();*/
+  /*switch_to_user_mode();*/
+  usermode_main();
   /*init_shell();*/
 
   /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/

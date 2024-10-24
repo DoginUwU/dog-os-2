@@ -174,26 +174,6 @@ void init_virtual_memory_manager() {
     page_directory->entries[i] = PDE_READ_WRITE;
   }
 
-  // START OF LINK KERNEL IN 0x00100000 to 0xC00000000
-  // 0x00000000 -> 0x00000000 for 4MB identity
-  page_table_t *low_memory_page_table =
-      create_page_table(0x0, 0x0, PTE_PRESENT | PTE_READ_WRITE);
-  // 0x00100000 -> 0xC0000000 for higher half kernel
-  page_table_t *kernel_page_table = create_page_table(
-      KERNEL_ADDRESS, KERNEL_HIGHER_HALF_ADDRESS, PTE_PRESENT | PTE_READ_WRITE);
-
-  uint32_t *page_dir_entry_kernel =
-      &page_directory
-           ->entries[PAGE_DIRECTORY_INDEX(KERNEL_HIGHER_HALF_ADDRESS)];
-  *page_dir_entry_kernel |= PDE_PRESENT | PDE_READ_WRITE;
-  SET_FRAME(page_dir_entry_kernel, (uint32_t)kernel_page_table);
-
-  uint32_t *page_dir_entry_identity =
-      &page_directory->entries[PAGE_DIRECTORY_INDEX(0x00000000)];
-  *page_dir_entry_identity |= PDE_PRESENT | PDE_READ_WRITE;
-  SET_FRAME(page_dir_entry_identity, (uint32_t)low_memory_page_table);
-  // END OF LINK KERNEL IN 0x00100000 to 0xC00000000
-
   create_and_insert_table(page_directory, USER_SPACE_START, USER_SPACE_START,
                           PTE_PRESENT | PTE_READ_WRITE | PTE_USER,
                           PDE_PRESENT | PDE_READ_WRITE | PDE_USER);

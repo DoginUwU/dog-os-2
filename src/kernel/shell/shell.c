@@ -1,6 +1,7 @@
 #include <commands/command.h>
 #include <drivers/keyboard/keyboard.h>
 #include <drivers/screen.h>
+#include <lib/memory/memory.h>
 #include <lib/string.h>
 #include <shell/shell.h>
 
@@ -10,6 +11,7 @@ char keyboard_buffer[KEYBOARD_BUFFER_SIZE];
 int buffer_pos = 0;
 int buffer_ready = 0;
 int listen_for_user_commands = 1;
+int executed = 0;
 
 void init_shell() {
   /*clear_screen();*/
@@ -22,11 +24,15 @@ void shell_loop() { read_command(); }
 void read_command() {
   print("> ");
 
+  memory_set(keyboard_buffer, 0, KEYBOARD_BUFFER_SIZE);
+  buffer_pos = 0;
+  executed = 0;
+
   while (1) {
     if (buffer_ready == 1) {
       buffer_ready = 0;
       print("\n");
-      int executed = execute_command(keyboard_buffer);
+      executed = execute_command(keyboard_buffer);
       if (executed == 1) {
       } else if (keyboard_buffer[0] != '\0') {
         print("command not found: ");

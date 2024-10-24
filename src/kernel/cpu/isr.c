@@ -81,8 +81,7 @@ void isr_handler(registers_t *regs) {
     return;
   }
 
-  // TODO: Find out why this handle error 13 (General Protection Fault)
-  if (regs->int_no < 32 && regs->int_no != 13 && regs->int_no != 6) {
+  if (regs->int_no < 32) {
     print("Exception: ");
     print(exception_messages[regs->int_no]);
     panic("ISR Exception");

@@ -18,7 +18,7 @@ static void timer_callback(registers_t *regs) {
 }
 
 void init_timer(uint32_t freq) {
-  irq_install_handler(IRQ_TIMER, timer_callback);
+  /*irq_install_handler(IRQ_TIMER, timer_callback);*/
 
   uint32_t divisor = 1193180 / freq;
   uint8_t low = (uint8_t)(divisor & 0xFF);
