@@ -37,7 +37,7 @@ SECTIONS {
 
 	. = 0x00000000;
 
-	.user_code ALIGN(4k): {
+	.user_code ALIGN(4K): {
 		_user_code_start = .;
 		*(.user_text)
 		_user_code_end = .;

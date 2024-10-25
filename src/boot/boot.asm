@@ -26,7 +26,7 @@ _start:
 	mov ecx, (initial_page_directory - 0xC0000000)
 	mov cr3, ecx
 
-	mov ecx, cr4
+	mov ecx, cr4 ; Enable PSE
 	or ecx, 0x10
 	mov cr4, ecx
 

@@ -37,11 +37,11 @@ typedef enum {
   PDE_WRITE_THROUGH = 1 << 3,
   PDE_CACHE_DISABLED = 1 << 4,
   PDE_ACCESSED = 1 << 5,
-  PDE_DIRTY = 1 << 6,     // 4MB entry only
-  PDE_PAGE_SIZE = 1 << 7, // 0 = 4KB, 1 = 4MB
-  PDE_GLOBAL = 1 << 8,    // 4MB entry only
-  PDE_PAT = 1 << 9,       // 4MB entry only
-  PDE_FRAME = 0x7FFFF000  // 12 bit shift
+  PDE_DIRTY = 1 << 6,    // 4MB entry only
+  PDE_4MB = 1 << 7,      // 0 = 4KB, 1 = 4MB
+  PDE_GLOBAL = 1 << 8,   // 4MB entry only
+  PDE_PAT = 1 << 9,      // 4MB entry only
+  PDE_FRAME = 0x7FFFF000 // 12 bit shift
 } PAGE_DIRECTORY_FLAGS;
 
 typedef struct {

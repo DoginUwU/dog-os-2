@@ -61,7 +61,9 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
 }
 
 __attribute__((section(".user_text"))) void usermode_main() {
-  init_shell();
+  while (1) {
+  }
+  /*init_shell();*/
 
   /*char *str = allocate_blocks(1024 / BLOCK_SIZE);*/
   /*memory_set(str, 0, 1024);*/
@@ -81,6 +83,6 @@ __attribute__((section(".user_text"))) void usermode_main() {
   /*print("%s \n", str);*/
   /*free_blocks((uint32_t *)str, 1024 / BLOCK_SIZE);*/
 
-  init_commands();
-  shell_loop();
+  /*init_commands();*/
+  /*shell_loop();*/
 }

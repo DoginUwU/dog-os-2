@@ -233,7 +233,11 @@ void init_virtual_memory_manager() {
 
   /*initial_page_directory[0] = 0;*/
 
-  page_directory->entries[768] = initial_page_directory[768];
+  page_directory->entries[768] = initial_page_directory[768] | PDE_4MB;
+  page_directory->entries[769] = initial_page_directory[769] | PDE_4MB;
+  page_directory->entries[770] = initial_page_directory[770] | PDE_4MB;
+  page_directory->entries[771] = initial_page_directory[771] | PDE_4MB;
+  page_directory->entries[772] = initial_page_directory[772] | PDE_4MB;
 
   /*asm volatile(*/
   /*    "movl %0, %%cr3" ::"r"((uint32_t)initial_page_directory -
