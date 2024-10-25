@@ -28,10 +28,10 @@ SECTIONS {
 	}
 
 	.kernel_stack ALIGN(4K): {
-        _kernel_stack_start = .;
-        . += 8K;   
-				_kernel_stack_end = .;
-    }
+			_kernel_stack_start = .;
+			. += 8K;   
+			_kernel_stack_end = .;
+	}
 
 	.user_code ALIGN(4K): {
 		_user_code_start = .;

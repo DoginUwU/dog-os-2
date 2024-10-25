@@ -32,13 +32,11 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   init_memory_manager();
   init_virtual_memory_manager();
 
-  /*switch_to_user_mode();*/
-  usermode_main();
   /*init_shell();*/
 
   /*uint32_t mod_start = *(uint32_t *)boot_info->mods_addr;*/
   /*uint32_t mod_end = *(uint32_t *)(boot_info->mods_addr + 4);*/
-
+  /**/
   /*uint32_t physical_allocation_start = (mod_end + 0xFFF) & ~0xFFF;*/
   /*print_num(physical_allocation_start);*/
   /*print("\n");*/
@@ -46,7 +44,7 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*print("\n");*/
   /*print_num(boot_info->mem_upper);*/
   /*print("\n");*/
-
+  /**/
   /*fs_node_t *root = vfs_create_directory("/", NULL);*/
   /*vfs_set_root(root);*/
   /*vfs_mount("initrd", root);*/
@@ -54,6 +52,9 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*fs_node_t *root_initrd = vfs_create_directory("initrd", root);*/
   /*vfs_mount("initrd", root_initrd);*/
   /*process_initrd(mod_start, root_initrd);*/
+
+  /*switch_to_user_mode();*/
+  usermode_main();
 
   /*init_commands();*/
   /*shell_loop();*/

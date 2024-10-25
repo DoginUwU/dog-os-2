@@ -81,7 +81,7 @@ void isr_handler(registers_t *regs) {
     return;
   }
 
-  if (regs->int_no < 32) {
+  if (regs->int_no < 32 && regs->int_no != 6) {
     print("Exception: ");
     print(exception_messages[regs->int_no]);
     panic("ISR Exception");
