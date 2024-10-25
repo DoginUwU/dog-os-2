@@ -8,32 +8,36 @@ SECTIONS {
 		*(.boot)
 	}
 
-	.text ALIGN(4K): AT(ADDR(.text)) {
+	. += 0xC0000000;
+
+	.text ALIGN(4K): AT(ADDR(.text) - 0xC0000000) {
 		_kernel_code_start = .;
 		*(.text)
 		_kernel_code_end = .;
 	}
 
-	.rodata ALIGN(4K): AT(ADDR(.rodata)) {
+	.rodata ALIGN(4K): AT(ADDR(.rodata) - 0xC0000000) {
 		*(.rodata)
 	}
 
-	.data ALIGN(4K): AT(ADDR(.data)) {
+	.data ALIGN(4K): AT(ADDR(.data) - 0xC0000000) {
 		*(.data)
 	}
 
-	.bss ALIGN(4K): AT(ADDR(.bss)) {
+	.bss ALIGN(4K): AT(ADDR(.bss) - 0xC0000000) {
 		*(COMMON)
 		*(.bss)
 	}
 
-	.kernel_stack ALIGN(4K): {
+	.kernel_stack ALIGN(4K): AT(ADDR(.kernel_stack) - 0xC0000000) {
 			_kernel_stack_start = .;
 			. += 8K;   
 			_kernel_stack_end = .;
 	}
 
-	.user_code ALIGN(4K): {
+	. = 0x00000000;
+
+	.user_code ALIGN(4k): {
 		_user_code_start = .;
 		*(.user_text)
 		_user_code_end = .;
@@ -46,5 +50,5 @@ SECTIONS {
 	}
 
 	kernel_virtual_end = .;
-	kernel_physical_end = .;
+	kernel_physical_end = . + 0xC0000000;
 }

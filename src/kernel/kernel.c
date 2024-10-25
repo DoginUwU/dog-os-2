@@ -53,8 +53,8 @@ void kernel_main(uint32_t magic_address, multiboot_info_t *boot_info) {
   /*vfs_mount("initrd", root_initrd);*/
   /*process_initrd(mod_start, root_initrd);*/
 
-  /*switch_to_user_mode();*/
-  usermode_main();
+  switch_to_user_mode();
+  /*usermode_main();*/
 
   /*init_commands();*/
   /*shell_loop();*/

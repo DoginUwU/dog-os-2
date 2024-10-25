@@ -72,7 +72,7 @@ int set_page_directory(page_directory_t *page_directory) {
 
   current_page_directory = page_directory;
 
-  asm volatile("movl %%eax, %%cr3" ::"r"(current_page_directory));
+  asm volatile("movl %0, %%cr3" ::"r"(page_directory));
 
   return 1;
 }
@@ -182,6 +182,8 @@ extern uint32_t _kernel_code_end;
 extern uint32_t _user_code_start;
 extern uint32_t _user_stack_end;
 
+extern uint32_t initial_page_directory[];
+
 void init_virtual_memory_manager() {
   page_directory_t *page_directory = (page_directory_t *)allocate_blocks(3);
 
@@ -200,17 +202,45 @@ void init_virtual_memory_manager() {
   log_info("User code start: %x", &_user_code_start);
   log_info("User stack end: %x", &_user_stack_end);
 
-  create_and_insert_tables(page_directory, 0, 0x400000,
-                           PTE_PRESENT | PTE_READ_WRITE,
-                           PDE_PRESENT | PDE_READ_WRITE);
+  /*page_table_t *kernel_page_table = create_page_table(*/
+  /*    KERNEL_ADDRESS, KERNEL_HIGHER_HALF_ADDRESS, PTE_PRESENT |
+   * PTE_READ_WRITE);*/
+  /**/
+  /*uint32_t *page_dir_entry_kernel =*/
+  /*    &page_directory*/
+  /*         ->entries[PAGE_DIRECTORY_INDEX(KERNEL_HIGHER_HALF_ADDRESS)];*/
+  /**page_dir_entry_kernel |= PDE_PRESENT | PDE_READ_WRITE;*/
+  /*SET_FRAME(page_dir_entry_kernel, (uint32_t)kernel_page_table);*/
+  /**/
+  /*create_and_insert_tables(page_directory, 0xC0000000, 0xCFFFFFFF,*/
+  /*                         PTE_PRESENT | PTE_READ_WRITE,*/
+  /*                         PDE_PRESENT | PDE_READ_WRITE);*/
 
-  create_and_insert_tables(page_directory, 0x400000, 0x800000,
+  create_and_insert_tables(page_directory, 0, 0x400000,
                            PTE_PRESENT | PTE_READ_WRITE | PTE_USER,
                            PDE_PRESENT | PDE_READ_WRITE | PDE_USER);
+
+  /*create_and_insert_tables(initial_page_directory, 0x400000, 0x800000,*/
+  /*                         PTE_PRESENT | PTE_READ_WRITE | PTE_USER,*/
+  /*                         PDE_PRESENT | PDE_READ_WRITE | PDE_USER);*/
+
+  /*asm volatile("movl %0, %%cr3" ::"r"(initial_page_directory));*/
+  /*if (!set_page_directory(initial_page_directory)) {*/
+  /*  panic("Failed to change the current page directory");*/
+  /*}*/
+
+  /*asm volatile("movl %cr0, %eax; orl $0x80000001, %eax; movl %eax, %cr0");*/
+
+  /*initial_page_directory[0] = 0;*/
+
+  page_directory->entries[768] = initial_page_directory[768];
+
+  /*asm volatile(*/
+  /*    "movl %0, %%cr3" ::"r"((uint32_t)initial_page_directory -
+   * 0xC0000000));*/
+  /*asm volatile("movl %0, %%cr3" ::"r"(page_directory));*/
 
   if (!set_page_directory(page_directory)) {
     panic("Failed to change the current page directory");
   }
-
-  asm volatile("movl %cr0, %eax; orl $0x80000001, %eax; movl %eax, %cr0");
 }
