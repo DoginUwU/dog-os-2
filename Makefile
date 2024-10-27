@@ -17,6 +17,12 @@ qemu:
 	make grub
 	$(QEMU) -cdrom $(DIST_DIR)/dog-os.iso
 
+qemu-debug:
+	make grub
+	$(QEMU) -s -S -cdrom $(DIST_DIR)/dog-os.iso &
+	sleep 1
+	gdb -ex "target remote localhost:1234" -ex "symbol-file $(DIST_DIR)/kernel.bin"
+
 grub: $(DIST_DIR)/kernel.bin
 	grub-file --is-x86-multiboot2 $(DIST_DIR)/kernel.bin
 	mkdir -p $(DIST_DIR)/iso/boot/grub
