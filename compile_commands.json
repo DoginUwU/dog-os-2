@@ -1,0 +1,170 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/cpu/isr.o",
+      "src/kernel/cpu/isr.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/cpu/isr.c",
+    "output": "/work/dist/kernel/cpu/isr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/cpu/idt.o",
+      "src/kernel/cpu/idt.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/cpu/idt.c",
+    "output": "/work/dist/kernel/cpu/idt.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/cpu/gdt.o",
+      "src/kernel/cpu/gdt.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/cpu/gdt.c",
+    "output": "/work/dist/kernel/cpu/gdt.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/drivers/screen.o",
+      "src/kernel/drivers/screen.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/drivers/screen.c",
+    "output": "/work/dist/kernel/drivers/screen.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/lib/string.o",
+      "src/kernel/lib/string.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/lib/string.c",
+    "output": "/work/dist/kernel/lib/string.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/lib/memory.o",
+      "src/kernel/lib/memory.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/lib/memory.c",
+    "output": "/work/dist/kernel/lib/memory.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/ports.o",
+      "src/kernel/ports.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/ports.c",
+    "output": "/work/dist/kernel/ports.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Isrc/include",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-m32",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-c",
+      "-o",
+      "dist/kernel/kernel.o",
+      "src/kernel/kernel.c"
+    ],
+    "directory": "/work",
+    "file": "/work/src/kernel/kernel.c",
+    "output": "/work/dist/kernel/kernel.o"
+  }
+]

@@ -12,6 +12,7 @@ C_SOURCES = $(shell find $(SRC_DIR) -name '*.c')
 C_HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(DIST_DIR)/%.o, $(C_SOURCES)) $(DIST_DIR)/$(BOOT_DIR)/boot.o
+MKDIR_DIST = $(sort $(dir ${OBJ}))
 
 qemu:
 	make grub
@@ -23,7 +24,7 @@ qemu-debug:
 	sleep 1
 	gdb -ex "target remote localhost:1234" -ex "symbol-file $(DIST_DIR)/kernel.bin"
 
-grub: $(DIST_DIR)/kernel.bin
+grub: $(DIST_DIR)/kernel.bin | $(MKDIR_DIST)
 	grub-file --is-x86-multiboot2 $(DIST_DIR)/kernel.bin
 	mkdir -p $(DIST_DIR)/iso/boot/grub
 	cp $(DIST_DIR)/kernel.bin $(DIST_DIR)/iso/boot/kernel.bin
@@ -32,6 +33,9 @@ grub: $(DIST_DIR)/kernel.bin
 
 bear:
 	bear -- make grub -B
+
+clean:
+	rm -rf $(DIST_DIR)
 
 $(MKDIR_DIST):
 	mkdir -p $@
@@ -43,4 +47,4 @@ $(DIST_DIR)/%.o: $(SRC_DIR)/%.c $(C_HEADERS) | $(MKDIR_DIST)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(DIST_DIR)/%.o: $(SRC_DIR)/%.asm | $(MKDIR_DIST)
-		$(NASM) -f elf32 $< -o $@
+	$(NASM) -f elf32 $< -o $@
