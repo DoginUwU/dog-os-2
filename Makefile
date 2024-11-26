@@ -14,6 +14,8 @@ C_HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(DIST_DIR)/%.o, $(C_SOURCES)) $(DIST_DIR)/$(BOOT_DIR)/boot.o
 MKDIR_DIST = $(sort $(dir ${OBJ}))
 
+all: qemu
+
 qemu:
 	make grub
 	$(QEMU) -cdrom $(DIST_DIR)/dog-os.iso

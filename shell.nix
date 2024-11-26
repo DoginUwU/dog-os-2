@@ -6,8 +6,8 @@
 
 pkgs.mkShell {
    nativeBuildInputs = [
-    pkgs.grub2        
-		pkgs.xorriso     
+        pkgs.grub2
+		pkgs.xorriso
+		pkgs.qemu
 	];
 }
-
