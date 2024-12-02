@@ -1,5 +1,5 @@
-CC = i686-unknown-linux-gnu-gcc
-LD = i686-unknown-linux-gnu-ld
+CC = gcc
+LD = ld
 QEMU = qemu-system-x86_64
 NASM = nasm
 CFLAGS = -Isrc/include -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -nodefaultlibs -fno-builtin -fno-stack-protector
