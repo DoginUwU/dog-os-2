@@ -2,10 +2,15 @@
 
 #include <stdint.h>
 
+enum MemoryRegionType {
+  MEMORY_REGION_AVAILABLE = 1,
+  MEMORY_REGION_RESERVED = 2,
+};
+
 typedef struct {
   uint32_t addr;
   uint32_t len;
-  uint32_t type;
+  uint8_t type;
 } memory_region_t;
 
 typedef struct {

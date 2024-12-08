@@ -15,7 +15,7 @@ int kernel_main(uint32_t checksum, uint32_t multiboot_address) {
     print("len = %x | ", mmap->len);
     print("type = %x", mmap->type);
 
-    if (mmap->type == 1) {
+    if (mmap->type == MEMORY_REGION_AVAILABLE) {
       print(" (available)");
     } else {
       print(" (reserved)");
