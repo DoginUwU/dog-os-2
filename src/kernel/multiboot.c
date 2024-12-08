@@ -1,6 +1,6 @@
 #include "multiboot.h"
 #include "drivers/screen.h"
-#include "memory.h"
+#include "memory/memory.h"
 
 /*extern uint32_t kernel_virtual_start;*/
 /*extern uint32_t kernel_virtual_end;*/
@@ -64,6 +64,7 @@ void init_multiboot(uint32_t checksum, uint32_t multiboot_address) {
         /**/
         /*available_memory_len += mmap->len;*/
         /*memory_map.count++;*/
+        memory_map.total_size += mmap->len;
       }
 
       /*println("\nMemory available in system: %dMB",*/

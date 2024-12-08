@@ -1,11 +1,14 @@
 #include "drivers/screen.h"
-#include "memory.h"
+#include "memory/memory.h"
+#include "memory/physical_memory_manager.h"
 #include "multiboot.h"
 
 /*extern uint32_t get_kernel_stack_top();*/
 
 int kernel_main(uint32_t checksum, uint32_t multiboot_address) {
   init_multiboot(checksum, multiboot_address);
+  init_physical_memory_manager();
+
   /*uint32_t kernel_stack_top = get_kernel_stack_top();*/
   /*println("Kernel stack top address: %x", kernel_stack_top);*/
   println("Memory regions count: %d", memory_map.count);
@@ -28,6 +31,9 @@ int kernel_main(uint32_t checksum, uint32_t multiboot_address) {
     /*  println("Kernel address starts in this segment ^");*/
     /*}*/
   }
+
+  println("Memory available in system: %dMB",
+          memory_map.total_size / 1024 / 1024);
 
   /*clear_screen();*/
   /*println("Salve salve fml");*/

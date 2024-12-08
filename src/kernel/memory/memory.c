@@ -1,4 +1,4 @@
-#include "memory.h"
+#include "memory/memory.h"
 
 extern uint32_t kernel_virtual_end;
 uint32_t placement_address = (uint32_t)&kernel_virtual_end;
@@ -8,4 +8,10 @@ void *kmalloc(uint32_t size) {
   uint32_t temp = placement_address;
   placement_address += size;
   return (void *)temp;
+}
+
+void memory_set(void *dest, int val, size_t count) {
+  for (size_t i = 0; i < count; i++) {
+    ((unsigned char *)dest)[i] = val;
+  }
 }

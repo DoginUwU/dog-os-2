@@ -1,5 +1,5 @@
 #include "libc/string.h"
-#include "memory.h"
+#include "memory/memory.h"
 
 char *int_to_hex(uint32_t num) {
   const char *hex = "0123456789ABCDEF";

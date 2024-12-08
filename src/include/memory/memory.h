@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stddef.h>
 #include <stdint.h>
 
 enum MemoryRegionType {
@@ -15,9 +16,13 @@ typedef struct {
 
 typedef struct {
   memory_region_t *regions;
+  uint32_t total_size;
   uint32_t count;
 } memory_map_t;
 
 extern memory_map_t memory_map;
+extern uint32_t placement_address;
 
-void *kmalloc(uint32_t size);
+void *kmalloc(size_t size);
+
+void memory_set(void *dest, int val, size_t count);
