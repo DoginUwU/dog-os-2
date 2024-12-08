@@ -6,6 +6,7 @@
 
 pkgs.mkShell {
    nativeBuildInputs = [
+	 		pkgs.bochs
 	 		pkgs.gdb
 	 		pkgs.nasm
 			pkgs.grub2
