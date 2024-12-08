@@ -1,5 +1,7 @@
 #include "drivers/screen.h"
+#include "libc/string.h"
 #include "ports.h"
+#include <stdarg.h>
 
 vga_color_entry_t current_terminal_color = {.fg = VGA_COLOR_GRAY,
                                             .bg = VGA_COLOR_BLACK};
@@ -11,14 +13,37 @@ uint16_t get_cursor_offset();
 
 void set_cursor_offset(const uint16_t offset);
 
-void print_at(const char *format, int8_t x, int8_t y);
+void print_at(const char *format, int8_t x, int8_t y, va_list args);
 
 void println(const char *format, ...) {
-  print_at(format, -1, -1);
-  print_at("\n", -1, -1);
+  va_list args;
+  va_start(args, format);
+  va_list args_copy;
+  va_copy(args_copy, args);
+
+  print_at(format, -1, -1, args_copy);
+  print_at("\n", -1, -1, args_copy);
+
+  va_end(args);
 }
 
-void print_at(const char *format, int8_t x, int8_t y) {
+void print(const char *format, ...) {
+  va_list args;
+  va_start(args, format);
+  va_list args_copy;
+  va_copy(args_copy, args);
+
+  print_at(format, -1, -1, args_copy);
+
+  va_end(args);
+}
+
+void print_hex_32(uint32_t hex) {
+  char *data = int_to_hex(hex);
+  print(data);
+}
+
+void print_at(const char *format, int8_t x, int8_t y, va_list args) {
   uint16_t index = 0;
   uint16_t offset = 0;
 
@@ -29,7 +54,16 @@ void print_at(const char *format, int8_t x, int8_t y) {
   }
 
   while (format[index] != 0) {
-    print_char_at(format[index], x, y);
+    if (format[index] == '%') {
+      char next_char = format[++index];
+
+      if (next_char == 'x') {
+        uint32_t hex = va_arg(args, uint32_t);
+        print_hex_32(hex);
+      }
+    } else {
+      print_char_at(format[index], x, y);
+    }
 
     offset = get_cursor_offset();
     x = get_offset_x(offset);

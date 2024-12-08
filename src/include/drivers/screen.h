@@ -30,4 +30,5 @@ typedef struct VgaEntry {
 void set_screen_color(const vga_color_entry_t color);
 void print_char_at(const char letter, const uint8_t x, const uint8_t y);
 void println(const char *format, ...);
+void print(const char *format, ...);
 void clear_screen();
