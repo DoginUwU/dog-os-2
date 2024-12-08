@@ -24,11 +24,11 @@ void init_physical_memory_manager() {
   for (size_t i = 0; i < memory_map.count; i++) {
     memory_region_t *region = &memory_map.regions[i];
 
-    size_t start_page = region->addr / PAGE_SIZE;
-    size_t end_page = (region->addr + region->len) / PAGE_SIZE;
+    if (region->type == MEMORY_REGION_RESERVED) {
+      size_t start_page = region->addr / PAGE_SIZE;
+      size_t end_page = (region->addr + region->len) / PAGE_SIZE;
 
-    for (size_t j = start_page; j < end_page; j++) {
-      if (region->type == MEMORY_REGION_RESERVED) {
+      for (size_t j = start_page; j < end_page; j++) {
         set_page_used(j);
       }
     }
@@ -82,4 +82,17 @@ void *allocate_pages(size_t num_pages) {
   }
 
   return NULL;
+}
+
+void free_pages(void *address, size_t num_pages) {
+  if (num_pages == 0) {
+    return;
+  }
+
+  size_t start = (size_t)address / PAGE_SIZE;
+  size_t end = start + num_pages;
+
+  for (size_t i = start; i < end; i++) {
+    set_page_free(i);
+  }
 }
