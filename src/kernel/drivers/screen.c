@@ -43,6 +43,11 @@ void print_hex_32(uint32_t hex) {
   print(data);
 }
 
+void print_num(uint32_t num) {
+  char *data = int_to_char(num);
+  print(data);
+}
+
 void print_at(const char *format, int8_t x, int8_t y, va_list args) {
   uint16_t index = 0;
   uint16_t offset = 0;
@@ -60,6 +65,9 @@ void print_at(const char *format, int8_t x, int8_t y, va_list args) {
       if (next_char == 'x') {
         uint32_t hex = va_arg(args, uint32_t);
         print_hex_32(hex);
+      } else if (next_char == 'd') {
+        uint32_t num = va_arg(args, uint32_t);
+        print_num(num);
       }
     } else {
       print_char_at(format[index], x, y);

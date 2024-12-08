@@ -1,7 +1,9 @@
 ENTRY(_start)
 
 SECTIONS {
-	. = 2M;
+	. = 1M;
+
+	kernel_virtual_start = .;
 
 	.boot : ALIGN(4K) {
 		*(.boot)

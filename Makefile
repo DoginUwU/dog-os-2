@@ -18,11 +18,11 @@ all: qemu
 
 qemu:
 	make grub
-	$(QEMU) -cdrom $(DIST_DIR)/dog-os.iso
+	$(QEMU) -cdrom $(DIST_DIR)/dog-os.iso -m 256M
 
 qemu-debug:
 	make grub
-	$(QEMU) -s -S -cdrom $(DIST_DIR)/dog-os.iso &
+	$(QEMU) -s -S -cdrom $(DIST_DIR)/dog-os.iso -m 256M &
 	sleep 1
 	gdb -ex "target remote localhost:1234" -ex "symbol-file $(DIST_DIR)/kernel.bin"
 

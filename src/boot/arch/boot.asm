@@ -23,6 +23,11 @@ _start:
 	push eax
 	call kernel_main
 
+global get_kernel_stack_top
+get_kernel_stack_top;
+	mov eax, esp
+	ret
+
 section .bss
 align 16
 stack_bottom:
