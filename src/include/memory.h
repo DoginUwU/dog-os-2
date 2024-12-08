@@ -21,11 +21,9 @@ typedef struct {
 } memory_map_t;
 
 extern memory_map_t memory_map;
-extern uint32_t placement_address;
 
-void *kmalloc(size_t size);
-void kfree(void *address, size_t size);
+void *kmalloc(uint32_t size);
 
-void memory_set(void *dest, int val, size_t count);
-
-size_t align_up(size_t addr, size_t align);
+static inline size_t align_up(size_t addr, size_t align) {
+  return (addr + (align - 1)) & ~(align - 1);
+}

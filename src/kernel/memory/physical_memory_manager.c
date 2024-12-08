@@ -7,10 +7,7 @@ extern uint32_t kernel_virtual_start;
 
 uint8_t *phyisical_bitmap;
 size_t total_pages = 0;
-
-static inline size_t align_up(size_t addr, size_t align) {
-  return (addr + (align - 1)) & ~(align - 1);
-}
+int physical_memory_manager_ready = 0;
 
 void init_physical_memory_manager() {
   total_pages = memory_map.total_size / PAGE_SIZE;
@@ -40,6 +37,8 @@ void init_physical_memory_manager() {
   for (size_t j = start_kernel; j < end_kernel; j++) {
     set_page_used(j);
   }
+
+  physical_memory_manager_ready = 1;
 
   println("Total pages: %d", total_pages);
 }

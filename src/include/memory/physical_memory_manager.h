@@ -2,6 +2,8 @@
 
 #include <stddef.h>
 
+extern int physical_memory_manager_ready;
+
 void init_physical_memory_manager();
 
 void set_page_used(const size_t page_index);
