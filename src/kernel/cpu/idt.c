@@ -1,6 +1,7 @@
 #include "cpu/idt.h"
 #include "drivers/screen.h"
 #include "memory/memory.h"
+#include "panic.h"
 #include "ports.h"
 
 __attribute__((aligned(0x10))) static idt_entry_t idt_entries[256];
