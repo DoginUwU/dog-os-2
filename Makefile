@@ -11,7 +11,7 @@ DIST_DIR = dist
 C_SOURCES = $(shell find $(SRC_DIR) -name '*.c')
 C_HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 
-OBJ = $(patsubst $(SRC_DIR)/%.c, $(DIST_DIR)/%.o, $(C_SOURCES)) $(DIST_DIR)/$(BOOT_DIR)/boot.o $(DIST_DIR)/$(BOOT_DIR)/gdt.o
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(DIST_DIR)/%.o, $(C_SOURCES)) $(DIST_DIR)/$(BOOT_DIR)/boot.o $(DIST_DIR)/$(BOOT_DIR)/gdt.o $(DIST_DIR)/$(BOOT_DIR)/interrupt.o
 MKDIR_DIST = $(sort $(dir ${OBJ}))
 
 all: qemu

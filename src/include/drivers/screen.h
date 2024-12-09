@@ -12,6 +12,7 @@
 
 enum VgaColor {
   VGA_COLOR_BLACK = 0, //
+  VGA_COLOR_RED = 4,
   VGA_COLOR_GRAY = 7,
   VGA_COLOR_WHITE = 15
 };

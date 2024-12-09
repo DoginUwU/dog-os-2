@@ -1,4 +1,6 @@
 #include "cpu/gdt.h"
+#include "cpu/idt.h"
+#include "cpu/timer.h"
 #include "drivers/screen.h"
 #include "memory/memory.h"
 #include "memory/physical_memory_manager.h"
@@ -10,6 +12,8 @@ int kernel_main(uint32_t checksum, uint32_t multiboot_address) {
   init_multiboot(checksum, multiboot_address);
   init_physical_memory_manager();
   init_gdt();
+  init_idt();
+  init_timer(50);
 
   /*uint32_t kernel_stack_top = get_kernel_stack_top();*/
   /*println("Kernel stack top address: %x", kernel_stack_top);*/
